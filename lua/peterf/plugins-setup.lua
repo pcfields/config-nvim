@@ -50,14 +50,19 @@ return packer.startup(function(use)
         'nvim-telescope/telescope.nvim', -- The main Telescope plugin  
         requires = {{'nvim-lua/plenary.nvim'}}
     }
-    -- use "nvim-telescope/telescope-fzf-native.nvim" -- An optional plugin recommended by Telescope docs'
+    -- use {
+    --     'nvim-telescope/telescope-fzf-native.nvim', -- An optional plugin recommended by Telescope docs
+    --     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    -- }
 
     -- NVIM Tree here
     use 'kyazdani42/nvim-tree.lua'
     use 'kyazdani42/nvim-web-devicons' -- optional, for file icons
 
     -- Treesitter
-    use "nvim-treesitter/nvim-treesitter"
+    use 'nvim-treesitter/nvim-treesitter'
+
+    use 'feline-nvim/feline.nvim' -- customizable statusline written in lua
 
     -- use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
     -- use "numToStr/Comment.nvim" -- Easily comment stuff
