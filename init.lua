@@ -10,5 +10,6 @@ require "peterf.plugins.telescope"
 require "peterf.plugins.treesitter"
 require "peterf.plugins.nvim-tree"
 require "peterf.plugins.nvim-web-devicons"
-require "peterf.plugins.feline"
+require "peterf.plugins.gitsigns"
+require "peterf.plugins.lualine"
 

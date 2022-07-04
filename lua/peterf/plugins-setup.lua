@@ -62,8 +62,21 @@ return packer.startup(function(use)
     -- Treesitter
     use 'nvim-treesitter/nvim-treesitter'
 
-    use 'feline-nvim/feline.nvim' -- customizable statusline written in lua
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+            opt = true
+        }
+    }
+    use 'lewis6991/gitsigns.nvim' -- git signs in left column
 
+    use {
+        "klen/nvim-test",
+        config = function()
+            require('nvim-test').setup()
+        end
+    }
     -- use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
     -- use "numToStr/Comment.nvim" -- Easily comment stuff
     -- use "akinsho/bufferline.nvim"
