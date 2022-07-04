@@ -9,30 +9,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
     vim.cmd [[packadd packer.nvim]]
 end
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
-
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
     return
 end
-
--- Have packer use a popup window
-packer.init {
-    display = {
-        open_fn = function()
-            return require("packer.util").float {
-                border = "rounded"
-            }
-        end
-    }
-}
 
 -- Install your plugins here
 return packer.startup(function(use)
@@ -43,21 +24,17 @@ return packer.startup(function(use)
     -- Plugins
     use "wbthomason/packer.nvim" -- Have packer manage itself
     use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
-    -- use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
 
     -- Telescope
     use {
         'nvim-telescope/telescope.nvim', -- The main Telescope plugin  
         requires = {{'nvim-lua/plenary.nvim'}}
     }
-    -- use {
-    --     'nvim-telescope/telescope-fzf-native.nvim', -- An optional plugin recommended by Telescope docs
-    --     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-    -- }
+
+    use 'kyazdani42/nvim-web-devicons' --  development file icons
 
     -- NVIM Tree here
     use 'kyazdani42/nvim-tree.lua'
-    use 'kyazdani42/nvim-web-devicons' -- optional, for file icons
 
     -- Treesitter
     use 'nvim-treesitter/nvim-treesitter'
@@ -69,7 +46,7 @@ return packer.startup(function(use)
             opt = true
         }
     }
-    use 'lewis6991/gitsigns.nvim' -- git signs in left column
+    use 'lewis6991/gitsigns.nvim' -- git decorations/signs for added, removed, and changed lines 
 
     use {
         "klen/nvim-test",
