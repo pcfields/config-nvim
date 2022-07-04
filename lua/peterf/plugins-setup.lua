@@ -54,6 +54,9 @@ return packer.startup(function(use)
             require('nvim-test').setup()
         end
     }
+
+    use 'dstein64/nvim-scrollview' -- displays interactive vertical scrollbars
+
     -- use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
     -- use "numToStr/Comment.nvim" -- Easily comment stuff
     -- use "akinsho/bufferline.nvim"
