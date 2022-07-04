@@ -12,4 +12,5 @@ require "peterf.plugins.nvim-tree"
 require "peterf.plugins.nvim-web-devicons"
 require "peterf.plugins.gitsigns"
 require "peterf.plugins.lualine"
+require "peterf.plugins.nvim-test"
 
