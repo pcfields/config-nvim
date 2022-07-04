@@ -57,41 +57,33 @@ return packer.startup(function(use)
 
     use 'dstein64/nvim-scrollview' -- displays interactive vertical scrollbars
 
+    -- LSP 
+    use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+    use "williamboman/nvim-lsp-installer" -- plugin that allows you to manage LSP servers
+    use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+
+    -- cmp/Autocompletion plugins
+    use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+    use "hrsh7th/cmp-buffer" -- buffer completions
+    use "hrsh7th/cmp-path" -- path completions
+    use "hrsh7th/cmp-cmdline" -- cmdline completions
+
+    -- Snippets
+    use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+    use 'L3MON4D3/LuaSnip' -- Snippets plugin
+
     -- use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
     -- use "numToStr/Comment.nvim" -- Easily comment stuff
     -- use "akinsho/bufferline.nvim"
     -- use "moll/vim-bbye"
-    -- use "nvim-lualine/lualine.nvim"
     -- use "akinsho/toggleterm.nvim"
     -- use "ahmedkhalf/project.nvim"
-    -- use "lewis6991/impatient.nvim"
     -- use "lukas-reineke/indent-blankline.nvim"
     -- use "goolord/alpha-nvim"
     -- use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
     -- use "folke/which-key.nvim"
 
-    -- cmp plugins
-    -- use "hrsh7th/nvim-cmp" -- The completion plugin
-    -- use "hrsh7th/cmp-buffer" -- buffer completions
-    -- use "hrsh7th/cmp-path" -- path completions
-    -- use "hrsh7th/cmp-cmdline" -- cmdline completions
-    -- use "saadparwaiz1/cmp_luasnip" -- snippet completions
-    -- use "hrsh7th/cmp-nvim-lsp"
-
-    -- snippets
-    -- use "L3MON4D3/LuaSnip" -- snippet engine
-    -- use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
-
-    -- LSP
-    -- use "neovim/nvim-lspconfig" -- enable LSP
-    -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
-    -- use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
-    -- use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
-
     -- use "JoosepAlviste/nvim-ts-context-commentstring"
-
-    -- Git
-    -- use "lewis6991/gitsigns.nvim"
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
