@@ -44,6 +44,7 @@ return packer.startup(function(use)
     }
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'folke/twilight.nvim'
+    use 'windwp/nvim-ts-autotag'
 
     use {
         'nvim-lualine/lualine.nvim',

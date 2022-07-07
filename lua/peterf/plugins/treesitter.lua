@@ -1,6 +1,9 @@
 local treesitter = require('nvim-treesitter.configs')
 
 treesitter.setup {
+    autotag = {
+        enable = true
+    },
     -- A list of parser names, or "all"
     ensure_installed = {"typescript", "lua", "rust", "css", "dockerfile", "elm", "haskell", "html", "javascript",
                         "json", "markdown", "scss", "tsx", "vim"},
