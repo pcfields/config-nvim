@@ -43,6 +43,7 @@ return packer.startup(function(use)
         run = ':TSUpdate'
     }
     use 'nvim-treesitter/nvim-treesitter-refactor'
+    use 'folke/twilight.nvim'
 
     use {
         'nvim-lualine/lualine.nvim',

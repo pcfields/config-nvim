@@ -16,4 +16,5 @@ require "peterf.plugins.nvim-test"
 require "peterf.plugins.lsp"
 require "peterf.plugins.cmp"
 require "peterf.plugins.barbar"
+require "peterf.plugins.twilight"
 
