@@ -5,11 +5,11 @@ treesitter.setup {
     ensure_installed = {"typescript", "lua", "rust", "css", "dockerfile", "elm", "haskell", "html", "javascript",
                         "json", "markdown", "scss", "tsx", "vim"},
     highlight = {
-        enable = true
+        enable = false
     },
     refactor = {
         highlight_current_scope = {
-            enable = true
+            enable = false
         },
         smart_rename = {
             enable = true,
