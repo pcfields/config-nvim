@@ -37,7 +37,10 @@ return packer.startup(function(use)
     use 'kyazdani42/nvim-tree.lua'
 
     -- Treesitter
-    use 'nvim-treesitter/nvim-treesitter'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
 
     use {
         'nvim-lualine/lualine.nvim',
