@@ -24,7 +24,7 @@ return packer.startup(function(use)
     -- Plugins
     use "wbthomason/packer.nvim" -- Have packer manage itself
     use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
-
+    use 'romgrk/barbar.nvim' -- styled tabs
     -- Telescope
     use {
         'nvim-telescope/telescope.nvim', -- The main Telescope plugin  
