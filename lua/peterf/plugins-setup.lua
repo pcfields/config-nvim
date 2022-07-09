@@ -68,6 +68,7 @@ return packer.startup(function(use)
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
     use "williamboman/nvim-lsp-installer" -- plugin that allows you to manage LSP servers
     use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+    use 'jose-elias-alvarez/null-ls.nvim' -- LSP diagnostics, code actions, and formatting
 
     -- cmp/Autocompletion plugins
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin

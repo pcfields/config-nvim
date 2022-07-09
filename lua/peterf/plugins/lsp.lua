@@ -10,6 +10,8 @@ local opts = {
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+local util = require 'vim.lsp.util'
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -38,7 +40,11 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+    -- vim.keymap.set('n', '<space>lf', vim.lsp.buf.formatting, bufopts)
+    vim.keymap.set('n', '<space>lf', function()
+        local params = util.make_formatting_params({})
+        client.request('textDocument/formatting', params, nil, bufnr)
+    end, bufopts)
 end
 
 local lsp_flags = {

@@ -24,10 +24,17 @@ curl https://get.volta.sh | bash
 volta install node
 
 # Install for eslint, json, css, html support
-npm i -g vscode-langservers-extracted  
-
+npm install -g vscode-langservers-extracted 
 # Install typescript language server
 npm install -g typescript typescript-language-server
-
 # Install Elm server
 npm install -g elm elm-test elm-format @elm-tooling/elm-language-server
+# Install eslint
+npm install -g eslint_d
+npm install -g prettier_d_slim
+
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Install Stylua
+cargo install stylua 
