@@ -18,4 +18,6 @@ require "peterf.plugins.null-ls"
 require "peterf.plugins.cmp"
 require "peterf.plugins.barbar"
 require "peterf.plugins.twilight"
+require "peterf.plugins.trouble"
+require "peterf.plugins.comment"
 

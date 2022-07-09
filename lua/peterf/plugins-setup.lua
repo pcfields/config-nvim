@@ -28,6 +28,8 @@ return packer.startup(function(use)
     use 'numToStr/Comment.nvim'
     use 'folke/trouble.nvim'
     use 'vuki656/package-info.nvim'
+    use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+    use "akinsho/toggleterm.nvim"
 
     -- Telescope
     use {
@@ -83,11 +85,6 @@ return packer.startup(function(use)
     use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
     use 'L3MON4D3/LuaSnip' -- Snippets plugin
 
-    -- use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
-    -- use "numToStr/Comment.nvim" -- Easily comment stuff
-    -- use "akinsho/bufferline.nvim"
-    -- use "moll/vim-bbye"
-    -- use "akinsho/toggleterm.nvim"
     -- use "ahmedkhalf/project.nvim"
     -- use "lukas-reineke/indent-blankline.nvim"
     -- use "goolord/alpha-nvim"

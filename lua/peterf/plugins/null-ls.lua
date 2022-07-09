@@ -1,3 +1,5 @@
+-- Description: Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+-- Link: https://github.com/jose-elias-alvarez/null-ls.nvim
 local null_ls = require('null-ls')
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
