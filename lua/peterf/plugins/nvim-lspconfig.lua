@@ -50,6 +50,8 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     -- vim.keymap.set('n', '<space>lf', vim.lsp.buf.formatting, bufopts)
+    vim.api
+        .nvim_buf_set_keymap(bufnr, "n", "gl", '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>', opts)
     vim.keymap.set('n', '<space>lf', function()
         local params = util.make_formatting_params({})
         client.request('textDocument/formatting', params, nil, bufnr)
