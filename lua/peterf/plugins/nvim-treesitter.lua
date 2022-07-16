@@ -1,3 +1,9 @@
+--[[
+Description:
+  Simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it:  
+Link:
+    https://github.com/nvim-treesitter/nvim-treesitter
+--]] --
 local treesitter = require('nvim-treesitter.configs')
 
 treesitter.setup {

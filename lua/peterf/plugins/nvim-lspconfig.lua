@@ -1,5 +1,10 @@
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
+--[[ 
+Description: 
+    Configs for the Nvim LSP client (:help lsp). See `:help vim.diagnostic.*` for documentation on any of the below functions
+Link: 
+    https://github.com/neovim/nvim-lspconfig
+--]] --
+--
 local opts = {
     noremap = true,
     silent = true

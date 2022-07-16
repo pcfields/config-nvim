@@ -1,3 +1,10 @@
+--[[
+Description:
+    Twilight is a Lua plugin for Neovim 0.5 that dims inactive portions of the code you're editing.
+Link:
+    https://github.com/folke/twilight.nvim
+--]] -- 
+--
 require("twilight").setup {
     dimming = {
         alpha = 0.70, -- amount of dimming

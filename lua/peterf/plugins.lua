@@ -24,25 +24,30 @@ return packer.startup(function(use)
     -- Plugins
     use "wbthomason/packer.nvim" -- Have packer manage itself
     use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
-    use 'romgrk/barbar.nvim' -- styled tabs
+    use {
+        'romgrk/barbar.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'}
+    } -- styled tabs
+    use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+    use 'lewis6991/gitsigns.nvim' -- git decorations/signs for added, removed, and changed lines 
+    use 'kyazdani42/nvim-web-devicons' --  development file icons
+    use 'kyazdani42/nvim-tree.lua' -- NVIM Tree file explorer 
+    use 'dstein64/nvim-scrollview' -- displays interactive vertical scrollbars
+    use 'nvim-lualine/lualine.nvim' -- status line at bottom of screen
     use 'numToStr/Comment.nvim'
     use 'folke/trouble.nvim'
     use 'vuki656/package-info.nvim'
-    use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
     use "akinsho/toggleterm.nvim"
+    use "ahmedkhalf/project.nvim"
+    -- use "JoosepAlviste/nvim-ts-context-commentstring"
 
     -- Telescope
     use {
-        'nvim-telescope/telescope.nvim', -- The main Telescope plugin  
+        'nvim-telescope/telescope.nvim',
         requires = {{'nvim-lua/plenary.nvim'}}
-    }
+    } -- The main Telescope plugin  
 
-    use 'kyazdani42/nvim-web-devicons' --  development file icons
-
-    -- NVIM Tree here
-    use 'kyazdani42/nvim-tree.lua'
-
-    -- Treesitter
+    -- Treesitter & related plugins
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
@@ -50,24 +55,6 @@ return packer.startup(function(use)
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'folke/twilight.nvim'
     use 'windwp/nvim-ts-autotag'
-
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = {
-            'kyazdani42/nvim-web-devicons',
-            opt = true
-        }
-    }
-    use 'lewis6991/gitsigns.nvim' -- git decorations/signs for added, removed, and changed lines 
-
-    use {
-        "klen/nvim-test",
-        config = function()
-            require('nvim-test').setup()
-        end
-    }
-
-    use 'dstein64/nvim-scrollview' -- displays interactive vertical scrollbars
 
     -- LSP 
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
@@ -82,16 +69,16 @@ return packer.startup(function(use)
     use "hrsh7th/cmp-cmdline" -- cmdline completions
 
     -- Snippets
-    use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
     use 'L3MON4D3/LuaSnip' -- Snippets plugin
+    use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
 
-    -- use "ahmedkhalf/project.nvim"
-    -- use "lukas-reineke/indent-blankline.nvim"
-    -- use "goolord/alpha-nvim"
-    -- use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
-    -- use "folke/which-key.nvim"
-
-    -- use "JoosepAlviste/nvim-ts-context-commentstring"
+    -- Testing
+    use {
+        "klen/nvim-test",
+        config = function()
+            require('nvim-test').setup()
+        end
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

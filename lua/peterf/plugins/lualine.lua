@@ -1,3 +1,10 @@
+--[[
+Description:
+    A blazing fast and easy to configure Neovim statusline written in Lua.
+Link:
+    https://github.com/nvim-lualine/lualine.nvim
+--]] --
+--
 require('lualine').setup {
     options = {
         icons_enabled = true,
