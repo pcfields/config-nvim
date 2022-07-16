@@ -3,6 +3,8 @@ Description:
     Configs for the Nvim LSP client (:help lsp). See `:help vim.diagnostic.*` for documentation on any of the below functions
 Link: 
     https://github.com/neovim/nvim-lspconfig
+Video showing how to configure LSP: 
+    https://youtu.be/6F3ONwrCxMg
 --]] --
 --
 local opts = {
@@ -11,12 +13,31 @@ local opts = {
 }
 
 -- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 local util = require 'vim.lsp.util'
 
+local signs = {{
+    name = "DiagnosticSignError",
+    text = ""
+}, {
+    name = "DiagnosticSignWarn",
+    text = ""
+}, {
+    name = "DiagnosticSignHint",
+    text = ""
+}, {
+    name = "DiagnosticSignInfo",
+    text = ""
+}}
+
+for _, sign in ipairs(signs) do
+    vim.fn.sign_define(sign.name, {
+        texthl = sign.name,
+        text = sign.text,
+        numhl = ""
+    })
+end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -35,24 +56,28 @@ local on_attach = function(client, bufnr)
         client.resolved_capabilities.document_formatting = false
     end
 
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wl', function()
+    local keymap = vim.keymap.set;
+
+    keymap('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    keymap('n', 'gd', vim.lsp.buf.definition, bufopts)
+    keymap('n', 'K', vim.lsp.buf.hover, bufopts)
+    keymap('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    keymap('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    keymap('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    keymap('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    keymap('n', '<space>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    keymap('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+    keymap('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+    keymap('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+    keymap('n', 'gr', vim.lsp.buf.references, bufopts)
+    keymap('n', '[d', vim.diagnostic.goto_prev, opts)
+    keymap('n', ']d', vim.diagnostic.goto_next, opts)
     -- vim.keymap.set('n', '<space>lf', vim.lsp.buf.formatting, bufopts)
     vim.api
         .nvim_buf_set_keymap(bufnr, "n", "gl", '<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>', opts)
-    vim.keymap.set('n', '<space>lf', function()
+    keymap('n', '<space>lf', function()
         local params = util.make_formatting_params({})
         client.request('textDocument/formatting', params, nil, bufnr)
     end, bufopts)
