@@ -31,6 +31,10 @@ local on_attach = function(client, bufnr)
         buffer = bufnr
     }
 
+    if client.name == "tsserver" then
+        client.resolved_capabilities.document_formatting = false
+    end
+
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
