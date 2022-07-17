@@ -95,3 +95,13 @@ require('lspconfig').tsserver.setup {
     capabilities = capabilities
 }
 
+require('lspconfig').jsonls.setup {
+    settings = {
+        json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = {
+                enable = true
+            }
+        }
+    }
+}

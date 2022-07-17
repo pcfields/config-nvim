@@ -39,6 +39,7 @@ return packer.startup(function(use)
     use 'vuki656/package-info.nvim'
     use "akinsho/toggleterm.nvim"
     use "ahmedkhalf/project.nvim"
+    use "b0o/schemastore.nvim" -- Access to the SchemaStore catalog
     -- use "JoosepAlviste/nvim-ts-context-commentstring"
 
     -- Telescope
