@@ -34,13 +34,15 @@ return packer.startup(function(use)
     use 'kyazdani42/nvim-tree.lua' -- NVIM Tree file explorer 
     use 'dstein64/nvim-scrollview' -- displays interactive vertical scrollbars
     use 'nvim-lualine/lualine.nvim' -- status line at bottom of screen
-    use 'numToStr/Comment.nvim'
     use 'folke/trouble.nvim'
     use 'vuki656/package-info.nvim'
     use "akinsho/toggleterm.nvim"
     use "ahmedkhalf/project.nvim"
     use "b0o/schemastore.nvim" -- Access to the SchemaStore catalog
-    -- use "JoosepAlviste/nvim-ts-context-commentstring"
+
+    -- Comments
+    use "JoosepAlviste/nvim-ts-context-commentstring"
+    use 'numToStr/Comment.nvim'
 
     -- Telescope
     use {

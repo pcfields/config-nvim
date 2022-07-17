@@ -31,6 +31,9 @@ treesitter.setup {
             -- Set to false if you have an `updatetime` of ~100.
             clear_on_cursor_move = true
         }
+    },
+    context_commentstring = {
+        enable = true,
+        enable_autocmd = false
     }
-
 }
