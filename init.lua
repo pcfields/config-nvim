@@ -19,6 +19,7 @@ require "peterf.plugins.nvim-web-devicons"
 require "peterf.plugins.nvim-autopairs"
 require "peterf.plugins.project"
 require "peterf.plugins.telescope"
+require "peterf.plugins.toggleterm"
 require "peterf.plugins.trouble"
 require "peterf.plugins.twilight"
 
