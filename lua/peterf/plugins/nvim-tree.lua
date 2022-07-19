@@ -20,7 +20,7 @@ require('nvim-tree').setup {
                 symlink = "",
                 folder = {
                     arrow_open = "",
-                    arrow_closed = "",
+                    arrow_closed = "",
                     default = "",
                     open = "",
                     empty = "",
