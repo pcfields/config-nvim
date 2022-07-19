@@ -76,12 +76,7 @@ return packer.startup(function(use)
     use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
 
     -- Testing
-    use {
-        "klen/nvim-test",
-        config = function()
-            require('nvim-test').setup()
-        end
-    }
+    use 'vim-test/vim-test'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
