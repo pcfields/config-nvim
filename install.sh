@@ -20,21 +20,27 @@ nix-env -iA \
     nixpkgs.gnumake \
 
 # Install Volta
-curl https://get.volta.sh | bash
-volta install node
+	curl https://get.volta.sh | bash
+	volta install node
 
+# Install individual node packages
+#
+#
 # Install for eslint, json, css, html support
-npm install -g vscode-langservers-extracted 
+	npm install -g vscode-langservers-extracted 
 # Install typescript language server
-npm install -g typescript typescript-language-server
+	npm install -g typescript typescript-language-server
 # Install Elm server
-npm install -g elm elm-test elm-format @elm-tooling/elm-language-server
+	npm install -g elm elm-test elm-format @elm-tooling/elm-language-server
 # Install eslint
-npm install -g eslint_d
-npm install -g prettier_d_slim
+	npm install -g eslint_d
+	npm install -g prettier_d_slim
 
+# Install essential front-end dev node packages
+#
+	npm install -g vscode-langservers-extracted typescript typescript-language-server eslint_d prettier_d_slim
 
 # Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # Install Stylua
-cargo install stylua 
+	cargo install stylua 
