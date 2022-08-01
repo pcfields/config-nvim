@@ -4,7 +4,7 @@ curl -L https://nixos.org/nix/install | sh
 # Source nix
 . ~/.nix-profile/etc/profile.d/nix.sh
 
-# install packages
+# install NIX packages
 nix-env -iA \
 	nixpkgs.zsh \
 	nixpkgs.git \
@@ -19,9 +19,12 @@ nix-env -iA \
     nixpkgs.gcc \
     nixpkgs.gnumake \
 
-# Install Volta
-	curl https://get.volta.sh | bash
-	volta install node
+# Install Node using Volta or NVM
+	# 1. 	curl https://get.volta.sh | bash
+		volta install node
+# OR
+	# 2. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+		
 
 # Install individual node packages
 #
