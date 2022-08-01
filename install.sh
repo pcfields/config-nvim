@@ -19,12 +19,9 @@ nix-env -iA \
     nixpkgs.gcc \
     nixpkgs.gnumake \
 
-# Install Node using Volta or NVM
-	# 1. 	curl https://get.volta.sh | bash
-		volta install node
-# OR
-	# 2. curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-		
+# Install Node using NVM
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+	# https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl
 
 # Install individual node packages
 #
@@ -43,6 +40,17 @@ nix-env -iA \
 #
 	npm install -g vscode-langservers-extracted typescript typescript-language-server eslint_d prettier_d_slim
 
+# Install Powerline 10K
+	https://github.com/romkatv/powerlevel10k
+
+# Install Nerd font 
+	https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip
+	# Copy fonts to global fonts folder (example directory below)
+	cp /mnt/c/Users/PeterFields/Downloads/meslo-fonts/* ~/.local/share/fonts
+	# Install fontconfig so we can use fc-cache to manually rebuild the font cache
+	sudo apt install fontconfig
+	fc-cache -fv
+	
 # Install Rust
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # Install Stylua
