@@ -4,7 +4,10 @@ Description:
 Link:         
     https://github.com/nvim-telescope/telescope.nvim
 --]] --
-local telescope = require('telescope')
+local status_ok, telescope = pcall(require, 'telescope')
+if not status_ok then
+    return
+end
 
 telescope.setup {
     defaults = {

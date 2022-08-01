@@ -5,7 +5,12 @@ Link:
     https://github.com/numToStr/Comment.nvim
 --]] -- 
 --
-require('Comment').setup {
+local status_ok, comment = pcall(require, 'Comment')
+if not status_ok then
+    return
+end
+
+comment.setup {
     pre_hook = function(ctx)
         -- Only calculate commentstring for tsx filetypes
         if vim.bo.filetype == 'typescriptreact' then

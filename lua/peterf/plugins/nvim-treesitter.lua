@@ -4,9 +4,13 @@ Description:
 Link:
     https://github.com/nvim-treesitter/nvim-treesitter
 --]] --
-local treesitter = require('nvim-treesitter.configs')
+local status_ok, nvim_treesitter_configs = pcall(require, 'nvim-treesitter.configs')
+if not status_ok then
+    return
+end
+-- local treesitter = require('nvim-treesitter.configs')
 
-treesitter.setup {
+nvim_treesitter_configs.setup {
     autotag = {
         enable = true
     },

@@ -5,9 +5,19 @@ Link:
     https://github.com/kyazdani42/nvim-tree.lua
 --]] -- 
 --
-local tree_cb = require('nvim-tree.config').nvim_tree_callback
+local status_ok, nvim_tree_config = pcall(require, 'nvim-tree.config')
+if not status_ok then
+    return
+end
 
-require('nvim-tree').setup {
+local status_ok, nvim_tree = pcall(require, 'nvim-tree')
+if not status_ok then
+    return
+end
+
+local tree_cb = nvim_tree_config.nvim_tree_callback
+
+nvim_tree.setup {
     update_focused_file = {
         enable = true,
         update_cwd = true

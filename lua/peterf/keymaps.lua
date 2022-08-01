@@ -42,6 +42,10 @@ keymap("n", "<leader>tf", ":TestFile<CR>", opts)
 keymap("n", "leader>ts", ":TestSuite<CR>", opts)
 keymap("n", "<leader>tl", ":TestLast<CR>", opts)
 
+-- Tabs/buffers
+keymap('n', '<leader>p', '<Cmd>BufferPrevious<CR>', opts)
+keymap('n', '<leader>n', '<Cmd>BufferNext<CR>', opts)
+
 -- -- Normal --
 -- -- Better window navigation
 -- keymap("n", "<C-h>", "<C-w>h", opts)

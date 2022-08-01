@@ -5,7 +5,11 @@ Link:
     https://github.com/jose-elias-alvarez/null-ls.nvim
 --]] -- 
 --
-local null_ls = require('null-ls')
+local status_ok, null_ls = pcall(require, "null_ls")
+if not status_ok then
+    return
+end
+
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local formatting = null_ls.builtins.formatting;
