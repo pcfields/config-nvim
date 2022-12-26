@@ -1,15 +1,24 @@
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
-require "config1.options"
-require "config1.keymaps"
+-- Settings
+require "peterf.colorscheme"
+require "peterf.keymaps"
+require "peterf.options"
 
-require "config1.plugins"
-require "config1.plugins.comment"
-require "config1.plugins.gitsigns"
-require "config1.plugins.indent-blankline"
-require "config1.plugins.lsp"
-require "config1.plugins.lualine"
-require "config1.plugins.nvim-cmp"
-require "config1.plugins.telescope"
-require "config1.plugins.treesitter"
+-- Plugins
+require "peterf.plugins"
+require "peterf.plugins.barbar"
+require "peterf.plugins.comment"
+require "peterf.plugins.gitsigns"
+require "peterf.plugins.lualine"
+require "peterf.plugins.null-ls"
+require "peterf.plugins.nvim-cmp"
+require "peterf.plugins.nvim-lspconfig"
+require "peterf.plugins.nvim-tree"
+require "peterf.plugins.nvim-treesitter"
+require "peterf.plugins.nvim-web-devicons"
+require "peterf.plugins.nvim-autopairs"
+require "peterf.plugins.project"
+require "peterf.plugins.telescope"
+require "peterf.plugins.toggleterm"
+require "peterf.plugins.trouble"
+require "peterf.plugins.twilight"
 
