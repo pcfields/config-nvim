@@ -1,8 +1,10 @@
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
+
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     is_bootstrap = true
+
     vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
     vim.cmd [[packadd packer.nvim]]
 end
@@ -64,6 +66,14 @@ require('packer').startup(function(use)
         cond = vim.fn.executable 'make' == 1
     }
 
+    use {
+        "akinsho/toggleterm.nvim",
+        tag = '*',
+        config = function()
+            require("toggleterm").setup()
+        end
+    }
+
     -- Add custom plugins to packer from /nvim/lua/custom/plugins.lua
     local has_plugins, plugins = pcall(require, 'custom.plugins')
     if has_plugins then
@@ -92,6 +102,7 @@ end
 local packer_group = vim.api.nvim_create_augroup('Packer', {
     clear = true
 })
+
 vim.api.nvim_create_autocmd('BufWritePost', {
     command = 'source <afile> | PackerCompile',
     group = packer_group,
