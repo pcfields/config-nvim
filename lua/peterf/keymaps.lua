@@ -8,7 +8,7 @@ local term_opts = {
     silent = true
 }
 
-local modes = {
+local mode = {
     normal = 'n',
     insert = 'i',
     visual = 'v',
@@ -19,47 +19,55 @@ local modes = {
 
 vim.g.mapleader = ' ' -- 'vim.g' sets global variables
 
--- NVIM Tree
-keymap(modes.normal, '<leader>e', ':NvimTreeToggle<CR>', opts)
+-- Save file
+keymap(mode.normal, '<leader>w', ':w<CR>', opts)
 
--- Telescope 
-keymap(modes.normal, '<leader>ff', '<cmd>Telescope find_files<CR>', opts)
-keymap(modes.normal, '<leader>fg', '<cmd>Telescope live_grep<CR>', opts)
-keymap(modes.normal, '<leader>fb', '<cmd>Telescope buffers<CR>', opts)
-keymap(modes.normal, '<leader>fh', '<cmd>Telescope help_tags<CR>', opts)
+-- File Explorer 
+keymap(mode.normal, '<leader>e', ':NvimTreeToggle<CR>', opts)
 
--- Lua
-keymap("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
-keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
-keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
-keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
-keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
-keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)
+-- File Search / Telescope  
+keymap(mode.normal, '<leader>sf', '<cmd>Telescope find_files<CR>', opts)
+keymap(mode.normal, '<leader>sg', '<cmd>Telescope live_grep<CR>', opts)
+keymap(mode.normal, '<leader>sb', '<cmd>Telescope buffers<CR>', opts)
+keymap(mode.normal, '<leader>sh', '<cmd>Telescope help_tags<CR>', opts)
+
+-- Trouble diagnostics 
+keymap(mode.normal, "<leader>xx", "<cmd>Trouble<cr>", opts)
+keymap(mode.normal, "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
+keymap(mode.normal, "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
+keymap(mode.normal, "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
+keymap(mode.normal, "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
+keymap(mode.normal, "gR", "<cmd>Trouble lsp_references<cr>", opts)
+
+-- Toggle term
+keymap(mode.normal, "<leader>tt", ":ToggleTerm", opts)
 
 -- Testing
-keymap("n", "<leader>t", ":TestNearest<CR>", opts)
-keymap("n", "<leader>tf", ":TestFile<CR>", opts)
-keymap("n", "leader>ts", ":TestSuite<CR>", opts)
-keymap("n", "<leader>tl", ":TestLast<CR>", opts)
+keymap(mode.normal, "<leader>tn", ":TestNearest<CR>", opts)
+keymap(mode.normal, "<leader>tf", ":TestFile<CR>", opts)
+keymap(mode.normal, "leader>ts", ":TestSuite<CR>", opts)
+keymap(mode.normal, "<leader>tl", ":TestLast<CR>", opts)
 
 -- Tabs/buffers
-keymap('n', '<leader>p', '<Cmd>BufferPrevious<CR>', opts)
-keymap('n', '<leader>n', '<Cmd>BufferNext<CR>', opts)
+keymap(mode.normal, '<leader>p', '<Cmd>BufferPrevious<CR>', opts)
+keymap(mode.normal, '<leader>n', '<Cmd>BufferNext<CR>', opts)
 
 -- -- Normal --
 -- -- Better window navigation
--- keymap("n", "<C-h>", "<C-w>h", opts)
--- keymap("n", "<C-j>", "<C-w>j", opts)
--- keymap("n", "<C-k>", "<C-w>k", opts)
--- keymap("n", "<C-l>", "<C-w>l", opts)
+keymap(mode.normal, "<C-h>", "<C-w>h", opts)
+keymap(mode.normal, "<C-j>", "<C-w>j", opts)
+keymap(mode.normal, "<C-k>", "<C-w>k", opts)
+keymap(mode.normal, "<C-l>", "<C-w>l", opts)
 
--- keymap("n", "<leader>e", ":Lex 30<cr>", opts)
+-- -- Insert --
+-- -- Press jj fast to exit 
+keymap(mode.insert, "jj", "<ESC>", opts)
 
 -- -- Resize with arrows
--- keymap("n", "<C-Up>", ":resize -2<CR>", opts)
--- keymap("n", "<C-Down>", ":resize +2<CR>", opts)
--- keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
--- keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+-- keymap(mode.normal, "<C-Up>", ":resize -2<CR>", opts)
+-- keymap(mode.normal, "<C-Down>", ":resize +2<CR>", opts)
+-- keymap(mode.normal, "<C-Left>", ":vertical resize -2<CR>", opts)
+-- keymap(mode.normal, "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- -- Navigate buffers
 -- keymap("n", "<S-l>", ":bnext<CR>", opts)
@@ -68,10 +76,6 @@ keymap('n', '<leader>n', '<Cmd>BufferNext<CR>', opts)
 -- -- Move text up and down
 -- keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 -- keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
-
--- -- Insert --
--- -- Press jk fast to enter
--- keymap("i", "jk", "<ESC>", opts)
 
 -- -- Visual --
 -- -- Stay in indent mode
