@@ -137,3 +137,20 @@ map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+
+-- toggleTerminal
+map("n", "<leader>tt", "<cmd>:ToggleTerm<cr>", { desc = "Split window right" })
+
+-- terminal
+local terminalOptions = {
+  buffer = 0
+}
+
+map('t', '<esc>', [[<C-\><C-n>]], terminalOptions)
+map('t', 'jk', [[<C-\><C-n>]], terminalOptions)
+map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], terminalOptions)
+map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], terminalOptions)
+map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], terminalOptions)
+map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], terminalOptions)
+map('t', '<C-w>', [[<C-\><C-n><C-w>]], terminalOptions)
