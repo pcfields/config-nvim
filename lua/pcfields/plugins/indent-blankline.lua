@@ -1,11 +1,9 @@
 -- https://github.com/lukas-reineke/indent-blankline.nvim
+-- Add indentation guides even on blank lines
 
-return { -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
+require("indent_blankline").setup {
     -- See `:help indent_blankline.txt`
-    opts = {
-        char = '┊',
-        show_trailing_blankline_indent = false
-    }
+    
+    char = '┊',
+    show_trailing_blankline_indent = false
 }

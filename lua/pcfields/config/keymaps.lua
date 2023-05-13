@@ -1,15 +1,7 @@
 -- [[ Basic Keymaps ]]
 local map = require('pcfields.utils').map
    
-local nmap = function(keys, func, desc)
-  if desc then
-    desc = 'LSP: ' .. desc
-  end
-
-  vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-end
-
--- Keymaps for better default experience
+-- Keymaps for better default experiencep
 -- See `:help vim.keymap.set()`
 map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -24,12 +16,10 @@ map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnos
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- See `:help K` for why this keymap
-nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+map('n', 'K', vim.lsp.buf.hover, { desc = "LSP: Hover Documentation" })
+map('n', '<C-k>', vim.lsp.buf.signature_help, { desc = "LSP: Signature Documentation" })
 
---------------------------------------------------------------------------------------------
--- Taken from /lazy/lazy.nvim
----------------------------------------------------------------------------------------------
+
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
@@ -134,9 +124,9 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 
 -- toggleTerminal
