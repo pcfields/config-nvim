@@ -4,8 +4,9 @@
 
 local dap = require 'dap'
 local dapui = require 'dapui'
+local mason_nvim_dap = require 'mason-nvim-dap'
 
-require('mason-nvim-dap').setup {
+mason_nvim_dap.setup {
     -- Makes a best effort to setup the various debuggers with
     -- reasonable debug configurations
     automatic_setup = true,
@@ -16,8 +17,12 @@ require('mason-nvim-dap').setup {
 
     -- You'll need to check that you have the required things installed
     -- online, please don't ask me how to install them :)
-    ensure_installed = { -- Update this to ensure that you have the debuggers for the langs you want
-    'delve'}
+    ensure_installed = { 
+        -- Update this to ensure that you have the debuggers for the langs you want
+        'codelldb',
+        'js',
+        'node2'
+    }
 }
 
 -- Basic debugging keymaps, feel free to change to your liking!
