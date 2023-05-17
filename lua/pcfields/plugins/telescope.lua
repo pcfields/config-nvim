@@ -16,8 +16,7 @@ require('telescope').setup {
     }
 }
 
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
+
 
 -- See `:help telescope.builtin`
 map('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -38,6 +37,9 @@ map('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]ea
 map('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 map('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
+
+-- Enable telescope fzf native, if installed
+pcall(require('telescope').load_extension, 'fzf')
 
 -- Fuzzy Finder Algorithm which requires local dependencies to be built.
 -- Only load if `make` is available. Make sure you have the system
