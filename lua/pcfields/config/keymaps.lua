@@ -33,13 +33,16 @@ map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 map({ "i", "v", "n", "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 -- Rename file
-map("n", "<leader>fr", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
+map("n", "<leader>fr", vim.lsp.buf.rename, { desc = "[F]ile [R]ename" })
 
 -- new file
-map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[N]ew [F]ile" })
+
+-- format file
+map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ormat [F]ile" })
 
 -- File explorer
-map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "File explorer" })
+map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "[F]ile [e]xplorer" })
 
 --------------------------------------------------------------------------------------------
 
@@ -90,6 +93,8 @@ map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 --------------------------------------------------------------------------------------------
+-- Lazygit
+map("n", "<leader>og", "<cmd>:LazyGit<cr>", { desc = "[O]pen Lazy[G]it" })
 
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })

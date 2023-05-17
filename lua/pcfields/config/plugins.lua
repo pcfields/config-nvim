@@ -46,6 +46,7 @@ local plugins = {
     'jose-elias-alvarez/null-ls.nvim',
     'folke/twilight.nvim',
     'folke/which-key.nvim',
+    'kdheepak/lazygit.nvim',
     {
         'nvim-telescope/telescope.nvim',
         version = '*',
