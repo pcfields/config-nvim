@@ -29,8 +29,9 @@ map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", {
 map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 
 -- Files --------------------------------------------------------------------------------------------
+
 -- save file
-map({ "i", "v", "n", "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "Save file" })
+map({"n", "v",  "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 -- Rename file
 map("n", "<leader>fr", vim.lsp.buf.rename, { desc = "[F]ile [R]ename" })
