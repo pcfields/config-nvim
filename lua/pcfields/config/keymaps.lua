@@ -10,10 +10,11 @@ map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-map('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-map('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-map('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
+map('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
+
+map('n', '<leader>odm', vim.diagnostic.open_float, { desc = "[O]pen floating [d]iagnostic [m]essage" })
+map('n', '<leader>odl', vim.diagnostic.setloclist, { desc = "[O]pen [d]iagnostics [l]ist" })
 
 -- See `:help K` for why this keymap
 map('n', 'K', vim.lsp.buf.hover, { desc = "LSP: Hover Documentation" })
@@ -31,38 +32,40 @@ map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 -- Files --------------------------------------------------------------------------------------------
 
 -- save file
-map({"n", "v",  "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "Save file" })
+map({"n", "v",  "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "[F]ile [s]ave" })
 
 -- Rename file
-map("n", "<leader>fr", vim.lsp.buf.rename, { desc = "[F]ile [R]ename" })
+map("n", "<leader>fr", vim.lsp.buf.rename, { desc = "[F]ile [r]ename" })
 
 -- new file
-map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[N]ew [F]ile" })
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[F]ile [n]ew " })
 
 -- format file
-map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ormat [F]ile" })
+map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
 
 -- File explorer
 map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "[F]ile [e]xplorer" })
 
 --------------------------------------------------------------------------------------------
 
--- quit
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
+-- Quit All
+map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "[Q]uit all" })
+
+map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 
 -- Exit insert mode
 map("i", "<A-n>", "<esc>", { desc = "Exit insert mode" })
 
 -- -- better indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map({'n','v'}, "<", "<gv")
+map({'n','v'}, ">", ">gv")
 
 
 -- Code action
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
 -- Display Lazy Plugin manager
-map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>pm", "<cmd>:Lazy<cr>", { desc = "[P]lugin [m]anager" })
 
 
 
@@ -127,12 +130,13 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 -- tabs
+map("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-map("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-map("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 
 -- toggleTerminal
