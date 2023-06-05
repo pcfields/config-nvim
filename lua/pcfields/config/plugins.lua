@@ -29,7 +29,7 @@ local plugins = {
     --
     -- Colorschemes
     {
-        'navarasu/onedark.nvim',
+        'navarasu/onedark.nvim', -- https://github.com/navarasu/onedark.nvim
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
@@ -37,7 +37,12 @@ local plugins = {
             vim.cmd.colorscheme 'onedark'
         end
     },
-    'sainnhe/gruvbox-material',
+    'sainnhe/gruvbox-material', --https://github.com/sainnhe/gruvbox-material
+    'marko-cerovac/material.nvim', -- https://github.com/marko-cerovac/material.nvim
+    'Mofiqul/vscode.nvim', -- https://github.com/Mofiqul/vscode.nvim
+    'glepnir/zephyr-nvim', -- https://github.com/nvimdev/zephyr-nvim
+    'tjdevries/colorbuddy.vim',
+    'tjdevries/gruvbuddy.nvim', -- https://github.com/tjdevries/gruvbuddy.nvim
     --
     'numToStr/Comment.nvim',
     'lewis6991/gitsigns.nvim',
