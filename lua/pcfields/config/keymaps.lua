@@ -54,7 +54,7 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "[Q]uit all" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 
 -- Exit insert mode
-map("i", "<A-n>", "<esc>", { desc = "Exit insert mode" })
+map("i", "jj", "<esc>", { desc = "Exit insert mode" })
 
 -- -- better indenting
 map({'n','v'}, "<", "<gv")
