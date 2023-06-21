@@ -4,9 +4,6 @@
 require('lualine').setup {
     options = {
         icons_enabled = false,
-        theme = 'onedark',
-        -- theme = 'vscode',
-        -- theme = 'material-nvim',
         component_separators = '|',
         section_separators = ''
     }

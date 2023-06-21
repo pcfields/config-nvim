@@ -29,20 +29,16 @@ local plugins = {
     --
     -- Colorschemes
     {
-        'navarasu/onedark.nvim', -- https://github.com/navarasu/onedark.nvim
+        'sainnhe/gruvbox-material', -- https://github.com/sainnhe/gruvbox-material    
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
-        config = function()
-            -- load the colorscheme here
-            vim.cmd.colorscheme 'onedark'
-        end
     },
-    'sainnhe/gruvbox-material', --https://github.com/sainnhe/gruvbox-material
+    'navarasu/onedark.nvim', -- https://github.com/navarasu/onedark.nvim
+    'sainnhe/sonokai', -- https://github.com/sainnhe/sonokai
     'marko-cerovac/material.nvim', -- https://github.com/marko-cerovac/material.nvim
     'Mofiqul/vscode.nvim', -- https://github.com/Mofiqul/vscode.nvim
     'glepnir/zephyr-nvim', -- https://github.com/nvimdev/zephyr-nvim
-    'tjdevries/colorbuddy.vim',
-    'tjdevries/gruvbuddy.nvim', -- https://github.com/tjdevries/gruvbuddy.nvim
+    'nyoom-engineering/oxocarbon.nvim', -- https://github.com/nyoom-engineering/oxocarbon.nvim
     --
     'numToStr/Comment.nvim',
     'lewis6991/gitsigns.nvim',
@@ -108,7 +104,7 @@ local plugins = {
         dependencies = {
             { 'williamboman/mason.nvim', config = true }, 
             { 'williamboman/mason-lspconfig.nvim' },
-            { 'j-hui/fidget.nvim', opts = {} }, -- Useful status updates for LSP 
+            { 'j-hui/fidget.nvim', version= 'legacy', opts = {} }, -- Useful status updates for LSP 
             { 'folke/neodev.nvim' } -- Additional lua configuration, makes nvim stuff amazing!
         }
     },
