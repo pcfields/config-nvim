@@ -47,6 +47,12 @@ local plugins = {
     'folke/which-key.nvim',
     'kdheepak/lazygit.nvim',
     {
+        "folke/trouble.nvim",
+        dependencies = { 
+            "nvim-tree/nvim-web-devicons" 
+        },
+    },
+    {
         'nvim-telescope/telescope.nvim',
         version = '*',
         dependencies = {

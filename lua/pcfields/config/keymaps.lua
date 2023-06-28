@@ -9,12 +9,6 @@ map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Diagnostic keymaps
-map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
-map('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
-
-map('n', '<leader>odm', vim.diagnostic.open_float, { desc = "[O]pen floating [d]iagnostic [m]essage" })
-map('n', '<leader>odl', vim.diagnostic.setloclist, { desc = "[O]pen [d]iagnostics [l]ist" })
 
 -- See `:help K` for why this keymap
 map('n', 'K', vim.lsp.buf.hover, { desc = "LSP: Hover Documentation" })
@@ -135,3 +129,13 @@ map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], terminalOptions)
 map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], terminalOptions)
 map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], terminalOptions)
 map('t', '<C-w>', [[<C-\><C-n><C-w>]], terminalOptions)
+
+--- Trouble
+map("n", "<leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics"})
+
+-- Diagnostic keymaps
+map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
+map('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
+
+-- map('n', '<leader>odm', vim.diagnostic.open_float, { desc = "[O]pen floating [d]iagnostic [m]essage" })
+-- map('n', '<leader>odl', vim.diagnostic.setloclist, { desc = "[O]pen [d]iagnostics [l]ist" })
