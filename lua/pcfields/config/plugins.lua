@@ -29,17 +29,15 @@ local plugins = {
     --
     -- Colorschemes
     {
-        'sainnhe/gruvbox-material', -- https://github.com/sainnhe/gruvbox-material    
+        'marko-cerovac/material.nvim', -- https://github.com/marko-cerovac/material.nvim
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
     },
     'navarasu/onedark.nvim', -- https://github.com/navarasu/onedark.nvim
-    'sainnhe/sonokai', -- https://github.com/sainnhe/sonokai
-    'marko-cerovac/material.nvim', -- https://github.com/marko-cerovac/material.nvim
+    'sainnhe/gruvbox-material', -- https://github.com/sainnhe/gruvbox-material    
     'Mofiqul/vscode.nvim', -- https://github.com/Mofiqul/vscode.nvim
-    'glepnir/zephyr-nvim', -- https://github.com/nvimdev/zephyr-nvim
-    'nyoom-engineering/oxocarbon.nvim', -- https://github.com/nyoom-engineering/oxocarbon.nvim
     --
+    'm4xshen/autoclose.nvim', --https://github.com/m4xshen/autoclose.nvim 
     'numToStr/Comment.nvim',
     'lewis6991/gitsigns.nvim',
     'lukas-reineke/indent-blankline.nvim',
