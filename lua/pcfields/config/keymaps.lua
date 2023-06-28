@@ -100,21 +100,12 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- Lazygit
 map("n", "<leader>og", "<cmd>:LazyGit<cr>", { desc = "[O]pen Lazy[G]it" })
 
-map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-
 -- buffers
--- if Util.has("bufferline.nvim") then
---   map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
---   map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
---   map("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
---   map("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
--- else
---   map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
---   map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
---   map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
---   map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
--- end
+map("n", "<leader><tab><tab>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+map("n", "<leader>bk", "<cmd>bnext<cr>", { desc = "[N]ext buffer" })
+map("n", "<leader>bj", "<cmd>bprevious<cr>", { desc = "[P]revious [b]uffer" })
+map("n", "<leader>bc", "<cmd>bdelete<cr>", { desc = "[C]lose [b]uffer" })
+
 
 -- highlights under cursor
 if vim.fn.has("nvim-0.9.0") == 1 then
@@ -128,16 +119,6 @@ map("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
-
--- tabs
-map("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-map("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
-
-map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
-map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
-map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-
 
 -- toggleTerminal
 map("n", "<leader>tt", "<cmd>:ToggleTerm<cr>", { desc = "Split window right" })
