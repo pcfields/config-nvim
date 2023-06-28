@@ -1,3 +1,5 @@
+-- https://github.com/folke/trouble.nvim
+
 require("trouble").setup {
     icons = true,
     fold_open = "v", -- icon used for open folds
