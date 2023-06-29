@@ -39,7 +39,7 @@ local plugins = {
     'windwp/nvim-autopairs',
     -------------------------------------------------------------------------------------------------------
     'm4xshen/autoclose.nvim', -- https://github.com/m4xshen/autoclose.nvim 
-    'numToStr/Comment.nvim',
+    'numToStr/Comment.nvim', -- https://github.com/numToStr/Comment.nvim
     'lewis6991/gitsigns.nvim',
     'lukas-reineke/indent-blankline.nvim',
     'nvim-lualine/lualine.nvim',
