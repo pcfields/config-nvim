@@ -19,15 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 -----------------------------------------------------
 
 local plugins = {
-    -- Git related plugins
-    'tpope/vim-fugitive',
-    'tpope/vim-rhubarb',
-    --
-    -- Detect tabstop and shiftwidth automatically
-    'tpope/vim-sleuth',
-    'windwp/nvim-autopairs',
-    --
-    -- Colorschemes
+    -- Colorschemes ----------------------------------------------------------------------------------------
     {
         'marko-cerovac/material.nvim', -- https://github.com/marko-cerovac/material.nvim
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -36,8 +28,17 @@ local plugins = {
     'navarasu/onedark.nvim', -- https://github.com/navarasu/onedark.nvim
     'sainnhe/gruvbox-material', -- https://github.com/sainnhe/gruvbox-material    
     'Mofiqul/vscode.nvim', -- https://github.com/Mofiqul/vscode.nvim
-    --
-    'm4xshen/autoclose.nvim', --https://github.com/m4xshen/autoclose.nvim 
+    'olivercederborg/poimandres.nvim', -- https://github.com/olivercederborg/poimandres.nvim
+    --------------------------------------------------------------------------------------------------------
+    -- Git related plugins
+    'tpope/vim-fugitive',
+    'tpope/vim-rhubarb',
+    -------------------------------------------------------------------------------------------------------
+    -- Detect tabstop and shiftwidth automatically
+    'tpope/vim-sleuth',
+    'windwp/nvim-autopairs',
+    -------------------------------------------------------------------------------------------------------
+    'm4xshen/autoclose.nvim', -- https://github.com/m4xshen/autoclose.nvim 
     'numToStr/Comment.nvim',
     'lewis6991/gitsigns.nvim',
     'lukas-reineke/indent-blankline.nvim',
@@ -47,9 +48,9 @@ local plugins = {
     'folke/which-key.nvim',
     'kdheepak/lazygit.nvim',
     {
-        "folke/trouble.nvim", --https://github.com/folke/trouble.nvim
+        'folke/trouble.nvim', -- https://github.com/folke/trouble.nvim
         dependencies = { 
-            "nvim-tree/nvim-web-devicons" 
+            'nvim-tree/nvim-web-devicons' 
         },
     },
     {
@@ -70,27 +71,27 @@ local plugins = {
     },
     {
         'akinsho/toggleterm.nvim',
-        version = "*",
+        version = '*',
     },
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects'
         },
-        build = ":TSUpdate",
+        build = ':TSUpdate',
     },
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        version = "*",
+        'nvim-neo-tree/neo-tree.nvim',
+        version = '*',
         dependencies = {
-          "nvim-lua/plenary.nvim",
-          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-          "MunifTanjim/nui.nvim",
+          'nvim-lua/plenary.nvim',
+          'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+          'MunifTanjim/nui.nvim',
         },
     },
     {
         'akinsho/bufferline.nvim',
-        version = "*",
+        version = '*',
         dependencies = {
             'nvim-tree/nvim-web-devicons'
         },
@@ -123,9 +124,10 @@ local plugins = {
           -- Add your own debuggers here
           -- 'leoluz/nvim-dap-go',
         },
-    }
+    },
+    'David-Kunz/jester', -- https://github.com/David-Kunz/jester
 }
 
 local opts = {}
 
-require("lazy").setup(plugins, opts)
+require('lazy').setup(plugins, opts)
