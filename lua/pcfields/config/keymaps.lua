@@ -96,9 +96,9 @@ map("n", "<leader>og", "<cmd>:LazyGit<cr>", { desc = "[O]pen Lazy[G]it" })
 
 -- buffers
 map("n", "<leader><tab><tab>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
-map("n", "<leader>bk", "<cmd>bnext<cr>", { desc = "[N]ext buffer" })
-map("n", "<leader>bj", "<cmd>bprevious<cr>", { desc = "[P]revious [b]uffer" })
-map("n", "<leader>bc", "<cmd>bdelete<cr>", { desc = "[C]lose [b]uffer" })
+map("n", "<leader><tab>n", "<cmd>bnext<cr>", { desc = "[N]ext buffer" })
+map("n", "<leader><tab>p", "<cmd>bprevious<cr>", { desc = "[P]revious buffer" })
+map("n", "<leader><tab>d", "<cmd>bdelete<cr>", { desc = "[D]elete [b]uffer" })
 
 
 -- highlights under cursor
@@ -115,7 +115,7 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 -- toggleTerminal
-map("n", "<leader>tt", "<cmd>:ToggleTerm<cr>", { desc = "Split window right" })
+map("n", "<leader>tt", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
 
 -- terminal
 local terminalOptions = {
@@ -137,5 +137,6 @@ map("n", "<leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics"
 map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
 map('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
 
--- map('n', '<leader>odm', vim.diagnostic.open_float, { desc = "[O]pen floating [d]iagnostic [m]essage" })
--- map('n', '<leader>odl', vim.diagnostic.setloclist, { desc = "[O]pen [d]iagnostics [l]ist" })
+-- Testing
+
+map('n', '<leader>tn', '<cmd>:lua require"jester".run()<cr>', { desc = "Run nearest test" })
