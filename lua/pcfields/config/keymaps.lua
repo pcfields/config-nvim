@@ -23,30 +23,29 @@ map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", {
 
 map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 
--- Files --------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+-- Files -----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 
--- save file
-map({"n", "v",  "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "[F]ile [s]ave" })
-
+-- Save file
+map({"n", "v",  "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "File [s]ave" })
+-- Close file
+map({"n", "v",  "s" }, "<leader>fd", "<cmd>bdelete<cr>", { desc = "[F]ile close buffer" })
 -- Rename file
 map("n", "<leader>fr", vim.lsp.buf.rename, { desc = "[F]ile [r]ename" })
-
--- new file
+-- New file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[F]ile [n]ew " })
-
--- format file
+-- Format file
 map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
-
 -- File explorer
-map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "[F]ile [e]xplorer" })
+map("n", "<leader>fe", "<cmd>:NeoTreeFloatToggle<cr>", { desc = "[F]ile [e]xplorer" })
 
 --------------------------------------------------------------------------------------------
 
 -- Quit All
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "[Q]uit all" })
-
+-- Quit
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
-
 -- Exit insert mode
 map("i", "jj", "<esc>", { desc = "Exit insert mode" })
 
@@ -114,21 +113,28 @@ map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
--- toggleTerminal
-map("n", "<leader>tt", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
 
 -- terminal
 local terminalOptions = {
   buffer = 0
 }
 
-map('t', '<esc>', [[<C-\><C-n>]], terminalOptions)
-map('t', 'jk', [[<C-\><C-n>]], terminalOptions)
-map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], terminalOptions)
-map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], terminalOptions)
-map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], terminalOptions)
-map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], terminalOptions)
-map('t', '<C-w>', [[<C-\><C-n><C-w>]], terminalOptions)
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+-- toggleTerminal
+map("n", "<C-\\>", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
 
 --- Trouble
 map("n", "<leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics"})
