@@ -2,29 +2,16 @@
 -- See `:help vim.o`
 local opt = vim.opt
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 
--- Make line numbers default
-vim.wo.number = true
 
--- Set highlight on search
-opt.hlsearch = false
-
+vim.wo.number = true -- Make line numbers default
+opt.hlsearch = false -- Set highlight on search
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-opt.clipboard = 'unnamedplus'
-
--- Enable break indent
-opt.breakindent = true
-
--- Save undo history
-opt.undofile = true
+opt.clipboard = 'unnamedplus' --  Remove this option if you want your OS clipboard to remain independent.
+opt.breakindent = true -- Enable break indent
+opt.undofile = true -- Save undo history
 
 -- Case insensitive searching UNLESS /C or capital in search
 opt.ignorecase = true
@@ -39,13 +26,8 @@ opt.updatetime = 200 -- Save swap file and trigger CursorHold
 opt.timeout = true
 opt.timeoutlen = 300
 
--- Set completeopt to have a better completion experience
-opt.completeopt = 'menu,menuone,noselect'
-
--- NOTE: You should make sure your terminal supports this
-opt.termguicolors = true
-
-
+opt.completeopt = 'menu,menuone,noselect' -- Set completeopt to have a better completion experience
+opt.termguicolors = true -- NOTE: You should make sure your terminal supports this
 opt.autowrite = true -- Enable auto write
 opt.conceallevel = 3 -- Hide * markup for bold and italic
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
@@ -54,7 +36,6 @@ opt.expandtab = true -- Use spaces instead of tabs
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
-
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.laststatus = 0
 opt.list = true -- Show some invisible characters (tabs...
@@ -70,18 +51,17 @@ opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true })
 opt.showmode = false -- Dont show mode since we have a statusline
 opt.sidescrolloff = 8 -- Columns of context
-
-
 opt.smartindent = true -- Insert indents automatically
 opt.spelllang = { "en" }
 opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.undolevels = 10000
-
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
+
+vim.cmd [[set iskeyword+=-]] -- this makes kebab-case one whole word when selecting a word.
 
 if vim.fn.has("nvim-0.9.0") == 1 then
   opt.splitkeep = "screen"

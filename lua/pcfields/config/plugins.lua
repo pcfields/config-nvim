@@ -18,6 +18,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 -----------------------------------------------------
 
+local function tabnine_build_path()
+    if vim.loop.os_uname().sysname == "Windows_NT" then
+      return "pwsh.exe -file .\\dl_binaries.ps1"
+    else
+      return "./dl_binaries.sh"
+    end
+  end
+
 local plugins = {
     -- Colorschemes ----------------------------------------------------------------------------------------
     {
@@ -46,11 +54,13 @@ local plugins = {
     'jose-elias-alvarez/null-ls.nvim',
     'folke/twilight.nvim',
     'folke/which-key.nvim',
+    'nvim-tree/nvim-web-devicons',
     'kdheepak/lazygit.nvim',
+    'nvim-lua/plenary.nvim',
     {
         'folke/trouble.nvim', -- https://github.com/folke/trouble.nvim
-        dependencies = { 
-            'nvim-tree/nvim-web-devicons' 
+        dependencies = {
+            'nvim-tree/nvim-web-devicons'
         },
     },
     {
@@ -100,16 +110,22 @@ local plugins = {
         'hrsh7th/nvim-cmp',
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
+            'saadparwaiz1/cmp_luasnip',
             'L3MON4D3/LuaSnip',
-            'saadparwaiz1/cmp_luasnip'
         }
+    },
+    {
+        'L3MON4D3/LuaSnip',
+        dependencies = {
+            "rafamadriz/friendly-snippets"
+        },
     },
     { -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
         dependencies = {
-            { 'williamboman/mason.nvim', config = true }, 
+            { 'williamboman/mason.nvim', config = true },
             { 'williamboman/mason-lspconfig.nvim' },
-            { 'j-hui/fidget.nvim', version= 'legacy', opts = {} }, -- Useful status updates for LSP 
+            { 'j-hui/fidget.nvim', version = 'legacy', opts = {} }, -- Useful status updates for LSP 
             { 'folke/neodev.nvim' } -- Additional lua configuration, makes nvim stuff amazing!
         }
     },
@@ -125,6 +141,7 @@ local plugins = {
           -- 'leoluz/nvim-dap-go',
         },
     },
+    { 'codota/tabnine-nvim', build = tabnine_build_path()},
     'David-Kunz/jester', -- https://github.com/David-Kunz/jester
 }
 

@@ -3,11 +3,18 @@
 -- https://github.com/marko-cerovac/material.nvim
 -- https://github.com/Mofiqul/vscode.nvim
 
+local colorscheme = 'material'
+vim.g.material_style = "palenight" -- darker, lighter, oceanic, palenight,deep ocean
+
+local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+
+if not status_ok then
+    vim.notify("colorscheme " .. colorscheme .. " not found")
+    return
+end
 ----------------------------------------------------------------
 -- List of Themes available
 ----------------------------------------------------------------
-vim.g.material_style = "palenight" -- darker, lighter, oceanic, palenight,deep ocean
-vim.cmd 'colorscheme material'
 
 -- require('onedark').setup {
 --     style = 'light', -- Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
@@ -18,3 +25,4 @@ vim.cmd 'colorscheme material'
 ----------------------------------------------------------------
 -- vim.cmd 'colorscheme gruvbox-material'
 ----------------------------------------------------------------
+
