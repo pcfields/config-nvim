@@ -28,14 +28,10 @@ require('telescope').setup {
 -- See `:help telescope.builtin`
 local builtin = require('telescope.builtin');
 
+-- Files
 map('n', '<leader><space>', builtin.buffers, { desc = '[Space] Find existing buffers' })
 map('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch [r]ecently opened files' })
-map('n', '<leader>sgf', builtin.git_files, { desc = '[S]earch [G]it [F]iles' })
 map('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-map('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-map('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-map('n', '<leader>st', builtin.live_grep, { desc = '[S]earch by [t]ext using Grep' })
-map('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 map('n', '<leader>si', function()
     -- You can pass additional configuration to telescope to change theme, layout, etc.
     builtin.current_buffer_fuzzy_find(
@@ -44,6 +40,19 @@ map('n', '<leader>si', function()
             previewer = false
         })
 end, { desc = 'Fuzzily [S]earch [I]n current buffer' })
+
+map('n', '<leader>sjl', builtin.jumplist, { desc = '[S]earch [J]ump [L]ist' })
+-- Text 
+map('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+map('n', '<leader>st', builtin.live_grep, { desc = '[S]earch by [t]ext using Grep' })
+map('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+-- Diagnostics
+map('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+-- Git 
+map('n', '<leader>sgf', builtin.git_files, { desc = '[S]earch [G]it [F]iles' })
+map('n', '<leader>sgs', builtin.git_status, { desc = '[S]earch [G]it [S]atus' })
+map('n', '<leader>sgb', builtin.git_branches, { desc = '[S]earch [G]it [B]ranches' })
+
 
 
 -- Fuzzy Finder Algorithm which requires local dependencies to be built.
