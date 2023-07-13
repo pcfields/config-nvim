@@ -44,12 +44,12 @@ opt.number = true -- Print line number
 opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = true -- Relative line numbers
-opt.scrolloff = 4 -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true })
 opt.showmode = false -- Dont show mode since we have a statusline
+opt.scrolloff = 8 -- Number of screen lines to keep above and below the cursor
 opt.sidescrolloff = 8 -- Columns of context
 opt.smartindent = true -- Insert indents automatically
 opt.spelllang = { "en" }
@@ -60,6 +60,8 @@ opt.undolevels = 10000
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
+opt.backup = false
+opt.swapfile = false
 
 vim.cmd [[set iskeyword+=-]] -- this makes kebab-case one whole word when selecting a word.
 

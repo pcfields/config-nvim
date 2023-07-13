@@ -1,7 +1,7 @@
-require('pcfields.config.options')
-require('pcfields.config.keymaps')
-require('pcfields.config.plugins')
-require('pcfields.plugins')
+require "pcfields.config.options"
+require "pcfields.config.keymaps"
+require "pcfields.config.plugins"
+require "pcfields.plugins"
 
 
 -- [[ Highlight on yank ]]
