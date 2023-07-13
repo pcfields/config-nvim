@@ -31,9 +31,6 @@ map({"n", "v",  "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "File [s]ave" }
 -- Close file
 map({"n", "v",  "s" }, "<leader>fd", "<cmd>bdelete<cr>", { desc = "[F]ile close buffer" })
 
--- Rename file
-map("n", "<leader>fr", vim.lsp.buf.rename, { desc = "[F]ile [r]ename" })
-
 -- New file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[F]ile [n]ew " })
 
@@ -42,6 +39,9 @@ map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
 
 -- File explorer
 map("n", "<leader>fe", "<cmd>:NeoTreeFloatToggle<cr>", { desc = "[F]ile [e]xplorer" })
+
+-- Rename variable
+map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
 
 -- buffers
 map("n", "<leader>nn", "<cmd>bnext<cr>", { desc = "[N]ext buffer" })
@@ -80,10 +80,15 @@ map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
 -- Resize window using <ctrl> arrow keys --------------------------------------------------------------------------------------------
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+-- Height
+map("n", "<C-Up>", "<cmd>resize +4<cr>", { desc = "Increase window height" })
+map("n", "<C-Down>", "<cmd>resize -4<cr>", { desc = "Decrease window height" })
+-- Vertical Width small adjustment
+map("n", "<C-Left>", "<cmd>vertical resize +4<cr>", { desc = "Increase window width" })
+map("n", "<C-Right>", "<cmd>vertical resize -4<cr>", { desc = "Decrease window width" })
+-- Vertical Width large adjustment
+map("n", "<C-m>", "<cmd>vertical resize +50<cr>", { desc = "Increase window width by large amount" })
+map("n", "<C-n>", "<cmd>vertical resize -50<cr>", { desc = "Decrease window width by large amount" })
 
 -- Move Lines --------------------------------------------------------------------------------------------
 map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
@@ -145,6 +150,7 @@ map("n", "<leader>ol", "<cmd>:Lazy<cr>", { desc = "[Open] [L]azy plugin manager"
 
 -- Lazygit
 map("n", "<leader>og", "<cmd>:LazyGit<cr>", { desc = "[O]pen Lazy[G]it" })
+
 
 -- Code action
 map("n", "<leader>oa", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
