@@ -28,23 +28,25 @@ require('telescope').setup {
 -- See `:help telescope.builtin`
 local builtin = require('telescope.builtin');
 
--- Files
-map('n', '<leader><space>', builtin.buffers, { desc = '[Space] Find existing buffers' })
-map('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch [r]ecently opened files' })
-map('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-map('n', '<leader>si', function()
+local telescope_themes_dropdown = function()
     -- You can pass additional configuration to telescope to change theme, layout, etc.
     builtin.current_buffer_fuzzy_find(
         require('telescope.themes').get_dropdown {
             winblend = 10,
             previewer = false
         })
-end, { desc = 'Fuzzily [S]earch [I]n current buffer' })
+end
+
+-- Files
+map('n', '<leader><space>', builtin.buffers, { desc = '[Space] Find existing buffers' })
+map('n', '<leader>sr', builtin.oldfiles, { desc = '[S]earch [r]ecently opened files' })
+map('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+map('n', '<leader>si', telescope_themes_dropdown, { desc = 'Fuzzily [S]earch [I]n current buffer' })
 
 map('n', '<leader>sjl', builtin.jumplist, { desc = '[S]earch [J]ump [L]ist' })
 -- Text 
 map('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-map('n', '<leader>st', builtin.live_grep, { desc = '[S]earch by [t]ext using Grep' })
+map('n', '<leader>ss', builtin.live_grep, { desc = '[S]earch by [t]ext using Grep' })
 map('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 -- Diagnostics
 map('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })

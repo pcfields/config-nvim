@@ -1,6 +1,5 @@
 -- [[ Basic Keymaps ]]
 local map = require('pcfields.utils').map
-   
 -- Keymaps for better default experiencep
 -- See `:help vim.keymap.set()`
 -- Set <space> as the leader key
@@ -26,27 +25,20 @@ map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 -- Files + Buffers -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 -- Save file
-map({"n", "v",  "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "File [s]ave" })
-
--- Close file
-map({"n", "v",  "s" }, "<leader>fd", "<cmd>bdelete<cr>", { desc = "[F]ile close buffer" })
-
+map({"n", "v", "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "File save" })
 -- New file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[F]ile [n]ew " })
-
 -- Format file
 map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
-
 -- File explorer
 map("n", "<leader>fe", "<cmd>:NeoTreeFloatToggle<cr>", { desc = "[F]ile [e]xplorer" })
-
 -- Rename variable
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
-
 -- buffers
-map("n", "<leader>nn", "<cmd>bnext<cr>", { desc = "[N]ext buffer" })
-map("n", "<leader>pp", "<cmd>bprevious<cr>", { desc = "[P]revious buffer" })
-map("n", "<leader>db", "<cmd>bdelete<cr>", { desc = "[D]elete [b]uffer" })
+map("n", "<S-h>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map("n", "<S-l>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+-- Close buffer
+map({"n", "v", "s" }, "<leader>x", "<cmd>bdelete<cr>", { desc = "Close buffer" })
 
 -- Bufferline buffers
 map("n", "<leader>sb", "<cmd>:BufferLinePick<cr>", { desc = "[S]elect a [b]uffer" })
@@ -63,15 +55,18 @@ map("n", "<leader>0","<cmd>BufferLineGoToBuffer -1<cr>", { desc= "Go to last buf
 
 --------------------------------------------------------------------------------------------
 -- Quit All
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "[Q]uit all" })
+map("n", "<leader>qa", "<cmd>qa<cr>", { desc = "[Q]uit all" })
 -- Quit
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 -- Exit insert mode
 map("i", "jj", "<esc>", { desc = "Exit insert mode" })
 
--- -- better indenting
-map({'n','v'}, "<", "<gv")
-map({'n','v'}, ">", ">gv")
+-- better indenting
+map({'n','v'},"<A-h>", ">gv", { desc = "Indent left" })
+map({'n','v'}, "<A-l>", "<gv", { desc = "Reverse Indent right" } )
+
+map({'n','v'}, "<leader>h", "^", { desc = "Go to beginning of line" })
+map({'n','v'}, "<leader>hh", "$", { desc = "Go to end of line" })
 
 -- Move to window using the <ctrl> hjkl keys --------------------------------------------------------------------------------------------
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
@@ -101,7 +96,6 @@ map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 
-
 -- highlights under cursor
 if vim.fn.has("nvim-0.9.0") == 1 then
   map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
@@ -117,10 +111,6 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 
 -- terminal
-local terminalOptions = {
-  buffer = 0
-}
-
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
   vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
@@ -148,26 +138,21 @@ map("n", "<leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics"
 --- Plugin Manager
 map("n", "<leader>ol", "<cmd>:Lazy<cr>", { desc = "[Open] [L]azy plugin manager" })
 
--- Lazygit
-map("n", "<leader>og", "<cmd>:LazyGit<cr>", { desc = "[O]pen Lazy[G]it" })
-
-
--- Code action
-map("n", "<leader>oa", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
-
--- Display Lazy Plugin manager
-map("n", "<leader>ol", "<cmd>:Lazy<cr>", { desc = "[P]lugin [m]anager" })
-
 -- Display location list
 map("n", "<leader>oll", "<cmd>lopen<cr>", { desc = "Location List" })
 
--- Display quickfix list
-map("n", "<leader>oqf", "<cmd>copen<cr>", { desc = "Quickfix List" })
+-- Lazygit
+map("n", "<leader>og", "<cmd>:LazyGit<cr>", { desc = "[O]pen Lazy[G]it" })
 
+-- Code action
+map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action" })
+
+-- Display quickfix list
+map("n", "<leader>oq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 -- Diagnostic keymaps
-map('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
-map('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
+map('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
+map('n', '<leader>dn', vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
 
 -- Testing
 map('n', '<leader>tn', '<cmd>:lua require"jester".run()<cr>', { desc = "Run nearest test" })
