@@ -125,7 +125,7 @@ local plugins = {
         dependencies = {
             { 'williamboman/mason.nvim', config = true },
             { 'williamboman/mason-lspconfig.nvim' },
-            { 'j-hui/fidget.nvim', version = 'legacy', opts = {} }, -- Useful status updates for LSP 
+            { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} }, -- Useful status updates for LSP 
             { 'folke/neodev.nvim' } -- Additional lua configuration, makes nvim stuff amazing!
         }
     },
