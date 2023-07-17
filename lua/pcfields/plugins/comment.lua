@@ -6,8 +6,8 @@ require('Comment').setup {
     sticky = true,  ---Whether the cursor should stay at its position
     ---LHS of toggle mappings in NORMAL mode
     toggler = {
-        line = '<leader>c',   ---Line-comment toggle keymap
-        block = '<leader>cb', ---Block-comment toggle keymap
+        line = '<leader>cc',   ---Line-comment toggle keymap
+        block = '<leader>cbb', ---Block-comment toggle keymap
     },
     ---LHS of operator-pending mappings in NORMAL and VISUAL mode
     opleader = {
@@ -15,11 +15,11 @@ require('Comment').setup {
         block = '<leader>cb', ---Block-comment keymap
     },
     ---LHS of extra mappings
-    extra = {
-        above = 'gcO',---Add comment on the line above
-        below = 'gco',---Add comment on the line below
-        eol = 'gcA',---Add comment at the end of line
-    },
+    -- extra = {
+    --     above = 'gcO',---Add comment on the line above
+    --     below = 'gco',---Add comment on the line below
+    --     eol = 'gcA',---Add comment at the end of line
+    -- },
     ---Enable keybindings
     ---NOTE: If given `false` then the plugin won't create any mappings
     mappings = {
