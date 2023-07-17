@@ -35,8 +35,8 @@ map("n", "<leader>fe", "<cmd>:NeoTreeFloatToggle<cr>", { desc = "[F]ile [e]xplor
 -- Rename variable
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
 -- buffers
-map("n", "<S-h>", "<cmd>bnext<cr>", { desc = "Next buffer" })
-map("n", "<S-l>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 -- Close buffer
 map({"n", "v", "s" }, "<leader>x", "<cmd>bdelete<cr>", { desc = "Close buffer" })
 
