@@ -31,7 +31,7 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[F]ile [n]ew " })
 -- Format file
 map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
 -- File explorer
-map("n", "<leader>fe", "<cmd>:NeoTreeFloatToggle<cr>", { desc = "[F]ile [e]xplorer" })
+map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "[F]ile [e]xplorer" })
 -- Rename variable
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
 -- buffers
