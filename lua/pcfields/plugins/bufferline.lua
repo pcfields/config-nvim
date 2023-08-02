@@ -13,11 +13,11 @@ require("bufferline").setup {
             local icon = level:match("error") and " " or " "
             return " " .. icon .. count
           end,
-        buffer_close_icon = 'X',
-        modified_icon = '●',
-        close_icon = 'X',
-        left_trunc_marker = '',
-        right_trunc_marker = '',
+        -- buffer_close_icon = 'X',
+        -- modified_icon = '●',
+        -- close_icon = 'X',
+        -- left_trunc_marker = '',
+        -- right_trunc_marker = '',
         offsets = {
             {
                 filetype = "neo-tree",
