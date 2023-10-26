@@ -1,5 +1,9 @@
 # config-nvim
 
+
+$ npm install -g eslint_d
+https://stackoverflow.com/questions/56813273/how-to-install-npm-end-user-packages-on-nixos
+:
 My Neovim config
 
 Inspired by:
