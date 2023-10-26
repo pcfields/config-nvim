@@ -3,8 +3,7 @@
 -- https://github.com/marko-cerovac/material.nvim
 -- https://github.com/Mofiqul/vscode.nvim
 
-local colorscheme = 'material'
-vim.g.material_style = "palenight" -- darker, lighter, oceanic, palenight,deep ocean
+local colorscheme = 'onedark'
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 
@@ -16,10 +15,13 @@ end
 -- List of Themes available
 ----------------------------------------------------------------
 
--- require('onedark').setup {
---     style = 'light', -- Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
--- }
--- require('onedark').load()
+-- Material theme
+-- vim.g.material_style = "palenight" -- darker, lighter, oceanic, palenight,deep ocean
+
+require('onedark').setup {
+    style = 'light', -- Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+}
+require('onedark').load()
 ----------------------------------------------------------------
 -- require('vscode').load('dark')
 ----------------------------------------------------------------
