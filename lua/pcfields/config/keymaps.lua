@@ -61,13 +61,6 @@ map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 -- Exit insert mode
 map("i", "jj", "<esc>", { desc = "Exit insert mode" })
 
--- better indenting
-map({'n','v'},"<A-h>", ">gv", { desc = "Indent left" })
-map({'n','v'}, "<A-l>", "<gv", { desc = "Reverse Indent right" } )
-
-map({'n','v'}, "<leader>h", "^", { desc = "Go to beginning of line" })
-map({'n','v'}, "<leader>hh", "$", { desc = "Go to end of line" })
-
 -- Move to window using the <ctrl> hjkl keys --------------------------------------------------------------------------------------------
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
@@ -78,23 +71,29 @@ map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 -- Height
 map("n", "<C-Up>", "<cmd>resize +4<cr>", { desc = "Increase window height" })
 map("n", "<C-Down>", "<cmd>resize -4<cr>", { desc = "Decrease window height" })
+
 -- Vertical Width small adjustment
 map("n", "<C-Left>", "<cmd>vertical resize +4<cr>", { desc = "Increase window width" })
 map("n", "<C-Right>", "<cmd>vertical resize -4<cr>", { desc = "Decrease window width" })
+
 -- Vertical Width large adjustment
-map("n", "<C-m>", "<cmd>vertical resize +50<cr>", { desc = "Increase window width by large amount" })
-map("n", "<C-n>", "<cmd>vertical resize -50<cr>", { desc = "Decrease window width by large amount" })
+-- map("n", "<C-m>", "<cmd>vertical resize +50<cr>", { desc = "Increase window width by large amount" })
+-- map("n", "<C-n>", "<cmd>vertical resize -50<cr>", { desc = "Decrease window width by large amount" })
+
+-- Line movement
+map({'n','v'}, "<leader>mh", "^", { desc = "Go to beginning of line" })
+map({'n','v'}, "<leader>ml", "$", { desc = "Go to end of line" })
 
 -- Move Lines --------------------------------------------------------------------------------------------
+
+-- Move down
 map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-
 map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+-- Move up
+map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
-
 
 -- highlights under cursor
 if vim.fn.has("nvim-0.9.0") == 1 then
@@ -125,15 +124,14 @@ end
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-
 -- toggleTerminal
-map("n", "<C-\\>", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
+map("n", "<C-t>", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
 
 --------------------------------------------------------------------------------------------
 -- Open things -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
---- Trouble
-map("n", "<leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics" })
+--- TroubleToggle
+map("n", "leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics" })
 
 --- Plugin Manager
 map("n", "<leader>ol", "<cmd>:Lazy<cr>", { desc = "[Open] [L]azy plugin manager" })
