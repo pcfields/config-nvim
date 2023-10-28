@@ -64,10 +64,10 @@ opt.backup = false
 opt.swapfile = false
 opt.foldmethod = "expr" --
 opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.foldopen = "all"
-
-vim.cmd [[set nofoldenable ]] -- Disable folding at startup.
-vim.cmd [[set iskeyword+=-]] -- this makes kebab-case one whole word when selecting a word.
+opt.foldcolumn = "1"
+opt.foldlevelstart = 99
+opt.foldenable = false              -- Disable folding at startup.
+opt.iskeyword = opt.iskeyword + "-" -- this makes kebab-case one whole word when selecting a word.
 
 if vim.fn.has("nvim-0.9.0") == 1 then
   opt.splitkeep = "screen"
