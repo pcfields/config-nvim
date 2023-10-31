@@ -14,7 +14,8 @@ map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Clear search with <esc>
-map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+map({ "i", "n", "v" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+map({ "i", "n", "v" }, "<C-e>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- Clear search, diff update and redraw
 map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Redraw / clear hlsearch / diff update" })
@@ -32,8 +33,8 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[F]ile [n]ew " })
 map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
 -- File explorer
 map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "[F]ile [e]xplorer" })
--- Rename variable
-map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
+
+
 -- buffers
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
@@ -52,6 +53,13 @@ map("n", "<leader>7","<cmd>BufferLineGoToBuffer 7<cr>", { desc= "Go to buffer 7"
 map("n", "<leader>8","<cmd>BufferLineGoToBuffer 8<cr>", { desc= "Go to buffer 8"})
 map("n", "<leader>9","<cmd>BufferLineGoToBuffer 9<cr>", { desc= "Go to buffer 9"})
 map("n", "<leader>0","<cmd>BufferLineGoToBuffer -1<cr>", { desc= "Go to last buffer"})
+
+-- Rename variable
+map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
+
+-- Code action
+map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action" })
+map("n", "ca", vim.lsp.buf.code_action, { desc = "Code action" })
 
 --------------------------------------------------------------------------------------------
 -- Quit All
@@ -81,8 +89,8 @@ map("n", "<C-Right>", "<cmd>vertical resize -4<cr>", { desc = "Decrease window w
 -- map("n", "<C-n>", "<cmd>vertical resize -50<cr>", { desc = "Decrease window width by large amount" })
 
 -- Line movement
-map({'n','v'}, "<leader>mh", "^", { desc = "Go to beginning of line" })
-map({'n','v'}, "<leader>ml", "$", { desc = "Go to end of line" })
+map({'n','v'}, "mh", "^", { desc = "Go to beginning of line" })
+map({'n','v'}, "ml", "$", { desc = "Go to end of line" })
 
 -- Move Lines --------------------------------------------------------------------------------------------
 
@@ -137,13 +145,11 @@ map("n", "leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics" 
 map("n", "<leader>ol", "<cmd>:Lazy<cr>", { desc = "[Open] [L]azy plugin manager" })
 
 -- Display location list
-map("n", "<leader>oll", "<cmd>lopen<cr>", { desc = "Location List" })
+-- map("n", "<leader>oll", "<cmd>lopen<cr>", { desc = "Location List" })
 
 -- Lazygit
 map("n", "<leader>og", "<cmd>:LazyGit<cr>", { desc = "[O]pen Lazy[G]it" })
 
--- Code action
-map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action" })
 
 -- Display quickfix list
 map("n", "<leader>oq", "<cmd>copen<cr>", { desc = "Quickfix List" })
