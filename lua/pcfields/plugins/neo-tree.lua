@@ -4,7 +4,8 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 require('neo-tree').setup {
-    window = { 
-        position = "left", -- left, right, top, bottom, float, current
+    window = {
+        position = "float", -- left, right, top, bottom, float, current
     }
 }
+
