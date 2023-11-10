@@ -34,9 +34,7 @@ local plugins = {
         priority = 1000, -- make sure to load this before all the other start plugins
     },
     'navarasu/onedark.nvim', -- https://github.com/navarasu/onedark.nvim
-    'sainnhe/gruvbox-material', -- https://github.com/sainnhe/gruvbox-material    
     'Mofiqul/vscode.nvim', -- https://github.com/Mofiqul/vscode.nvim
-    'olivercederborg/poimandres.nvim', -- https://github.com/olivercederborg/poimandres.nvim
     --------------------------------------------------------------------------------------------------------
     -- Git related plugins
     'tpope/vim-fugitive',
