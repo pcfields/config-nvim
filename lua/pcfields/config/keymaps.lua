@@ -34,12 +34,9 @@ map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
 -- File explorer
 map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "[F]ile [e]xplorer" })
 
-
 -- buffers
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
--- Close buffer
-map({"n", "v", "s" }, "<leader>x", "<cmd>bdelete<cr>", { desc = "Close buffer" })
 
 -- Bufferline buffers
 map("n", "<leader>sb", "<cmd>:BufferLinePick<cr>", { desc = "[S]elect a [b]uffer" })
@@ -53,6 +50,14 @@ map("n", "<leader>7","<cmd>BufferLineGoToBuffer 7<cr>", { desc= "Go to buffer 7"
 map("n", "<leader>8","<cmd>BufferLineGoToBuffer 8<cr>", { desc= "Go to buffer 8"})
 map("n", "<leader>9","<cmd>BufferLineGoToBuffer 9<cr>", { desc= "Go to buffer 9"})
 map("n", "<leader>0","<cmd>BufferLineGoToBuffer -1<cr>", { desc= "Go to last buffer"})
+
+-- windows
+map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
+map("n", "<leader>wd", "<C-W>c", { desc = "Delete window" })
+map("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
+map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
+map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
+map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 -- Rename variable
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
@@ -139,7 +144,7 @@ map("n", "<C-t>", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
 -- Open things -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 --- TroubleToggle
-map("n", "leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics" })
+map("n", "<leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics" })
 
 --- Plugin Manager
 map("n", "<leader>ol", "<cmd>:Lazy<cr>", { desc = "[Open] [L]azy plugin manager" })
