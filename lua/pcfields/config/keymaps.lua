@@ -35,8 +35,8 @@ map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
 map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "[F]ile [e]xplorer" })
 
 -- buffers
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+map("n", "<Tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 
 -- Bufferline buffers
 map("n", "<leader>sb", "<cmd>:BufferLinePick<cr>", { desc = "[S]elect a [b]uffer" })
@@ -52,19 +52,31 @@ map("n", "<leader>9","<cmd>BufferLineGoToBuffer 9<cr>", { desc= "Go to buffer 9"
 map("n", "<leader>0","<cmd>BufferLineGoToBuffer -1<cr>", { desc= "Go to last buffer"})
 
 -- windows
-map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
-map("n", "<leader>wd", "<C-W>c", { desc = "Delete window" })
-map("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
-map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
-map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
-map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
-
+map("n", "<leader>ww", "<C-w>p", { desc = "Other window" })
+map("n", "<leader>wd", "<C-w>c", { desc = "Delete window" })
+map("n", "<leader>wn", "<C-w>n", { desc = "Create new window" })
+-- Move to window using the <ctrl> hjkl keys
+map("n", "<leader>wh", "<C-w>h", { desc = "Go to left window" })
+map("n", "<leader>wj", "<C-w>j", { desc = "Go to lower window" })
+map("n", "<leader>wk", "<C-w>k", { desc = "Go to upper window" })
+map("n", "<leader>wl", "<C-w>l", { desc = "Go to right window" })
+-- Split windows
+map("n", "<leader>wb", "<C-w>s", { desc = "Split window below" })
+map("n", "<leader>wr", "<C-w>v", { desc = "Split window right" })
+-- Resize windows
+map("n", "<leader>w2", "<C-w>=", { desc = "Resize windows to be 50|50" })
+-- Resize window using <ctrl> arrow keys --------------------------------------------------------------------------------------------
+-- Height
+map("n", "<C-Up>", "<cmd>resize +4<cr>", { desc = "Increase window height" })
+map("n", "<C-Down>", "<cmd>resize -4<cr>", { desc = "Decrease window height" })
+-- Vertical Width small adjustment
+map("n", "<C-Left>", "<cmd>vertical resize +4<cr>", { desc = "Increase window width" })
+map("n", "<C-Right>", "<cmd>vertical resize -4<cr>", { desc = "Decrease window width" })
 -- Rename variable
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename variable" })
 
 -- Code action
 map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "Code action" })
-map("n", "ca", vim.lsp.buf.code_action, { desc = "Code action" })
 
 --------------------------------------------------------------------------------------------
 -- Quit All
@@ -74,24 +86,6 @@ map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 -- Exit insert mode
 map("i", "jj", "<esc>", { desc = "Exit insert mode" })
 
--- Move to window using the <ctrl> hjkl keys --------------------------------------------------------------------------------------------
-map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
-
--- Resize window using <ctrl> arrow keys --------------------------------------------------------------------------------------------
--- Height
-map("n", "<C-Up>", "<cmd>resize +4<cr>", { desc = "Increase window height" })
-map("n", "<C-Down>", "<cmd>resize -4<cr>", { desc = "Decrease window height" })
-
--- Vertical Width small adjustment
-map("n", "<C-Left>", "<cmd>vertical resize +4<cr>", { desc = "Increase window width" })
-map("n", "<C-Right>", "<cmd>vertical resize -4<cr>", { desc = "Decrease window width" })
-
--- Vertical Width large adjustment
--- map("n", "<C-m>", "<cmd>vertical resize +50<cr>", { desc = "Increase window width by large amount" })
--- map("n", "<C-n>", "<cmd>vertical resize -50<cr>", { desc = "Decrease window width by large amount" })
 
 -- Line movement
 map({'n','v'}, "mh", "^", { desc = "Go to beginning of line" })
@@ -113,13 +107,6 @@ if vim.fn.has("nvim-0.9.0") == 1 then
   map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 end
 
--- windows
-map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
-map("n", "<leader>wd", "<C-W>c", { desc = "Delete window" })
-map("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
-map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
-map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
-map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 
 -- terminal
