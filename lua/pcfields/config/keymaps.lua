@@ -147,6 +147,8 @@ map("n", "<leader>ot", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
 -- Diagnostic keymaps
 map('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
 map('n', '<leader>dn', vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
+map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Testing
 map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = "Run nearest test" })
