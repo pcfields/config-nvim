@@ -33,7 +33,8 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[F]ile [n]ew " })
 -- Format file
 map("n", "<leader>ff", "<cmd>Format<cr>", { desc = "[F]ile [f]ormat" })
 -- File explorer
-map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "[F]ile [e]xplorer" })
+map("n", "<leader>fe", "<cmd>:Neotree toggle<cr>", { desc = "File explorer" })
+map("n", "<leader>fg", "<cmd>:Neotree git_status<cr>", { desc = "File git status" })
 
 -- buffers
 map("n", "<Tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
