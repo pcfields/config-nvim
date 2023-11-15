@@ -18,7 +18,8 @@ map({ "i", "n", "v" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear 
 map({ "i", "n", "v" }, "<C-e>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- Clear search, diff update and redraw
-map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Redraw / clear hlsearch / diff update" })
+map("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Redraw / clear hlsearch / diff update" })
 
 map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 
@@ -26,7 +27,7 @@ map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 -- Files + Buffers -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 -- Save file
-map({"n", "v", "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "File save" })
+map({ "n", "v", "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "File save" })
 -- New file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "[F]ile [n]ew " })
 -- Format file
@@ -40,16 +41,16 @@ map("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 
 -- Bufferline buffers
 map("n", "<leader>sb", "<cmd>:BufferLinePick<cr>", { desc = "[S]elect a [b]uffer" })
-map("n", "<leader>1","<cmd>BufferLineGoToBuffer 1<cr>", { desc= "Go to buffer 1"})
-map("n", "<leader>2","<cmd>BufferLineGoToBuffer 2<cr>", { desc= "Go to buffer 2"})
-map("n", "<leader>3","<cmd>BufferLineGoToBuffer 3<cr>", { desc= "Go to buffer 3"})
-map("n", "<leader>4","<cmd>BufferLineGoToBuffer 4<cr>", { desc= "Go to buffer 4"})
-map("n", "<leader>5","<cmd>BufferLineGoToBuffer 5<cr>", { desc= "Go to buffer 5"})
-map("n", "<leader>6","<cmd>BufferLineGoToBuffer 6<cr>", { desc= "Go to buffer 6"})
-map("n", "<leader>7","<cmd>BufferLineGoToBuffer 7<cr>", { desc= "Go to buffer 7"})
-map("n", "<leader>8","<cmd>BufferLineGoToBuffer 8<cr>", { desc= "Go to buffer 8"})
-map("n", "<leader>9","<cmd>BufferLineGoToBuffer 9<cr>", { desc= "Go to buffer 9"})
-map("n", "<leader>0","<cmd>BufferLineGoToBuffer -1<cr>", { desc= "Go to last buffer"})
+map("n", "<leader>1", "<cmd>BufferLineGoToBuffer 1<cr>", { desc = "Go to buffer 1" })
+map("n", "<leader>2", "<cmd>BufferLineGoToBuffer 2<cr>", { desc = "Go to buffer 2" })
+map("n", "<leader>3", "<cmd>BufferLineGoToBuffer 3<cr>", { desc = "Go to buffer 3" })
+map("n", "<leader>4", "<cmd>BufferLineGoToBuffer 4<cr>", { desc = "Go to buffer 4" })
+map("n", "<leader>5", "<cmd>BufferLineGoToBuffer 5<cr>", { desc = "Go to buffer 5" })
+map("n", "<leader>6", "<cmd>BufferLineGoToBuffer 6<cr>", { desc = "Go to buffer 6" })
+map("n", "<leader>7", "<cmd>BufferLineGoToBuffer 7<cr>", { desc = "Go to buffer 7" })
+map("n", "<leader>8", "<cmd>BufferLineGoToBuffer 8<cr>", { desc = "Go to buffer 8" })
+map("n", "<leader>9", "<cmd>BufferLineGoToBuffer 9<cr>", { desc = "Go to buffer 9" })
+map("n", "<leader>0", "<cmd>BufferLineGoToBuffer -1<cr>", { desc = "Go to last buffer" })
 
 -- windows
 map("n", "<leader>ww", "<C-w>p", { desc = "Other window" })
@@ -88,8 +89,10 @@ map("i", "jj", "<esc>", { desc = "Exit insert mode" })
 
 
 -- Line movement
-map({'n','v'}, "mh", "^", { desc = "Go to beginning of line" })
-map({'n','v'}, "ml", "$", { desc = "Go to end of line" })
+map({ 'n', 'v' }, "mh", "^", { desc = "Go to beginning of line" })
+map({ 'n', 'v' }, "ml", "$", { desc = "Go to end of line" })
+map({ 'n', 'v' }, "mk", "gg", { desc = "Go to top of file" })
+map({ 'n', 'v' }, "mj", "<S-g>", { desc = "Go to bottom of file" })
 
 -- Move Lines --------------------------------------------------------------------------------------------
 
@@ -111,7 +114,7 @@ end
 
 -- terminal
 function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
+  local opts = { buffer = 0 }
   vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
   vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
   vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
