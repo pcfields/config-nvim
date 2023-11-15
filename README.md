@@ -88,6 +88,8 @@ Install ripgrep for telescope grep search
 ```
 
 sudo apt-get install ripgrep
+# or
+nix-env -iA nixpkgs.ripgrep
 
 ```
 
