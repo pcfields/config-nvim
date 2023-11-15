@@ -6,7 +6,7 @@ require('lualine').setup {
         icons_enabled = true,
         theme = 'codedark', -- auto | palenight | base16 16color ayu_dark  ayu_mirage codedark
         component_separators = '',
-        section_separators = { left = '', right = ''}, 
+        section_separators = { left = '', right = ''},
         disabled_filetypes = {
             statusline = {},
             winbar = {},
