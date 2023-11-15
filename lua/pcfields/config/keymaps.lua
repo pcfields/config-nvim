@@ -87,15 +87,14 @@ map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 -- Exit insert mode
 map("i", "jj", "<esc>", { desc = "Exit insert mode" })
 
-
--- Line movement
+-- Line movement - left, right
 map({ 'n', 'v' }, "mh", "^", { desc = "Go to beginning of line" })
 map({ 'n', 'v' }, "ml", "$", { desc = "Go to end of line" })
+-- Line movement - top, bottom
 map({ 'n', 'v' }, "mk", "gg", { desc = "Go to top of file" })
 map({ 'n', 'v' }, "mj", "<S-g>", { desc = "Go to bottom of file" })
 
 -- Move Lines --------------------------------------------------------------------------------------------
-
 -- Move down
 map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
 map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
@@ -127,31 +126,26 @@ end
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
--- toggleTerminal
-map("n", "<C-t>", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
 
 --------------------------------------------------------------------------------------------
 -- Open things -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
---- TroubleToggle
+-- Open Diagnostics window
 map("n", "<leader>od", "<cmd>TroubleToggle<cr>", { desc = "[Open] [d]iagnostics" })
-
---- Plugin Manager
-map("n", "<leader>ol", "<cmd>:Lazy<cr>", { desc = "[Open] [L]azy plugin manager" })
-
--- Display location list
--- map("n", "<leader>oll", "<cmd>lopen<cr>", { desc = "Location List" })
-
--- Lazygit
+--- Open Plugin Manager
+map("n", "<leader>op", "<cmd>:Lazy<cr>", { desc = "[Open] [L]azy plugin manager" })
+-- Open Lazygit
 map("n", "<leader>og", "<cmd>:LazyGit<cr>", { desc = "[O]pen Lazy[G]it" })
-
-
 -- Display quickfix list
 map("n", "<leader>oq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+-- Open Terminal
+map("n", "<leader>ot", "<cmd>:ToggleTerm<cr>", { desc = "Open ToggleTerm" })
+-- Display location list
+-- map("n", "<leader>oll", "<cmd>lopen<cr>", { desc = "Location List" })
 
 -- Diagnostic keymaps
 map('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = "Go to previous [d]iagnostic message" })
 map('n', '<leader>dn', vim.diagnostic.goto_next, { desc = "Go to next [d]iagnostic message" })
 
 -- Testing
-map('n', '<leader>tn', '<cmd>:lua require"jester".run()<cr>', { desc = "Run nearest test" })
+map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = "Run nearest test" })
