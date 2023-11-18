@@ -140,6 +140,10 @@ local plugins = {
     },
     { 'codota/tabnine-nvim', build = tabnine_build_path()},
     'David-Kunz/jester', -- https://github.com/David-Kunz/jester
+    {
+        'stevearc/dressing.nvim',
+        opts = {},
+    }
 }
 
 local opts = {}
