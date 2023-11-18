@@ -26,21 +26,22 @@ map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 -- Files + Buffers -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 -- Save file
-map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'File save' })
+map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'Save file' })
 -- New file
-map('n', '<leader>fn', '<cmd>enew<cr>', { desc = '[F]ile [n]ew ' })
+map('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'File new ' })
 -- Format file
-map('n', '<leader>ff', '<cmd>Format<cr>', { desc = '[F]ile [f]ormat' })
+map('n', '<leader>ff', '<cmd>Format<cr>', { desc = 'File format' })
 -- File explorer
 map('n', '<leader>fe', '<cmd>:Neotree toggle<cr>', { desc = 'File explorer' })
 map('n', '<leader>fg', '<cmd>:Neotree git_status<cr>', { desc = 'File git status' })
+map('n', '<leader>fd', '<cmd>:bd<cr>', { desc = 'Close buffer' })
 
 -- buffers
 map('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map('n', '<S-Tab>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
 
 -- Bufferline buffers
-map('n', '<leader>sb', '<cmd>:BufferLinePick<cr>', { desc = '[S]elect a [b]uffer' })
+map('n', '<leader>sb', '<cmd>:BufferLinePick<cr>', { desc = 'Select a buffer with letter' })
 map('n', '<leader>1', '<cmd>BufferLineGoToBuffer 1<cr>', { desc = 'Go to buffer 1' })
 map('n', '<leader>2', '<cmd>BufferLineGoToBuffer 2<cr>', { desc = 'Go to buffer 2' })
 map('n', '<leader>3', '<cmd>BufferLineGoToBuffer 3<cr>', { desc = 'Go to buffer 3' })
@@ -75,15 +76,14 @@ map('n', '<C-Left>', '<cmd>vertical resize +4<cr>', { desc = 'Increase window wi
 map('n', '<C-Right>', '<cmd>vertical resize -4<cr>', { desc = 'Decrease window width' })
 -- Rename variable
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename variable' })
-
 -- Code action
 map('n', '<leader>a', vim.lsp.buf.code_action, { desc = 'Code action' })
 
 --------------------------------------------------------------------------------------------
 -- Quit All
-map('n', '<leader>qa', '<cmd>qa<cr>', { desc = '[Q]uit all' })
+map('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit all' })
 -- Quit
-map('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
+map('n', '<leader>q', '<cmd>q<cr>', { desc = 'Quit' })
 -- Exit insert mode
 map('i', 'jj', '<esc>', { desc = 'Exit insert mode' })
 
@@ -128,17 +128,19 @@ vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
 -- Open things -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 -- Open Diagnostics window
-map('n', '<leader>od', '<cmd>TroubleToggle<cr>', { desc = '[Open] [d]iagnostics' })
+map('n', '<leader>od', '<cmd>TroubleToggle<cr>', { desc = 'Open diagnostics' })
 --- Open Plugin Manager
-map('n', '<leader>op', '<cmd>:Lazy<cr>', { desc = '[Open] [L]azy plugin manager' })
+map('n', '<leader>op', '<cmd>:Lazy<cr>', { desc = 'Open Lazy plugin manager' })
 -- Open Lazygit
-map('n', '<leader>og', '<cmd>:LazyGit<cr>', { desc = '[O]pen Lazy[G]it' })
+map('n', '<leader>og', '<cmd>:LazyGit<cr>', { desc = 'Open LazyGit' })
 -- Display quickfix list
 map('n', '<leader>oq', '<cmd>copen<cr>', { desc = 'Quickfix List' })
 -- Open Terminal
 map('n', '<leader>ot', '<cmd>:ToggleTerm<cr>', { desc = 'Open ToggleTerm' })
 -- Display location list
 -- map("n", "<leader>oll", "<cmd>lopen<cr>", { desc = "Location List" })
+
+map('n', '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' })
 
 -- Diagnostic keymaps
 map('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })

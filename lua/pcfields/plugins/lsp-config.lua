@@ -2,8 +2,6 @@
 -- https://github.com/williamboman/mason-lspconfig.nvim
 -- https://github.com/hrsh7th/cmp-nvim-lsp
 
-require('neodev').setup()
-
 local mason_lspconfig = require 'mason-lspconfig'
 local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 local lspconfig = require 'lspconfig'
