@@ -17,12 +17,12 @@ mason_nvim_dap.setup {
 
     -- You'll need to check that you have the required things installed
     -- online, please don't ask me how to install them :)
-    ensure_installed = { 
+    ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'codelldb',
         'js',
-        'node2'
-    }
+        'node2',
+    },
 }
 
 -- Basic debugging keymaps, feel free to change to your liking!
@@ -33,7 +33,7 @@ vim.keymap.set('n', '<F3>', dap.step_out, { desc = '[Debugger] Step out' })
 vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = '[Debugger] Toggle breakpoint' })
 vim.keymap.set('n', '<leader>B', function()
     dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-end, {desc = '[Debugger] Set breakpoint condition'})
+end, { desc = '[Debugger] Set breakpoint condition' })
 
 -- Dap UI setup
 -- For more information, see |:help nvim-dap-ui|
@@ -44,7 +44,7 @@ dapui.setup {
     icons = {
         expanded = '▾',
         collapsed = '▸',
-        current_frame = '*'
+        current_frame = '*',
     },
     controls = {
         icons = {
@@ -56,14 +56,13 @@ dapui.setup {
             step_back = 'b',
             run_last = '▶▶',
             terminate = '⏹',
-            disconnect = "⏏"
-        }
-    }
+            disconnect = '⏏',
+        },
+    },
 }
 -- toggle to see last session result. Without this ,you can't see session output in case of unhandled exception.
-vim.keymap.set("n", "<F7>", dapui.toggle, { desc = '[Debugger] Toggle last session result' })
+vim.keymap.set('n', '<F7>', dapui.toggle, { desc = '[Debugger] Toggle last session result' })
 
 dap.listeners.after.event_initialized['dapui_config'] = dapui.open
 dap.listeners.before.event_terminated['dapui_config'] = dapui.close
 dap.listeners.before.event_exited['dapui_config'] = dapui.close
-

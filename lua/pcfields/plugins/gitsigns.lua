@@ -5,19 +5,19 @@ require('gitsigns').setup {
     -- See `:help gitsigns.txt`
     signs = {
         add = {
-            text = '+'
+            text = '+',
         },
         change = {
-            text = '~'
+            text = '~',
         },
         delete = {
-            text = '_'
+            text = '_',
         },
         topdelete = {
-            text = '‾'
+            text = '‾',
         },
         changedelete = {
-            text = '~'
-        }
-    }
+            text = '~',
+        },
+    },
 }
