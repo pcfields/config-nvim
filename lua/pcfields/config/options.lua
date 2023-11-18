@@ -60,11 +60,10 @@ opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 opt.backup = false
 opt.swapfile = false
-opt.foldmethod = 'expr' --
-opt.foldexpr = 'nvim_treesitter#foldexpr()'
 opt.foldcolumn = '1'
 opt.foldlevelstart = 99
-opt.foldenable = false -- Disable folding at startup.
+opt.foldlevel = 99
+opt.foldenable = true
 opt.iskeyword = opt.iskeyword + '-' -- this makes kebab-case one whole word when selecting a word.
 
 if vim.fn.has 'nvim-0.9.0' == 1 then

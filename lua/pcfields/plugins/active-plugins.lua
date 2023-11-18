@@ -31,5 +31,7 @@ require 'pcfields.plugins.toggleterm'
 require 'pcfields.plugins.treesitter'
 require 'pcfields.plugins.trouble'
 require 'pcfields.plugins.twilight'
+-- u
+require 'pcfields.plugins.ufo'
 -- w
 require 'pcfields.plugins.whick-key'
