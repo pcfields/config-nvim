@@ -74,16 +74,12 @@ map('n', '<C-Down>', '<cmd>resize -4<cr>', { desc = 'Decrease window height' })
 -- Vertical Width small adjustment
 map('n', '<C-Left>', '<cmd>vertical resize +4<cr>', { desc = 'Increase window width' })
 map('n', '<C-Right>', '<cmd>vertical resize -4<cr>', { desc = 'Decrease window width' })
--- Rename variable
-map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename variable' })
--- Code action
-map('n', '<leader>a', vim.lsp.buf.code_action, { desc = 'Code action' })
 
 --------------------------------------------------------------------------------------------
 -- Quit All
 map('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit all' })
 -- Quit
-map('n', '<leader>q', '<cmd>q<cr>', { desc = 'Quit' })
+map('n', '<leader>qw', '<cmd>q<cr>', { desc = 'Quit' })
 -- Exit insert mode
 map('i', 'jj', '<esc>', { desc = 'Exit insert mode' })
 
@@ -137,16 +133,23 @@ map('n', '<leader>og', '<cmd>:LazyGit<cr>', { desc = 'Open LazyGit' })
 map('n', '<leader>oq', '<cmd>copen<cr>', { desc = 'Quickfix List' })
 -- Open Terminal
 map('n', '<leader>ot', '<cmd>:ToggleTerm<cr>', { desc = 'Open ToggleTerm' })
--- Display location list
--- map("n", "<leader>oll", "<cmd>lopen<cr>", { desc = "Location List" })
-
-map('n', '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' })
 
 -- Diagnostic keymaps
 map('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })
 map('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to next [d]iagnostic message' })
 map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+--- Code changes
+-- Rename variable
+map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename variable' })
+-- Code action
+map('n', '<leader>ka', vim.lsp.buf.code_action, { desc = 'Code action' })
+-- Twilight highlights current block and dims other code
+map('n', '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' })
+
+-- Code folding
+map('n', '<leader>kf', 'za', { desc = 'Code folding' })
 
 -- Testing
 map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = 'Run nearest test' })
