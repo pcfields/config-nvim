@@ -34,8 +34,8 @@ map('n', '<leader>ff', '<cmd>Format<cr>', { desc = 'File format' })
 -- File explorer
 map('n', '<leader>fe', '<cmd>:Neotree toggle<cr>', { desc = 'File explorer' })
 map('n', '<leader>fg', '<cmd>:Neotree git_status<cr>', { desc = 'File git status' })
-map('n', '<leader>fd', '<cmd>:bd<cr>', { desc = 'Close buffer' })
-
+map('n', '<leader>fd', '<cmd>:bd<cr>', { desc = 'File Close buffer' })
+map("n", "<C-a>", "gg<S-v>G", { desc = "Select all text in buffer" })
 -- buffers
 map('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map('n', '<S-Tab>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
