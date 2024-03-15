@@ -2,6 +2,7 @@
 
 Inspired by:
 
+- https://github.com/2kabhishek/nvim2k
 - https://www.jakewiesler.com/blog
 - https://github.com/vuki656/nvim-config
 - https://github.com/LunarVim/nvim-basic-ide
