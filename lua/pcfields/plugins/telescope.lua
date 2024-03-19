@@ -7,6 +7,7 @@ local map = require('pcfields.utils').map
 
 require('telescope').setup {
     defaults = {
+        path_display = { 'truncate', { len = 5 } },
         mappings = {
             i = {
                 ['<C-u>'] = false,
@@ -15,12 +16,34 @@ require('telescope').setup {
         },
         layout_strategy = 'horizontal',
         layout_config = {
+            bottom_pane = {
+                height = 25,
+                preview_cutoff = 120,
+                prompt_position = "top"
+            },
+            center = {
+                height = 0.5,
+                preview_cutoff = 40,
+                prompt_position = "top",
+                width = 0.5
+            },
+            cursor = {
+                height = 0.9,
+                preview_cutoff = 40,
+                width = 0.8
+            },
             horizontal = {
                 height = 0.9,
                 preview_cutoff = 120,
-                prompt_position = 'bottom',
-                width = 0.9,
+                prompt_position = "bottom",
+                width = 0.8
             },
+            vertical = {
+                height = 0.9,
+                preview_cutoff = 40,
+                prompt_position = "bottom",
+                width = 0.8
+            }
         },
     },
 }
