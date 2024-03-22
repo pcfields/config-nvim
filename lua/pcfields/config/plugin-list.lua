@@ -6,6 +6,12 @@ local function tabnine_build_path()
     end
 end
 
+local function load_config(package)
+    return function()
+        require('plugins.' .. package)
+    end
+end
+
 local plugins = {
     -- Colorschemes ----------------------------------------------------------------------------------------
     {
