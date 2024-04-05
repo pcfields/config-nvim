@@ -2,13 +2,15 @@
 
 Inspired by:
 
+- https://github.com/nvim-lua/kickstart.nvim
 - https://github.com/2kabhishek/nvim2k
-- https://www.jakewiesler.com/blog
+- https://github.com/josean-dev/dev-environment-files/blob/main/.config/nvim
 - https://github.com/vuki656/nvim-config
 - https://github.com/LunarVim/nvim-basic-ide
 - https://github.com/LunarVim/Neovim-from-scratch
 - https://github.com/Allaman/nvim/
-- https://github.com/nvim-lua/kickstart.nvim
+- https://www.jakewiesler.com/blog
+
 
 ## Videos with good instructions
 
