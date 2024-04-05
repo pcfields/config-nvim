@@ -8,49 +8,129 @@ end
 
 local function load_config(package)
     return function()
-        require('pcfields/plugins.' .. package)
+        require('pcfields/' .. package)
     end
 end
 
 local plugins = {
-    -- Colorschemes ----------------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------------------------------
+    -- Colorschemes
+    ----------------------------------------------------------------------------------------
     {
         'navarasu/onedark.nvim', -- https://github.com/navarasu/onedark.nvim
-        lazy = false,            -- make sure we load this during startup if it is your main colorscheme
-        priority = 1000,         -- make sure to load this before all the other start plugins
-    },
-    {
-        'Mofiqul/vscode.nvim', -- https://github.com/Mofiqul/vscode.nvim
-    },
-    {
-        'marko-cerovac/material.nvim', -- https://github.com/marko-cerovac/material.nvim
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = load_config 'plugins.colorscheme',
     },
     --------------------------------------------------------------------------------------------------------
     -- Git related plugins
+    ----------------------------------------------------------------------------------------
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
-    'lewis6991/gitsigns.nvim',
     'kdheepak/lazygit.nvim',
-    -------------------------------------------------------------------------------------------------------
-    -- Detect tabstop and shiftwidth automatically
-    'tpope/vim-sleuth',
-    'windwp/nvim-autopairs',
-    -------------------------------------------------------------------------------------------------------
-    'm4xshen/autoclose.nvim', -- https://github.com/m4xshen/autoclose.nvim
-    'numToStr/Comment.nvim',  -- https://github.com/numToStr/Comment.nvim
-    'lukas-reineke/indent-blankline.nvim',
-    'nvim-lualine/lualine.nvim',
-    'jose-elias-alvarez/null-ls.nvim',
-    'folke/twilight.nvim',
-    'folke/which-key.nvim',
-    'nvim-tree/nvim-web-devicons',
-    'nvim-lua/plenary.nvim',
     {
-        'folke/trouble.nvim', -- https://github.com/folke/trouble.nvim
+        'lewis6991/gitsigns.nvim',
+        config = load_config 'plugins.gitsigns',
+    },
+    --------------------------------------------------------------------------------------------------------
+    -- Code related
+    ----------------------------------------------------------------------------------------
+    'tpope/vim-sleuth',
+    {
+        'windwp/nvim-autopairs',
+        config = load_config 'plugins.autopairs',
+        event = 'InsertEnter',
+    },
+    {
+        'numToStr/Comment.nvim',
+        config = load_config 'plugins.comment',
+        lazy = false,
+    },
+    {
+        'lukas-reineke/indent-blankline.nvim',
+        config = load_config 'plugins.indent-blankline',
+        main = 'ibl',
+    },
+    {
+        'folke/twilight.nvim',
+        config = load_config 'plugins.twilight',
+    },
+    { -- Highlight, edit, and navigate code
+        'nvim-treesitter/nvim-treesitter',
+        config = load_config 'plugins.treesitter',
+        event = 'BufRead',
+        dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+        build = ':TSUpdate',
+    },
+    { -- Autocompletion
+        'hrsh7th/nvim-cmp',
+        config = load_config 'plugins.cmp',
+        dependencies = {
+            'hrsh7th/cmp-nvim-lsp',
+            'saadparwaiz1/cmp_luasnip', -- source for autocompletion
+            'L3MON4D3/LuaSnip',
+            'hrsh7th/cmp-buffer', -- source for text in buffer
+            'hrsh7th/cmp-path', -- source for file system paths
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/nvim-cmp',
+            'rafamadriz/friendly-snippets', -- useful snippets
+        },
+    },
+    { -- LSP Configuration & Plugins
+        'neovim/nvim-lspconfig',
+        config = load_config 'plugins.lsp-config',
+        dependencies = {
+            {
+                'williamboman/mason.nvim',
+                config = true,
+            },
+            { 'williamboman/mason-lspconfig.nvim' },
+            {
+                'j-hui/fidget.nvim',
+                tag = 'legacy',
+                opts = {},
+            }, -- Useful status updates for LSP
+            { 'folke/neodev.nvim' }, -- Additional lua configuration, makes nvim stuff amazing!
+        },
+    },
+    {
+        'codota/tabnine-nvim',
+        config = load_config 'plugins.tabnine',
+        build = tabnine_build_path(),
+    },
+    { -- Jest Tests
+        'David-Kunz/jester',
+    },
+    {
+        'jose-elias-alvarez/null-ls.nvim',
+        config = load_config 'plugins.null-ls',
+    },
+    --------------------------------------------------------------------------------------------------------
+    -- UI related
+    ----------------------------------------------------------------------------------------
+    {
+        'nvim-lualine/lualine.nvim',
+        config = load_config 'plugins.lualine',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+    },
+    {
+        'folke/which-key.nvim',
+        config = load_config 'plugins.which-key',
+        event = 'VeryLazy',
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+    },
+    { -- Diagnostics
+        'folke/trouble.nvim',
+        config = load_config 'plugins.trouble',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
     {
         'nvim-telescope/telescope.nvim',
+        config = load_config 'plugins.telescope',
+        tag = '0.1.6',
         version = '*',
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
@@ -63,91 +143,70 @@ local plugins = {
             return vim.fn.executable 'make' == 1
         end,
     },
-    { -- Terminal
-        'akinsho/toggleterm.nvim',
-        version = '*',
-    },
-    { -- Highlight, edit, and navigate code
-        'nvim-treesitter/nvim-treesitter',
-        dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-        build = ':TSUpdate',
-    },
-    { -- File explore
+    { -- File explorer
         'nvim-neo-tree/neo-tree.nvim',
-        version = '*',
+        config = load_config 'plugins.neo-tree',
+        branch = 'v3.x',
         dependencies = {
             'nvim-lua/plenary.nvim',
             'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
             'MunifTanjim/nui.nvim',
+            -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
     },
     {
         'akinsho/bufferline.nvim',
+        config = load_config 'plugins.bufferline',
+        event = 'BufRead',
         version = '*',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
-    { -- Autocompletion
-        'hrsh7th/nvim-cmp',
-        dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
-            'saadparwaiz1/cmp_luasnip', -- source for autocompletion
-            'L3MON4D3/LuaSnip',
-            'hrsh7th/cmp-buffer',       -- source for text in buffer
-            'hrsh7th/cmp-path',         -- source for file system paths
-            'hrsh7th/cmp-cmdline',
-            'hrsh7th/nvim-cmp',
-            'rafamadriz/friendly-snippets', -- useful snippets
-        },
-    },
-    { -- LSP Configuration & Plugins
-        'neovim/nvim-lspconfig',
-        dependencies = {
-            {
-                'williamboman/mason.nvim',
-                config = true,
-            },
-            { 'williamboman/mason-lspconfig.nvim' },
-            {
-                'j-hui/fidget.nvim',
-                tag = 'legacy',
-                opts = {},
-            },                       -- Useful status updates for LSP
-            { 'folke/neodev.nvim' }, -- Additional lua configuration, makes nvim stuff amazing!
-        },
-    },
-    {
-        'mfussenegger/nvim-dap',
-        dependencies = {                    -- Creates a beautiful debugger UI
-            'rcarriga/nvim-dap-ui',         -- Installs the debug adapters for you
-            'williamboman/mason.nvim',
-            'jay-babu/mason-nvim-dap.nvim', -- Add your own debuggers here
-            -- 'leoluz/nvim-dap-go',
-        },
-    },
-    {
-        'codota/tabnine-nvim',
-        build = tabnine_build_path(),
-    },
-    { 'David-Kunz/jester' }, -- https://github.com/David-Kunz/jester
     {
         'stevearc/dressing.nvim',
-        opts = {},
+        config = load_config 'plugins.dressing',
     },
-    { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async' },
     {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        opts = {},
-        config = load_config('noice'),
+        'kevinhwang91/nvim-ufo',
+        config = load_config 'plugins.ufo',
+        dependencies = { 'kevinhwang91/promise-async' },
+    },
+    {
+        'folke/noice.nvim',
+        config = load_config 'plugins.noice',
+        event = 'VeryLazy',
         dependencies = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "MunifTanjim/nui.nvim",
+            'MunifTanjim/nui.nvim',
             -- OPTIONAL:
             --   `nvim-notify` is only needed, if you want to use the notification view.
             --   If not available, we use `mini` as the fallback
-            "rcarriga/nvim-notify",
-        }
-    }
+            'rcarriga/nvim-notify',
+        },
+    },
+    { -- Terminal
+        'akinsho/toggleterm.nvim',
+        config = load_config 'plugins.toggleterm',
+        version = '*',
+    },
+    -- {                                       -- Debugger
+    --     'mfussenegger/nvim-dap',
+    --     dependencies = {                    -- Creates a beautiful debugger UI
+    --         'rcarriga/nvim-dap-ui',         -- Installs the debug adapters for you
+    --         'williamboman/mason.nvim',
+    --         'jay-babu/mason-nvim-dap.nvim', -- Add your own debuggers here
+    --         -- 'leoluz/nvim-dap-go',
+    --     },
+    --     config = load_config('plugins.dap'),
+    -- },
+    --------------------------------------------------------------------------------------------------------
+    -- Misc or Universal Plugins
+    ----------------------------------------------------------------------------------------
+    {
+        'nvim-lua/plenary.nvim',
+    },
+    {
+        'nvim-tree/nvim-web-devicons',
+    },
 }
 
 return {

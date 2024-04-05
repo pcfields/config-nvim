@@ -7,6 +7,11 @@ local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 local lspconfig = require 'lspconfig'
 local telescope_builtin = require 'telescope.builtin'
 
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+-- https://github.com/folke/neodev.nvim
+-- Automatically configures lua-language-server for your Neovim config, Neovim runtime and plugin directories
+require('neodev').setup {}
+
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)

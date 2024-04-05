@@ -60,6 +60,7 @@ dapui.setup {
         },
     },
 }
+
 -- toggle to see last session result. Without this ,you can't see session output in case of unhandled exception.
 vim.keymap.set('n', '<F7>', dapui.toggle, { desc = '[Debugger] Toggle last session result' })
 
