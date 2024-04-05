@@ -35,23 +35,26 @@ local plugins = {
     --------------------------------------------------------------------------------------------------------
     -- Code related
     ----------------------------------------------------------------------------------------
-    'tpope/vim-sleuth',
+    'tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
     {
         'windwp/nvim-autopairs',
         config = load_config 'plugins.autopairs',
         event = 'InsertEnter',
     },
-    {
+    { -- Commenting
         'numToStr/Comment.nvim',
         config = load_config 'plugins.comment',
         lazy = false,
+        dependencies = {
+            'JoosepAlviste/nvim-ts-context-commentstring',
+        },
     },
-    {
+    { -- adds indentation guides to Neovim
         'lukas-reineke/indent-blankline.nvim',
         config = load_config 'plugins.indent-blankline',
         main = 'ibl',
     },
-    {
+    { -- dims inactive portions of the code you're editing.
         'folke/twilight.nvim',
         config = load_config 'plugins.twilight',
     },
@@ -59,7 +62,11 @@ local plugins = {
         'nvim-treesitter/nvim-treesitter',
         config = load_config 'plugins.treesitter',
         event = 'BufRead',
-        dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+            'mfussenegger/nvim-ts-hint-textobject',
+            'windwp/nvim-ts-autotag',
+        },
         build = ':TSUpdate',
     },
     { -- Autocompletion
@@ -101,9 +108,21 @@ local plugins = {
     { -- Jest Tests
         'David-Kunz/jester',
     },
-    {
-        'jose-elias-alvarez/null-ls.nvim',
-        config = load_config 'plugins.null-ls',
+    { -- Code formatting
+        'stevearc/conform.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
+        config = load_config 'plugins.conform',
+    },
+    { -- Code linting
+        'mfussenegger/nvim-lint',
+        event = { 'BufReadPre', 'BufNewFile' },
+        config = load_config 'plugins.lint',
+    },
+    { -- Add colors to TODO comment
+        'folke/todo-comments.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+        },
     },
     --------------------------------------------------------------------------------------------------------
     -- UI related
@@ -113,7 +132,7 @@ local plugins = {
         config = load_config 'plugins.lualine',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
-    {
+    { -- Display keybinding information
         'folke/which-key.nvim',
         config = load_config 'plugins.which-key',
         event = 'VeryLazy',
@@ -127,7 +146,7 @@ local plugins = {
         config = load_config 'plugins.trouble',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
-    {
+    { -- Search
         'nvim-telescope/telescope.nvim',
         config = load_config 'plugins.telescope',
         tag = '0.1.6',
@@ -154,14 +173,14 @@ local plugins = {
             -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
     },
-    {
+    { -- Buffer tabs
         'akinsho/bufferline.nvim',
         config = load_config 'plugins.bufferline',
         event = 'BufRead',
         version = '*',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
-    {
+    { --
         'stevearc/dressing.nvim',
         config = load_config 'plugins.dressing',
     },
