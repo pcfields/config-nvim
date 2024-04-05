@@ -34,7 +34,7 @@ map('n', '<leader>ff', '<cmd>Format<cr>', { desc = 'File format' })
 -- File explorer
 map('n', '<leader>fe', '<cmd>:Neotree toggle<cr>', { desc = 'File explorer' })
 map('n', '<leader>fg', '<cmd>:Neotree git_status<cr>', { desc = 'File git status' })
-map('n', '<leader>fd', '<cmd>:bd<cr>', { desc = 'File Close buffer' })
+map('n', '<leader>fx', '<cmd>:bd<cr>', { desc = 'File Close buffer' })
 map("n", "<C-a>", "gg<S-v>G", { desc = "Select all text in buffer" })
 -- buffers
 map('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
@@ -55,7 +55,7 @@ map('n', '<leader>0', '<cmd>BufferLineGoToBuffer -1<cr>', { desc = 'Go to last b
 
 -- windows
 map('n', '<leader>ww', '<C-w>p', { desc = 'Other window' })
-map('n', '<leader>wd', '<C-w>c', { desc = 'Delete window' })
+map('n', '<leader>wx', '<C-w>c', { desc = 'Delete window' })
 map('n', '<leader>wn', '<C-w>n', { desc = 'Create new window' })
 -- Move to window using the <ctrl> hjkl keys
 map('n', '<leader>wh', '<C-w>h', { desc = 'Go to left window' })
@@ -69,23 +69,25 @@ map('n', '<leader>wr', '<C-w>v', { desc = 'Split window right' })
 map('n', '<leader>w2', '<C-w>=', { desc = 'Resize windows to be 50|50' })
 -- Resize window using <ctrl> arrow keys --------------------------------------------------------------------------------------------
 -- Height
-map('n', '<C-Up>', '<cmd>resize +4<cr>', { desc = 'Increase window height' })
-map('n', '<C-Down>', '<cmd>resize -4<cr>', { desc = 'Decrease window height' })
+map('n', '<C-Up>', '<cmd>resize -4<cr>', { desc = 'Increase window height' })
+map('n', '<C-Down>', '<cmd>resize +4<cr>', { desc = 'Decrease window height' })
 -- Vertical Width small adjustment
-map('n', '<C-Left>', '<cmd>vertical resize +4<cr>', { desc = 'Increase window width' })
-map('n', '<C-Right>', '<cmd>vertical resize -4<cr>', { desc = 'Decrease window width' })
+map('n', '<C-Left>', '<cmd>vertical resize -4<cr>', { desc = 'Increase window width' })
+map('n', '<C-Right>', '<cmd>vertical resize +4<cr>', { desc = 'Decrease window width' })
 
 --------------------------------------------------------------------------------------------
 -- Quit All
 map('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit all' })
 -- Quit
-map('n', '<leader>qw', '<cmd>q<cr>', { desc = 'Quit' })
+map('n', '<leader>qx', '<cmd>q<cr>', { desc = 'Quit' })
 -- Exit insert mode
 map('i', 'jj', '<esc>', { desc = 'Exit insert mode' })
+map('i', 'jk', '<esc>', { desc = 'Exit insert mode' })
 
 -- Line movement - left, right
 map({ 'n', 'v' }, 'mh', '^', { desc = 'Go to beginning of line' })
 map({ 'n', 'v' }, 'ml', '$', { desc = 'Go to end of line' })
+
 -- Line movement - top, bottom
 map({ 'n', 'v' }, 'mk', 'gg', { desc = 'Go to top of file' })
 map({ 'n', 'v' }, 'mj', '<S-g>', { desc = 'Go to bottom of file' })
@@ -95,6 +97,7 @@ map({ 'n', 'v' }, 'mj', '<S-g>', { desc = 'Go to bottom of file' })
 map('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = 'Move down' })
 map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move down' })
 map('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
+
 -- Move up
 map('n', '<A-k>', '<cmd>m .-2<cr>==', { desc = 'Move up' })
 map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move up' })
@@ -125,8 +128,6 @@ vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
 -----------------------------------------------------------------------------------------
 -- Open Diagnostics window
 map('n', '<leader>od', '<cmd>TroubleToggle<cr>', { desc = 'Open diagnostics' })
---- Open Plugin Manager
-map('n', '<leader>op', '<cmd>:Lazy<cr>', { desc = 'Open Lazy plugin manager' })
 -- Open Lazygit
 map('n', '<leader>og', '<cmd>:LazyGit<cr>', { desc = 'Open LazyGit' })
 -- Display quickfix list
