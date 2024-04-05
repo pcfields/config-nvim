@@ -12,9 +12,8 @@ if not status_ok then
     return
 end
 
-
 require('onedark').setup {
-    style = 'light', -- Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+    style = 'darker', -- Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
 }
 
 require('onedark').load()

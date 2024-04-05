@@ -5,6 +5,10 @@ local opt = vim.opt
 vim.wo.number = true -- Make line numbers default
 opt.hlsearch = false -- Set highlight on search
 
+-- Disable native file tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Sync clipboard between OS and Neovim.
 --  See `:help 'clipboard'`
 opt.clipboard = 'unnamedplus' --  Remove this option if you want your OS clipboard to remain independent.
