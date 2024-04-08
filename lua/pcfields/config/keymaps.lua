@@ -19,7 +19,7 @@ map({ 'i', 'n', 'v' }, '<C-e>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear 
 
 -- Clear search, diff update and redraw
 map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
-    { desc = 'Redraw / clear hlsearch / diff update' })
+  { desc = 'Redraw / clear hlsearch / diff update' })
 
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 
@@ -106,19 +106,19 @@ map('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
 
 -- highlights under cursor
 if vim.fn.has 'nvim-0.9.0' == 1 then
-    map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
+  map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
 end
 
 -- terminal
 function _G.set_terminal_keymaps()
-    local opts = { buffer = 0 }
-    vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-    vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-    vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-    vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-    vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-    vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-    vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+  local opts = { buffer = 0 }
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
@@ -154,7 +154,7 @@ map('n', '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' })
 map('n', '<leader>kf', 'za', { desc = 'Code folding' })
 
 -- Testing
-map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = 'Run nearest test' })
+-- map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = 'Run nearest test' })
 
 --Todo comments in telescope
 map('n', '<leader>st', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
