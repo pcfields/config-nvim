@@ -18,8 +18,8 @@ local plugins = {
     ----------------------------------------------------------------------------------------
     {
         'navarasu/onedark.nvim', -- https://github.com/navarasu/onedark.nvim
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
-        priority = 1000, -- make sure to load this before all the other start plugins
+        lazy = false,            -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000,         -- make sure to load this before all the other start plugins
         config = load_config 'plugins.colorscheme',
     },
     --------------------------------------------------------------------------------------------------------
@@ -76,8 +76,8 @@ local plugins = {
             'hrsh7th/cmp-nvim-lsp',
             'saadparwaiz1/cmp_luasnip', -- source for autocompletion
             'L3MON4D3/LuaSnip',
-            'hrsh7th/cmp-buffer', -- source for text in buffer
-            'hrsh7th/cmp-path', -- source for file system paths
+            'hrsh7th/cmp-buffer',       -- source for text in buffer
+            'hrsh7th/cmp-path',         -- source for file system paths
             'hrsh7th/cmp-cmdline',
             'hrsh7th/nvim-cmp',
             'rafamadriz/friendly-snippets', -- useful snippets
@@ -96,13 +96,14 @@ local plugins = {
                 'j-hui/fidget.nvim',
                 tag = 'legacy',
                 opts = {},
-            }, -- Useful status updates for LSP
+            },                       -- Useful status updates for LSP
             { 'folke/neodev.nvim' }, -- Additional lua configuration, makes nvim stuff amazing!
         },
     },
     {
         'codota/tabnine-nvim',
         config = load_config 'plugins.tabnine',
+        lazy = true,
         build = tabnine_build_path(),
     },
     { -- Jest Tests
@@ -123,6 +124,7 @@ local plugins = {
         dependencies = {
             'nvim-lua/plenary.nvim',
         },
+        config = load_config 'plugins.todo-comments'
     },
     --------------------------------------------------------------------------------------------------------
     -- UI related

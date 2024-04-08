@@ -18,7 +18,8 @@ map({ 'i', 'n', 'v' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear 
 map({ 'i', 'n', 'v' }, '<C-e>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
 -- Clear search, diff update and redraw
-map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / clear hlsearch / diff update' })
+map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
+    { desc = 'Redraw / clear hlsearch / diff update' })
 
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 
@@ -154,3 +155,6 @@ map('n', '<leader>kf', 'za', { desc = 'Code folding' })
 
 -- Testing
 map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = 'Run nearest test' })
+
+--Todo comments in telescope
+map('n', '<leader>st', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
