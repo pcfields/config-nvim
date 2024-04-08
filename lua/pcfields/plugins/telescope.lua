@@ -73,9 +73,9 @@ map('n', '<leader>sh', builtin.help_tags, { desc = 'Search Help' })
 -- Diagnostics
 map('n', '<leader>sd', builtin.diagnostics, { desc = 'Search Diagnostics' })
 -- Git
-map('n', '<leader>sgf', builtin.git_files, { desc = 'Searh Git Files' })
-map('n', '<leader>sgs', builtin.git_status, { desc = 'Search Git Satus' })
-map('n', '<leader>sgb', builtin.git_branches, { desc = 'Search Git Branches' })
+map('n', '<leader>gf', builtin.git_files, { desc = 'Searh Git Files' })
+map('n', '<leader>gs', builtin.git_status, { desc = 'Search Git Satus' })
+map('n', '<leader>gb', builtin.git_branches, { desc = 'Search Git Branches' })
 
 -- Fuzzy Finder Algorithm which requires local dependencies to be built.
 -- Only load if `make` is available. Make sure you have the system
