@@ -65,7 +65,7 @@ map('n', '<leader>sr', builtin.oldfiles, { desc = 'Search recently opened files'
 map('n', '<leader>sf', builtin.find_files, { desc = 'Search Files' })
 map('n', '<leader>si', telescope_themes_dropdown, { desc = 'Fuzzily Search In current buffer' })
 -- Jumplist
-map('n', '<leader>sjl', builtin.jumplist, { desc = 'Search Jump List' })
+map('n', '<leader>sj', builtin.jumplist, { desc = 'Search Jump List' })
 -- Text
 map('n', '<leader>sw', builtin.grep_string, { desc = 'Search current Word' })
 map('n', '<leader>se', builtin.live_grep, { desc = 'Search everywhere by text using Grep' })
