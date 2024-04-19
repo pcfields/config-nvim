@@ -37,6 +37,8 @@ map('n', '<leader>fe', '<cmd>:Neotree toggle<cr>', { desc = 'File explorer' })
 map('n', '<leader>fg', '<cmd>:Neotree git_status<cr>', { desc = 'File git status' })
 map('n', '<leader>fx', '<cmd>:bd<cr>', { desc = 'File Close buffer' })
 map("n", "<C-a>", "gg<S-v>G", { desc = "Select all text in buffer" })
+
+
 -- buffers
 map('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map('n', '<S-Tab>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
@@ -53,6 +55,10 @@ map('n', '<leader>7', '<cmd>BufferLineGoToBuffer 7<cr>', { desc = 'Go to buffer 
 map('n', '<leader>8', '<cmd>BufferLineGoToBuffer 8<cr>', { desc = 'Go to buffer 8' })
 map('n', '<leader>9', '<cmd>BufferLineGoToBuffer 9<cr>', { desc = 'Go to buffer 9' })
 map('n', '<leader>0', '<cmd>BufferLineGoToBuffer -1<cr>', { desc = 'Go to last buffer' })
+
+map('n', '<leader>br', '<cmd>BufferLineCloseRight<cr>', { desc = 'Close all buffers to the RIGHT' })
+map('n', '<leader>bl', '<cmd>BufferLineCloseLeft<cr>', { desc = 'Close all buffer to the LEFT' })
+map('n', '<leader>bo', '<cmd>BufferLineCloseOthers<cr>', { desc = 'Close all other buffers' })
 
 -- windows
 map('n', '<leader>ww', '<C-w>p', { desc = 'Other window' })
