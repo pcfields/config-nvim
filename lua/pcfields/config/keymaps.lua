@@ -21,27 +21,39 @@ map({ 'i', 'n', 'v' }, '<C-e>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear 
 map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
   { desc = 'Redraw / clear hlsearch / diff update' })
 
+-- Search word under cursor
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 
 --------------------------------------------------------------------------------------------
 -- Files + Buffers -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
+
 -- Save file
 map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'Save file' })
+
 -- New file
 map('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'File new ' })
+
 -- Format file
 map('n', '<leader>ff', '<cmd>Format<cr>', { desc = 'File format' })
+
 -- File explorer
 map('n', '<leader>fe', '<cmd>:Neotree toggle<cr>', { desc = 'File explorer' })
+
+-- File Explorer git status
 map('n', '<leader>fg', '<cmd>:Neotree git_status<cr>', { desc = 'File git status' })
+
+-- Close buffer
 map('n', '<leader>fx', '<cmd>:bd<cr>', { desc = 'File Close buffer' })
+
+-- Select all text in buffer
 map("n", "<C-a>", "gg<S-v>G", { desc = "Select all text in buffer" })
 
+-- Next buffer
+map('n', '<A-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 
--- buffers
-map('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
-map('n', '<S-Tab>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
+-- Previous buffer
+map('n', '<A-h>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
 
 -- Bufferline buffers
 map('n', '<leader>sb', '<cmd>:BufferLinePick<cr>', { desc = 'Select a buffer with letter' })
@@ -56,28 +68,38 @@ map('n', '<leader>8', '<cmd>BufferLineGoToBuffer 8<cr>', { desc = 'Go to buffer 
 map('n', '<leader>9', '<cmd>BufferLineGoToBuffer 9<cr>', { desc = 'Go to buffer 9' })
 map('n', '<leader>0', '<cmd>BufferLineGoToBuffer -1<cr>', { desc = 'Go to last buffer' })
 
-map('n', '<leader>br', '<cmd>BufferLineCloseRight<cr>', { desc = 'Close all buffers to the RIGHT' })
-map('n', '<leader>bl', '<cmd>BufferLineCloseLeft<cr>', { desc = 'Close all buffer to the LEFT' })
+-- Close all buffers to the RIGHT
+map('n', '<leader>bl', '<cmd>BufferLineCloseRight<cr>', { desc = 'Close all buffers to the RIGHT' })
+
+-- Close all buffer to the LEFT
+map('n', '<leader>bh', '<cmd>BufferLineCloseLeft<cr>', { desc = 'Close all buffer to the LEFT' })
+
+-- Close all other buffers
 map('n', '<leader>bo', '<cmd>BufferLineCloseOthers<cr>', { desc = 'Close all other buffers' })
 
 -- windows
 map('n', '<leader>ww', '<C-w>p', { desc = 'Other window' })
 map('n', '<leader>wx', '<C-w>c', { desc = 'Delete window' })
 map('n', '<leader>wn', '<C-w>n', { desc = 'Create new window' })
+
 -- Move to window using the <ctrl> hjkl keys
 map('n', '<leader>wh', '<C-w>h', { desc = 'Go to left window' })
 map('n', '<leader>wj', '<C-w>j', { desc = 'Go to lower window' })
 map('n', '<leader>wk', '<C-w>k', { desc = 'Go to upper window' })
 map('n', '<leader>wl', '<C-w>l', { desc = 'Go to right window' })
+
 -- Split windows
 map('n', '<leader>wb', '<C-w>s', { desc = 'Split window below' })
 map('n', '<leader>wr', '<C-w>v', { desc = 'Split window right' })
--- Resize windows
+
+-- Resize windows 50/50
 map('n', '<leader>w2', '<C-w>=', { desc = 'Resize windows to be 50|50' })
+
 -- Resize window using <ctrl> arrow keys --------------------------------------------------------------------------------------------
 -- Height
 map('n', '<C-Up>', '<cmd>resize -4<cr>', { desc = 'Increase window height' })
 map('n', '<C-Down>', '<cmd>resize +4<cr>', { desc = 'Decrease window height' })
+
 -- Vertical Width small adjustment
 map('n', '<C-Left>', '<cmd>vertical resize -4<cr>', { desc = 'Increase window width' })
 map('n', '<C-Right>', '<cmd>vertical resize +4<cr>', { desc = 'Decrease window width' })
@@ -85,8 +107,10 @@ map('n', '<C-Right>', '<cmd>vertical resize +4<cr>', { desc = 'Decrease window w
 --------------------------------------------------------------------------------------------
 -- Quit All
 map('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit all' })
+
 -- Quit
 map('n', '<leader>qx', '<cmd>q<cr>', { desc = 'Quit' })
+
 -- Exit insert mode
 map('i', 'jj', '<esc>', { desc = 'Exit insert mode' })
 map('i', 'jk', '<esc>', { desc = 'Exit insert mode' })
@@ -151,16 +175,18 @@ map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics lis
 --- Code changes
 -- Rename variable
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename variable' })
+
 -- Code action
 map('n', '<leader>ka', vim.lsp.buf.code_action, { desc = 'Code action' })
+
 -- Twilight highlights current block and dims other code
 map('n', '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' })
 
 -- Code folding
 map('n', '<leader>kf', 'za', { desc = 'Code folding' })
 
--- Testing
--- map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = 'Run nearest test' })
-
 --Todo comments in telescope
 map('n', '<leader>st', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
+
+-- Testing
+-- map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = 'Run nearest test' })
