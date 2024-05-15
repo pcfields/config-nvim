@@ -4,7 +4,7 @@
 
 local map = require('pcfields.utils').map
 
-local gitsigns = require('gitsigns')
+local gitsigns = require 'gitsigns'
 
 gitsigns.setup {
     signs = {
@@ -27,7 +27,9 @@ gitsigns.setup {
     on_attach = function()
         -- Actions
         map('n', '<leader>gd', gitsigns.diffthis)
-        map('n', '<leader>gb', function() gitsigns.blame_line { full = true } end)
-        map('n', '<leader>gbl', gitsigns.toggle_current_line_blame)
-    end
+        map('n', '<leader>gl', function()
+            gitsigns.blame_line { full = true }
+        end)
+        map('n', '<leader>gtb', gitsigns.toggle_current_line_blame)
+    end,
 }

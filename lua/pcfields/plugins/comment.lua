@@ -6,22 +6,22 @@ require('Comment').setup {
     -- for commenting tsx, jsx, svelte, html files
     pre_hook = ts_context_commentstring.create_pre_hook(),
     padding = true, ---Add a space b/w comment and the line
-    sticky = true,  ---Whether the cursor should stay at its position
+    sticky = true, ---Whether the cursor should stay at its position
     ---LHS of toggle mappings in NORMAL mode
     toggler = {
-        line = '<leader>kk',  ---Line-comment toggle keymap
+        line = '<leader>kk', ---Line-comment toggle keymap
         block = '<leader>kb', ---Block-comment toggle keymap
     },
     ---LHS of operator-pending mappings in NORMAL and VISUAL mode
     opleader = {
-        line = '<leader>kk',  ---Line-comment keymap
+        line = '<leader>kk', ---Line-comment keymap
         block = '<leader>kb', ---Block-comment keymap
     },
     ---LHS of extra mappings
     extra = {
-        above = '<leader>ccO', ---Add comment on the line above
-        below = '<leader>cco', ---Add comment on the line below
-        eol = '<leader>ccA',   ---Add comment at the end of line
+        above = '<leader>kkO', ---Add comment on the line above
+        below = '<leader>kko', ---Add comment on the line below
+        eol = '<leader>kkA', ---Add comment at the end of line
     },
     ---Enable keybindings
     ---NOTE: If given `false` then the plugin won't create any mappings
