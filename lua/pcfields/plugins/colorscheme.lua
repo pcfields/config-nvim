@@ -10,14 +10,14 @@
 -- options >>  rose-pine-main | rose-pine-moon
 --------------------------------------------------------------
 
--- require('rose-pine').setup {
---     styles = {
---         bold = true,
---         italic = false,
---         transparency = false,
---     },
--- }
--- local colorscheme = 'rose-pine-moon'
+require('rose-pine').setup {
+    styles = {
+        bold = true,
+        italic = false,
+        transparency = false,
+    },
+}
+local colorscheme = 'rose-pine-moon'
 -- ====================================================================
 
 --------------------------------------------------------------
@@ -26,7 +26,7 @@
 -- options >>  nightfox | carbonfox | duskfox
 --------------------------------------------------------------
 -- require('nightfox').setup {}
-local colorscheme = 'nightfox'
+-- local colorscheme = 'nightfox'
 -- ====================================================================
 
 --------------------------------------------------------------
