@@ -18,14 +18,14 @@ local plugins = {
     ----------------------------------------------------------------------------------------
     {
         'EdenEast/nightfox.nvim',
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        lazy = false,    -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = load_config 'plugins.colorscheme',
     },
-    { 'rebelot/kanagawa.nvim', event = 'VeryLazy', lazy = true },
-    { 'catppuccin/nvim', name = 'catppuccin', event = 'VeryLazy', lazy = true },
-    { 'rose-pine/neovim', name = 'rose-pine', event = 'VeryLazy', lazy = true },
-    { 'navarasu/onedark.nvim', event = 'VeryLazy', lazy = true },
+    { 'rebelot/kanagawa.nvim', event = 'VeryLazy',  lazy = true },
+    { 'catppuccin/nvim',       name = 'catppuccin', event = 'VeryLazy', lazy = true },
+    { 'rose-pine/neovim',      name = 'rose-pine',  event = 'VeryLazy', lazy = true },
+    { 'navarasu/onedark.nvim', event = 'VeryLazy',  lazy = true },
     --------------------------------------------------------------------------------------------------------
     -- Git related plugins
     ----------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ local plugins = {
     -- Code related
     ----------------------------------------------------------------------------------------
     'tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
-    { -- Autopairs
+    {                   -- Autopairs
         'windwp/nvim-autopairs',
         config = load_config 'plugins.autopairs',
         event = 'InsertEnter',
@@ -52,12 +52,6 @@ local plugins = {
         dependencies = {
             'JoosepAlviste/nvim-ts-context-commentstring',
         },
-    },
-    { -- adds indentation guides to Neovim
-        'lukas-reineke/indent-blankline.nvim',
-        config = load_config 'plugins.indent-blankline',
-        event = { 'BufReadPost', 'BufNewFile' },
-        main = 'ibl',
     },
     { -- dims inactive portions of the code you're editing.
         'folke/twilight.nvim',
@@ -83,8 +77,8 @@ local plugins = {
             'hrsh7th/cmp-nvim-lsp',
             'saadparwaiz1/cmp_luasnip', -- source for autocompletion
             'L3MON4D3/LuaSnip',
-            'hrsh7th/cmp-buffer', -- source for text in buffer
-            'hrsh7th/cmp-path', -- source for file system paths
+            'hrsh7th/cmp-buffer',       -- source for text in buffer
+            'hrsh7th/cmp-path',         -- source for file system paths
             'hrsh7th/cmp-cmdline',
             'hrsh7th/nvim-cmp',
             'rafamadriz/friendly-snippets', -- useful snippets
@@ -103,7 +97,7 @@ local plugins = {
                 'j-hui/fidget.nvim',
                 tag = 'legacy',
                 opts = {},
-            }, -- Useful status updates for LSP
+            },                       -- Useful status updates for LSP
             { 'folke/neodev.nvim' }, -- Additional lua configuration, makes nvim stuff amazing!
         },
     },
