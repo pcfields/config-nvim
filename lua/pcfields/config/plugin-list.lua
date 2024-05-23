@@ -22,10 +22,8 @@ local plugins = {
         priority = 1000, -- make sure to load this before all the other start plugins
         config = load_config 'plugins.colorscheme',
     },
-    { 'rebelot/kanagawa.nvim', event = 'VeryLazy',  lazy = true },
-    { 'catppuccin/nvim',       name = 'catppuccin', event = 'VeryLazy', lazy = true },
-    { 'rose-pine/neovim',      name = 'rose-pine',  event = 'VeryLazy', lazy = true },
-    { 'navarasu/onedark.nvim', event = 'VeryLazy',  lazy = true },
+    { 'catppuccin/nvim',  name = 'catppuccin', event = 'VeryLazy', lazy = true },
+    { 'rose-pine/neovim', name = 'rose-pine',  event = 'VeryLazy', lazy = true },
     --------------------------------------------------------------------------------------------------------
     -- Git related plugins
     ----------------------------------------------------------------------------------------
@@ -222,16 +220,19 @@ local plugins = {
         config = load_config 'plugins.toggleterm',
         version = '*',
     },
-    -- {                                       -- Debugger
-    --     'mfussenegger/nvim-dap',
-    --     dependencies = {                    -- Creates a beautiful debugger UI
-    --         'rcarriga/nvim-dap-ui',         -- Installs the debug adapters for you
-    --         'williamboman/mason.nvim',
-    --         'jay-babu/mason-nvim-dap.nvim', -- Add your own debuggers here
-    --         -- 'leoluz/nvim-dap-go',
-    --     },
-    --     config = load_config('plugins.dap'),
-    -- },
+    {                                       -- Debugger
+        'mfussenegger/nvim-dap',
+        dependencies = {                    -- Creates a beautiful debugger UI
+            'rcarriga/nvim-dap-ui',         -- Installs the debug adapters for you
+            'williamboman/mason.nvim',
+            'jay-babu/mason-nvim-dap.nvim', -- Add your own debuggers here
+            "theHamsta/nvim-dap-virtual-text",
+            "nvim-neotest/nvim-nio",
+            "williamboman/mason.nvim",
+            "mxsdev/nvim-dap-vscode-js"
+        },
+        config = load_config('plugins.dap'),
+    },
     --------------------------------------------------------------------------------------------------------
     -- Misc or Universal Plugins
     ----------------------------------------------------------------------------------------
