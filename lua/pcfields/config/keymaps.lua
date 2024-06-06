@@ -18,7 +18,8 @@ map({ 'i', 'n', 'v' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear 
 map({ 'i', 'n', 'v' }, '<C-e>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
 -- Clear search, diff update and redraw
-map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / clear hlsearch / diff update' })
+map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
+    { desc = 'Redraw / clear hlsearch / diff update' })
 
 -- Search word under cursor
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
@@ -167,7 +168,12 @@ map('n', '<leader>ot', '<cmd>:ToggleTerm<cr>', { desc = 'Open ToggleTerm' })
 
 -- Diagnostic keymaps
 -- Open Diagnostics window
-map('n', '<leader>od', '<cmd>TroubleToggle<cr>', { desc = 'Open diagnostics' })
+map('n', '<leader>odf', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Buffer Diagnostics (Trouble)' })
+map('n', '<leader>oda', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+    { desc = 'All Open Buffer Diagnostics (Trouble)' })
+map('n', '<leader>ods', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Open symbols diagnostics ' })
+map('n', '<leader>odl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Open LSP diagnostics' })
+
 map('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })
 map('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to next [d]iagnostic message' })
 map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
