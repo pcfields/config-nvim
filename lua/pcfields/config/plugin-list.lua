@@ -105,9 +105,6 @@ local plugins = {
         event = 'VeryLazy',
         build = tabnine_build_path(),
     },
-    -- { -- Jest Tests
-    --   'David-Kunz/jester',
-    -- },
     { -- Code formatting
         'stevearc/conform.nvim',
         config = load_config 'plugins.conform',
@@ -128,12 +125,15 @@ local plugins = {
     },
     { -- Run tests
         'nvim-neotest/neotest',
+        config = load_config 'plugins.neo-test',
         event = 'VeryLazy',
         dependencies = {
             'nvim-neotest/nvim-nio',
             'nvim-lua/plenary.nvim',
             'antoinemadec/FixCursorHold.nvim',
             'nvim-treesitter/nvim-treesitter',
+            'marilari88/neotest-vitest',
+            'nvim-neotest/neotest-jest',
         },
     },
     --------------------------------------------------------------------------------------------------------

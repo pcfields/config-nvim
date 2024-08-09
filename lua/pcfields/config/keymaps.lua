@@ -161,6 +161,7 @@ vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
 -----------------------------------------------------------------------------------------
 -- Open Lazygit
 map('n', '<leader>og', '<cmd>:LazyGit<cr>', { desc = 'Open LazyGit' })
+map('n', '<leader>op', '<cmd>:Lazy<cr>', { desc = 'Open Lazy Plugin Manager' })
 -- Display quickfix list
 map('n', '<leader>oq', '<cmd>copen<cr>', { desc = 'Quickfix List' })
 -- Open Terminal
