@@ -22,8 +22,6 @@ local plugins = {
         priority = 1000, -- make sure to load this before all the other start plugins
         config = load_config 'plugins.colorscheme',
     },
-    { 'catppuccin/nvim',  name = 'catppuccin', event = 'VeryLazy', lazy = true },
-    { 'rose-pine/neovim', name = 'rose-pine',  event = 'VeryLazy', lazy = true },
     --------------------------------------------------------------------------------------------------------
     -- Git related plugins
     ----------------------------------------------------------------------------------------
