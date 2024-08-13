@@ -99,12 +99,12 @@ map('n', '<leader>w2', '<C-w>=', { desc = 'Resize windows to be 50|50' })
 
 -- Resize window using <ctrl> arrow keys --------------------------------------------------------------------------------------------
 -- Height
-map('n', '<C-Up>', '<cmd>resize -4<cr>', { desc = 'Increase window height' })
-map('n', '<C-Down>', '<cmd>resize +4<cr>', { desc = 'Decrease window height' })
+map('n', '<C-Up>', '<cmd>resize +4<cr>', { desc = 'Increase window height' })
+map('n', '<C-Down>', '<cmd>resize -4<cr>', { desc = 'Decrease window height' })
 
 -- Vertical Width small adjustment
-map('n', '<C-Left>', '<cmd>vertical resize -4<cr>', { desc = 'Increase window width' })
-map('n', '<C-Right>', '<cmd>vertical resize +4<cr>', { desc = 'Decrease window width' })
+map('n', '<C-Left>', '<cmd>vertical resize +4<cr>', { desc = 'Increase window width' })
+map('n', '<C-Right>', '<cmd>vertical resize -4<cr>', { desc = 'Decrease window width' })
 
 --------------------------------------------------------------------------------------------
 -- Quit All
@@ -195,6 +195,3 @@ map('n', '<leader>kf', 'za', { desc = 'Code folding' })
 
 --Todo comments in telescope
 map('n', '<leader>st', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
-
--- Testing
--- map('n', '<leader>rt', '<cmd>:lua require"jester".run()<cr>', { desc = 'Run nearest test' })
