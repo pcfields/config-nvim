@@ -161,19 +161,36 @@ config.keys =
 
 -- RIGHT STATUS
 wezterm.on("update-right-status", function(window, pane)
-	local date = wezterm.strftime("%a %b %-d %H:%M ") -- "Wed Mar 3 08:14"
+	local date = wezterm.strftime("%b %-d") -- "Wed Mar 3 08:14"
+	local day = wezterm.strftime("%a")   -- "Wed Mar 3 08:14"
+	local time = wezterm.strftime("%H:%M") -- "Wed Mar 3 08:14"
+	local battery = ''
 
-	window:set_right_status(wezterm.format({ { Text = date } }))
+	for _, b in ipairs(wezterm.battery_info()) do
+		battery = '   🔋' .. string.format('%.0f%%', b.state_of_charge * 100)
+	end
 
-	local prefix                   = ""
-	local wave_icon_in_hexadecimal = 0x1f30a -- ocean wave
+	window:set_right_status(wezterm.format({
+		{ Background = { Color = '#222' } },
+		{ Text = battery .. " " },
+		{ Text = " ☄️ " },
+		{ Text = " " .. day .. " " },
+		{ Foreground = { Color = 'white' } },
+		{ Text = " " .. date .. " " },
+		{ Foreground = { Color = 'green' } },
+		{ Text = " " .. time .. " " },
+		{ Foreground = { Color = '#999' } },
+		{ Text = " ☄️ " },
+		{ Text = "~ " .. wezterm.home_dir .. " " },
+	}))
 
+	local prefix = ""
 	if window:leader_is_active() then
-		prefix = "  " .. utf8.char(wave_icon_in_hexadecimal) .. "  "
+		prefix = " ️️🔴🔴🔴 "
 	end
 
 	window:set_left_status(wezterm.format({
-		{ Background = { Color = "#00cd00" } }, { Text = prefix }
+		{ Text = prefix }
 	}))
 end)
 
@@ -186,7 +203,6 @@ wezterm.on("gui-startup", function()
 		workspace = "code-editor",
 		cwd = working_dir,
 		args = { os_shell },
-		-- color_scheme = "Abernathy",
 		size = 0.1,
 	})
 
@@ -201,8 +217,6 @@ wezterm.on("gui-startup", function()
 
 	editor_pane:send_paste("nvim .")
 	terminal_pane:send_paste("npm run test --")
-
-	-- window:gui_window():maximize()
 end)
 
 return config
