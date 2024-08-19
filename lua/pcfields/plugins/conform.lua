@@ -2,13 +2,13 @@ local conform = require 'conform'
 
 conform.setup {
     formatters_by_ft = {
-        javascript = { 'biome' },
-        typescript = { 'biome' },
-        javascriptreact = { 'biome' },
-        typescriptreact = { 'biome' },
-        css = { 'biome' },
-        json = { 'biome' },
-        yaml = { 'biome' },
+        javascript = { 'prettier' },
+        typescript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        css = { 'prettier' },
+        json = { 'prettier' },
+        yaml = { 'prettier' },
         html = { 'prettier' },
         markdown = { 'prettier' },
         graphql = { 'prettier' },
