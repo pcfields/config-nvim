@@ -3,24 +3,9 @@ local mux = wezterm.mux
 
 local config = {} -- This table will hold the configuration.
 
-local windows_platform = 'x86_64-pc-windows-msvc'
-local work_webapp_dir = 'C:\\Projects\\gliderbim.webapp\\GliderBim.WebApp'
-local linux_home_dir = '~/ws'
-local working_dir
-local os_shell
-local function is_windows_platform()
-    return wezterm.target_triple == windows_platform
-end
-
+local working_dir = wezterm.home_dir
 local color_schemes = { Adventure = 'Adventure', Abernathy = 'Abernathy', Argonaut = 'Argonaut' }
 
-if is_windows_platform() then
-    working_dir = work_webapp_dir
-    os_shell = 'pwsh.exe'
-else
-    working_dir = linux_home_dir
-    os_shell = 'bash'
-end
 
 -- In newer versions of wezterm, use the config_builder which will
 -- help provide clearer error messages
@@ -31,11 +16,10 @@ end
 -- This is where you actually apply your config choices
 config.color_scheme = color_schemes.Abernathy
 config.default_cwd = working_dir
-config.default_prog = { os_shell }
+-- config.default_prog = {  }
 config.window_decorations = 'RESIZE|TITLE'
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 config.hide_tab_bar_if_only_one_tab = false
--- config.use_fancy_tab_bar = false
 config.font = wezterm.font {
     family = 'JetBrains Mono',
     weight = 'Medium',
@@ -173,10 +157,10 @@ config.keys = {
 }
 
 -- RIGHT STATUS
-wezterm.on('update-right-status', function(window, pane)
+wezterm.on('update-right-status', function(window)
     local date = wezterm.strftime '%b %-d' -- "Wed Mar 3 08:14"
-    local day = wezterm.strftime '%a' -- "Wed Mar 3 08:14"
-    local time = wezterm.strftime '%H:%M' -- "Wed Mar 3 08:14"
+    local day = wezterm.strftime '%a'      -- "Wed Mar 3 08:14"
+    local time = wezterm.strftime '%H:%M'  -- "Wed Mar 3 08:14"
     local battery = ''
 
     for _, b in ipairs(wezterm.battery_info()) do
@@ -216,7 +200,6 @@ wezterm.on('gui-startup', function()
     local tab, terminal_pane = mux.spawn_window {
         workspace = 'code-editor',
         cwd = working_dir,
-        args = { os_shell },
         size = 0.1,
     }
 
