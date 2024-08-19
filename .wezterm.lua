@@ -117,12 +117,12 @@ config.keys = {
     },
     { -- increase width to the left
         mods = 'LEADER',
-        key = ',',
+        key = 'i',
         action = wezterm.action.AdjustPaneSize { 'Left', 20 },
     },
     { -- increase width to the right
         mods = 'LEADER',
-        key = '.',
+        key = 'o',
         action = wezterm.action.AdjustPaneSize { 'Right', 20 },
     },
     { -- move pane height down
@@ -150,6 +150,16 @@ config.keys = {
         key = '3',
         action = wezterm.action.ActivateTab(2),
     },
+    { -- go to 4th tab
+        mods = 'LEADER',
+        key = '4',
+        action = wezterm.action.ActivateTab(3),
+    },
+    { -- go to 5th tab
+        mods = 'LEADER',
+        key = '5',
+        action = wezterm.action.ActivateTab(4),
+    },
     { -- scroll up by page
         mods = 'LEADER',
         key = 'u',
@@ -176,14 +186,15 @@ wezterm.on('update-right-status', function(window, pane)
     window:set_right_status(wezterm.format {
         { Background = { Color = '#222' } },
         { Text = battery .. ' ' },
-        { Text = ' ☄️ ' },
+        { Foreground = { Color = '#999' } },
+        { Text = '' },
         { Text = ' ' .. day .. ' ' },
         { Foreground = { Color = 'white' } },
         { Text = ' ' .. date .. ' ' },
         { Foreground = { Color = 'green' } },
         { Text = ' ' .. time .. ' ' },
         { Foreground = { Color = '#999' } },
-        { Text = ' ☄️ ' },
+        { Text = '' },
         { Text = '~ ' .. wezterm.home_dir .. ' ' },
     })
 
