@@ -9,13 +9,13 @@ require('Comment').setup {
     sticky = true,  ---Whether the cursor should stay at its position
     ---LHS of toggle mappings in NORMAL mode
     toggler = {
-        line = '<leader>kk',  ---Line-comment toggle keymap
-        block = '<leader>kb', ---Block-comment toggle keymap
+        line = '<leader>cl',  ---Line-comment toggle keymap
+        block = '<leader>cb', ---Block-comment toggle keymap
     },
     ---LHS of operator-pending mappings in NORMAL and VISUAL mode
     opleader = {
-        line = '<leader>kk',  ---Line-comment keymap
-        block = '<leader>kb', ---Block-comment keymap
+        line = '<leader>cl',  ---Line-comment keymap
+        block = '<leader>cb', ---Block-comment keymap
     },
     ---LHS of extra mappings
     -- extra = {
