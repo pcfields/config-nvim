@@ -14,7 +14,9 @@
 					"style": "plain",
 					"background": "transparent",
 					"foreground": "green",
-					"properties": { "style": "full" }
+					"properties": {
+						"style": "full"
+					}
 				},
 				{
 					"type": "git",
@@ -25,74 +27,8 @@
 					"properties": {
 						"fetch_status": true,
 						"fetch_upstream_icon": true,
-						"untracked_modes": {
-							"/Users/user/Projects/oh-my-posh/": "no"
-						},
-						"source": "cli",
-						"mapped_branches": {
-							"feat/*": "🚀 ",
-							"bug/*": "🐛 "
-						}
+						"source": "cli"
 					}
-				},
-				{
-					"type": "aws",
-					"style": "plain",
-					"foreground": "#ffffff",
-					"background": "#FFA400",
-					"template": "  {{.Profile}}{{if .Region}}@{{.Region}}-{{.Profile}}{{end}}"
-				},
-				{
-					"type": "dotnet",
-					"style": "plain",
-					"foreground": "#000000",
-					"background": "#00ffff",
-					"template": "  {{ .Full }} "
-				},
-				{
-					"type": "haskell",
-					"style": "powerline",
-					"powerline_symbol": "",
-					"foreground": "#906cff",
-					"background": "#100e23",
-					"template": "  {{ .Full }}"
-				},
-				{
-					"type": "lua",
-					"style": "powerline",
-					"powerline_symbol": "",
-					"foreground": "white",
-					"background": "blue",
-					"template": "  {{ .Full }} "
-				},
-				{
-					"type": "node",
-					"style": "powerline",
-					"powerline_symbol": "",
-					"foreground": "#ffffff",
-					"background": "#6CA35E",
-					"template": "  {{ .Full }} "
-				},
-				{
-					"type": "rust",
-					"style": "powerline",
-					"powerline_symbol": "",
-					"foreground": "#193549",
-					"background": "#99908a",
-					"template": "  {{ .Full }} "
-				},
-				{
-					"type": "docker",
-					"style": "plain",
-					"foreground": "#000000",
-					"background": "#0B59E7",
-					"template": "  {{ .Context }} "
-				},
-				{
-					"type": "react",
-					"style": "plain",
-					"foreground": "#ffffff",
-					"template": "  {{ .Full }} "
 				}
 			]
 		},
