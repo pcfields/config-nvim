@@ -6,7 +6,6 @@ local config = {} -- This table will hold the configuration.
 local working_dir = wezterm.home_dir
 local color_schemes = { Adventure = 'Adventure', Abernathy = 'Abernathy', Argonaut = 'Argonaut' }
 
-
 -- In newer versions of wezterm, use the config_builder which will
 -- help provide clearer error messages
 if wezterm.config_builder then
@@ -159,8 +158,8 @@ config.keys = {
 -- RIGHT STATUS
 wezterm.on('update-right-status', function(window)
     local date = wezterm.strftime '%b %-d' -- "Wed Mar 3 08:14"
-    local day = wezterm.strftime '%a'      -- "Wed Mar 3 08:14"
-    local time = wezterm.strftime '%H:%M'  -- "Wed Mar 3 08:14"
+    local day = wezterm.strftime '%a' -- "Wed Mar 3 08:14"
+    local time = wezterm.strftime '%H:%M' -- "Wed Mar 3 08:14"
     local battery = ''
 
     for _, b in ipairs(wezterm.battery_info()) do
@@ -194,9 +193,6 @@ end)
 
 -- Create split screen on startup
 wezterm.on('gui-startup', function()
-    -- allow `wezterm start -- something` to affect what we spawn
-    -- in our initial Windows
-
     local tab, terminal_pane = mux.spawn_window {
         workspace = 'code-editor',
         cwd = working_dir,
