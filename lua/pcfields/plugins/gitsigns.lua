@@ -30,6 +30,6 @@ gitsigns.setup {
         map('n', '<leader>gl', function()
             gitsigns.blame_line { full = true }
         end)
-        map('n', '<leader>gtb', gitsigns.toggle_current_line_blame)
+        map('n', '<leader>gb', gitsigns.toggle_current_line_blame)
     end,
 }

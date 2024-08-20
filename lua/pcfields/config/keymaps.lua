@@ -28,22 +28,22 @@ map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 --------------------------------------------------------------------------------------------
 
 -- Save file
-map({ 'n', 'v', 's' }, '<leader>aa', '<cmd>w<cr><esc>', { desc = 'Save file' })
+map({ 'n', 'v', 's' }, '<leader>sa', '<cmd>w<cr><esc>', { desc = 'Save file' })
 
 -- New file
-map('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'File new ' })
+map('n', '<leader>nf', '<cmd>enew<cr>', { desc = 'File new ' })
 
 -- Format file
-map('n', '<leader>ff', '<cmd>Format<cr>', { desc = 'File format' })
+-- map('n', '<leader>ff', '<cmd>Format<cr>', { desc = 'File format' })
 
 -- File explorer
-map('n', '<leader>oe', '<cmd>:Neotree toggle<cr>', { desc = 'File explorer' })
+map('n', '<leader>eo', '<cmd>:Neotree toggle<cr>', { desc = 'File explorer' })
 
 -- File Explorer git status
 map('n', '<leader>eg', '<cmd>:Neotree git_status<cr>', { desc = 'File git status' })
 
 -- Select all text in buffer
-map('n', '<C-a>', 'gg<S-v>G', { desc = 'Select all text in buffer' })
+map('n', '<leader>aa', 'gg<S-v>G', { desc = 'Select all text in buffer' })
 
 -- Next buffer
 map('n', '<A-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
@@ -70,13 +70,13 @@ map('n', '<leader>9', '<cmd>BufferLineGoToBuffer 9<cr>', { desc = 'Go to buffer 
 map('n', '<leader>0', '<cmd>BufferLineGoToBuffer -1<cr>', { desc = 'Go to last buffer' })
 
 -- Close all buffers to the RIGHT
-map('n', '<leader>xl', '<cmd>BufferLineCloseRight<cr>', { desc = 'Close all buffers to the RIGHT' })
+map('n', '<leader>bl', '<cmd>BufferLineCloseRight<cr>', { desc = 'Close all buffers to the RIGHT' })
 
 -- Close all buffer to the LEFT
-map('n', '<leader>xh', '<cmd>BufferLineCloseLeft<cr>', { desc = 'Close all buffer to the LEFT' })
+map('n', '<leader>bh', '<cmd>BufferLineCloseLeft<cr>', { desc = 'Close all buffer to the LEFT' })
 
 -- Close all other buffers
-map('n', '<leader>xo', '<cmd>BufferLineCloseOthers<cr>', { desc = 'Close all other buffers' })
+map('n', '<leader>bo', '<cmd>BufferLineCloseOthers<cr>', { desc = 'Close all other buffers' })
 
 -- windows
 map('n', '<leader>ww', '<C-w>p', { desc = 'Other window' })
@@ -145,6 +145,7 @@ function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
     vim.keymap.set('t', '<C-e>', [[<C-\><C-n>]], opts)
     vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+    vim.keymap.set('t', 'jj', [[<C-\><C-n>]], opts)
     vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
     vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
     vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
@@ -159,22 +160,25 @@ vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
 -- Open things -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 -- Open Lazygit
-map('n', '<leader>og', '<cmd>:LazyGit<cr>', { desc = 'Open LazyGit' })
-map('n', '<leader>op', '<cmd>:Lazy<cr>', { desc = 'Open Lazy Plugin Manager' })
--- Display quickfix list
-map('n', '<leader>oq', '<cmd>copen<cr>', { desc = 'Quickfix List' })
+map('n', '<leader>gg', '<cmd>:LazyGit<cr>', { desc = 'Open LazyGit' })
+-- Open Plugin Manager
+map('n', '<C-p>', '<cmd>:Lazy<cr>', { desc = 'Open Lazy Plugin Manager' })
 -- Open Terminal
-map('n', '<leader>ot', '<cmd>:ToggleTerm<cr>', { desc = 'Open ToggleTerm' })
+-- map('n', '<leader>to', '<cmd>:ToggleTerm<cr>', { desc = 'Open ToggleTerm' })
+
+-- Display quickfix list
+-- map('n', '<leader>q0', '<cmd>copen<cr>', { desc = 'Quickfix List' })
 
 -- Diagnostic keymaps
+map('n', '<leader>dj', vim.diagnostic.goto_next, { desc = 'Go to next [d]iagnostic message' })
+map('n', '<leader>dk', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })
+map('n', '<leader>di', vim.diagnostic.open_float, { desc = 'Open floating [d]iagnostic info message' })
+map('n', '<leader>df', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble: Buffer/[f]ile [d]iagnostics' })
+map('n', '<leader>da', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: [A]ll open Buffer [d]iagnostics' })
 
-map('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })
-map('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to next [d]iagnostic message' })
-map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-map('n', '<leader>dl', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Buffer Diagnostics (Trouble)' })
-map('n', '<leader>dla', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'All Open Buffer Diagnostics (Trouble)' })
-map('n', '<leader>dls', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Open symbols diagnostics ' })
-map('n', '<leader>dll', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Open LSP diagnostics' })
+map('n', '<leader>os', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Trouble: [O]pen [s]ymbols diagnostics ' })
+map('n', '<leader>ol', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble: [O]pen [L]SP diagnostics' })
+
 --- Code changes
 -- Rename variable
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename variable' })
@@ -189,4 +193,4 @@ map('n', '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' })
 map('n', '<leader>kf', 'za', { desc = 'Code folding' })
 
 --Todo comments in telescope
-map('n', '<leader>st', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
+map('n', '<leader>lt', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
