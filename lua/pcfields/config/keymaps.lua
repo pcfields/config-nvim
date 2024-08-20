@@ -117,12 +117,12 @@ map('i', 'jj', '<esc>', { desc = 'Exit insert mode' })
 map('i', 'jk', '<esc>', { desc = 'Exit insert mode' })
 
 -- Line movement - left, right
-map({ 'n', 'v' }, 'mh', '^', { desc = 'Go to beginning of line' })
-map({ 'n', 'v' }, 'ml', '$', { desc = 'Go to end of line' })
+map({ 'n', 'v' }, '<leader>hh', '^', { desc = 'Go to beginning of line' })
+map({ 'n', 'v' }, '<leader>ll', '$', { desc = 'Go to end of line' })
 
 -- Line movement - top, bottom
-map({ 'n', 'v' }, 'mk', 'gg', { desc = 'Go to top of file' })
-map({ 'n', 'v' }, 'mj', '<S-g>', { desc = 'Go to bottom of file' })
+map({ 'n', 'v' }, '<leader>kk', 'gg', { desc = 'Go to top of file' })
+map({ 'n', 'v' }, '<leader>jj', '<S-g>', { desc = 'Go to bottom of file' })
 
 -- Move Lines --------------------------------------------------------------------------------------------
 -- Move down
@@ -167,17 +167,14 @@ map('n', '<leader>oq', '<cmd>copen<cr>', { desc = 'Quickfix List' })
 map('n', '<leader>ot', '<cmd>:ToggleTerm<cr>', { desc = 'Open ToggleTerm' })
 
 -- Diagnostic keymaps
--- Open Diagnostics window
-map('n', '<leader>odf', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Buffer Diagnostics (Trouble)' })
-map('n', '<leader>oda', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'All Open Buffer Diagnostics (Trouble)' })
-map('n', '<leader>ods', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Open symbols diagnostics ' })
-map('n', '<leader>odl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Open LSP diagnostics' })
 
 map('n', '<leader>dp', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })
 map('n', '<leader>dn', vim.diagnostic.goto_next, { desc = 'Go to next [d]iagnostic message' })
 map('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-map('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
+map('n', '<leader>dl', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Buffer Diagnostics (Trouble)' })
+map('n', '<leader>dla', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'All Open Buffer Diagnostics (Trouble)' })
+map('n', '<leader>dls', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Open symbols diagnostics ' })
+map('n', '<leader>dll', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Open LSP diagnostics' })
 --- Code changes
 -- Rename variable
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename variable' })
