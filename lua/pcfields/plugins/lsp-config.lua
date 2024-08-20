@@ -32,14 +32,14 @@ local on_attach = function(_, bufnr)
         })
     end
 
-    nmap('gd', telescope_builtin.lsp_definitions, 'Go to Definition')
-    nmap('gr', telescope_builtin.lsp_references, 'Go to References')
-    nmap('gi', vim.lsp.buf.implementation, 'Go to Implementation')
-    nmap('<leader>dtd', vim.lsp.buf.type_definition, 'Display Type Definition')
-    nmap('<leader>dv', telescope_builtin.lsp_document_symbols, 'Display Document Variables/Symbols')
-    nmap('<leader>dws', telescope_builtin.lsp_dynamic_workspace_symbols, 'Display Workspace Symbols')
-    nmap('<leader>dd', vim.lsp.buf.hover, 'Display Hover Documentation')
-    nmap('<leader>ds', vim.lsp.buf.signature_help, 'Display Signature Documentation')
+    nmap('<leader>od', telescope_builtin.lsp_definitions, 'Go to Definition')
+    nmap('<leader>or', telescope_builtin.lsp_references, 'Go to References')
+    nmap('<leader>oi', vim.lsp.buf.implementation, 'Go to Implementation')
+    nmap('<leader>ot', vim.lsp.buf.type_definition, 'Go to Type Definition')
+    nmap('<leader>oh', vim.lsp.buf.hover, 'Display Hover Documentation')
+    nmap('<leader>ov', telescope_builtin.lsp_document_symbols, 'List of Document Variables/Symbols')
+    nmap('<leader>ox', vim.lsp.buf.signature_help, 'Display Signature Documentation')
+    -- nmap('<leader>lw', telescope_builtin.lsp_dynamic_workspace_symbols, 'Display Workspace Symbols')
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
