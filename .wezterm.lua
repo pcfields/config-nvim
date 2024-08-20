@@ -6,8 +6,17 @@ local config = {} -- This table will hold the configuration.
 local working_dir = wezterm.home_dir
 local color_schemes = { Adventure = 'Adventure', Abernathy = 'Abernathy', Argonaut = 'Argonaut' }
 
--- In newer versions of wezterm, use the config_builder which will
--- help provide clearer error messages
+local windows_platform = 'x86_64-pc-windows-msvc'
+local function is_windows_platform()
+    return wezterm.target_triple == windows_platform
+end
+
+local os_shell = 'bash'
+if is_windows_platform() then
+    os_shell = 'pwsh.exe'
+    working_dir = "C:/Projects/gliderbim.webapp/GliderBim.WebApp"
+end
+
 if wezterm.config_builder then
     config = wezterm.config_builder()
 end
@@ -15,7 +24,7 @@ end
 -- This is where you actually apply your config choices
 config.color_scheme = color_schemes.Abernathy
 config.default_cwd = working_dir
--- config.default_prog = {  }
+config.default_prog = { os_shell }
 config.window_decorations = 'RESIZE|TITLE'
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 config.hide_tab_bar_if_only_one_tab = false
@@ -157,9 +166,9 @@ config.keys = {
 
 -- RIGHT STATUS
 wezterm.on('update-right-status', function(window)
-    local date = wezterm.strftime '%b %-d' -- "Wed Mar 3 08:14"
-    local day = wezterm.strftime '%a' -- "Wed Mar 3 08:14"
-    local time = wezterm.strftime '%H:%M' -- "Wed Mar 3 08:14"
+    local date = wezterm.strftime '%b %-d' -- "Wed"
+    local day = wezterm.strftime '%a'      -- "Mar 3"
+    local time = wezterm.strftime '%H:%M'  -- "08:14"
     local battery = ''
 
     for _, b in ipairs(wezterm.battery_info()) do
@@ -191,12 +200,15 @@ wezterm.on('update-right-status', function(window)
     })
 end)
 
+
+
 -- Create split screen on startup
 wezterm.on('gui-startup', function()
     local tab, terminal_pane = mux.spawn_window {
         workspace = 'code-editor',
         cwd = working_dir,
         size = 0.1,
+        args = { os_shell },
     }
 
     tab:set_title 'Editor'
@@ -209,7 +221,9 @@ wezterm.on('gui-startup', function()
     }
 
     editor_pane:send_paste 'nvim .'
-    terminal_pane:send_paste 'npm run test --'
+    if is_windows_platform() then
+        terminal_pane:send_paste 'npm run test --'
+    end
 end)
 
 return config
