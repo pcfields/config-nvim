@@ -14,7 +14,7 @@ end
 local os_shell = 'bash'
 if is_windows_platform() then
     os_shell = 'pwsh.exe'
-    working_dir = "C:/Projects/gliderbim.webapp/GliderBim.WebApp"
+    working_dir = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp'
 end
 
 if wezterm.config_builder then
@@ -37,29 +37,29 @@ config.font = wezterm.font {
 config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 2000 }
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
 config.keys = {
-    { -- split bottom
+    { -- split bottom [v]ertical
         mods = 'LEADER',
-        key = 'b',
+        key = 'v',
         action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
     },
-    { -- split right
+    { -- split right [s]ide
         mods = 'LEADER',
-        key = 'r',
+        key = 's',
         action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
     },
-    { -- Maximize pane
+    { -- [m]aximize pane
         mods = 'LEADER',
         key = 'm',
         action = wezterm.action.TogglePaneZoomState,
     },
-    { -- rotate panes
+    { -- rotate panes [s]wap
         mods = 'LEADER',
         key = 's',
         action = wezterm.action.RotatePanes 'Clockwise',
     },
     { -- show the pane selection mode SWAP,
         mods = 'LEADER',
-        key = '0',
+        key = 'y',
         action = wezterm.action.PaneSelect { mode = 'Activate' },
     },
     { -- activate copy mode or vim mode
@@ -69,7 +69,7 @@ config.keys = {
     },
     { -- create new tab
         mods = 'LEADER',
-        key = 'c',
+        key = 'a',
         action = wezterm.action.SpawnTab 'CurrentPaneDomain',
     },
     { -- delete tab
@@ -79,12 +79,12 @@ config.keys = {
     },
     { -- go the next tab
         mods = 'LEADER',
-        key = 'n',
+        key = 'i',
         action = wezterm.action.ActivateTabRelative(1),
     },
     { -- go to previous tab
         mods = 'LEADER',
-        key = 'p',
+        key = 'o',
         action = wezterm.action.ActivateTabRelative(-1),
     },
     { -- go to left pane
@@ -109,12 +109,12 @@ config.keys = {
     },
     { -- increase width to the left
         mods = 'LEADER',
-        key = 'i',
+        key = 'w',
         action = wezterm.action.AdjustPaneSize { 'Left', 20 },
     },
     { -- increase width to the right
         mods = 'LEADER',
-        key = 'o',
+        key = 'e',
         action = wezterm.action.AdjustPaneSize { 'Right', 20 },
     },
     { -- move pane height down
@@ -167,8 +167,8 @@ config.keys = {
 -- RIGHT STATUS
 wezterm.on('update-right-status', function(window)
     local date = wezterm.strftime '%b %-d' -- "Wed"
-    local day = wezterm.strftime '%a'      -- "Mar 3"
-    local time = wezterm.strftime '%H:%M'  -- "08:14"
+    local day = wezterm.strftime '%a' -- "Mar 3"
+    local time = wezterm.strftime '%H:%M' -- "08:14"
     local battery = ''
 
     for _, b in ipairs(wezterm.battery_info()) do
@@ -199,8 +199,6 @@ wezterm.on('update-right-status', function(window)
         { Text = prefix },
     })
 end)
-
-
 
 -- Create split screen on startup
 wezterm.on('gui-startup', function()
