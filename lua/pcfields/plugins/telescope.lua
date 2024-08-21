@@ -7,7 +7,7 @@ local map = require('pcfields.utils').map
 
 require('telescope').setup {
     defaults = {
-        path_display = { 'truncate', { len = 5 } },
+        path_display = { shorten = { len = 1 } },
         mappings = {
             i = {
                 ['<C-u>'] = false,
