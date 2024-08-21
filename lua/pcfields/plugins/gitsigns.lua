@@ -1,6 +1,6 @@
 -- https://github.com/lewis6991/gitsigns.nvim
--- Adds git releated signs to the gutter, as well as utilities for managing changes
--- See `:help gitsigns.txt`
+-- adds git releated signs to the gutter, as well as utilities for managing changes
+-- see `:help gitsigns.txt`
 
 local map = require('pcfields.utils').map
 
@@ -8,28 +8,27 @@ local gitsigns = require 'gitsigns'
 
 gitsigns.setup {
     signs = {
-        add = {
-            text = '+',
-        },
-        change = {
-            text = '~',
-        },
-        delete = {
-            text = '_',
-        },
-        topdelete = {
-            text = '‾',
-        },
-        changedelete = {
-            text = '~',
-        },
+        add = { text = '┃' }, -- text = '+',
+        change = { text = '┃' }, --text = '~',
+        delete = { text = '_' }, --text = '_',
+        topdelete = { text = '‾' }, -- text = '‾',
+        changedelete = { text = '~' }, -- text = '~',
+        untracked = { text = '┆' },
+    },
+    signs_staged = {
+        add = { text = '┃' },
+        change = { text = '┃' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked = { text = '┆' },
     },
     on_attach = function()
-        -- Actions
-        map('n', '<leader>gd', gitsigns.diffthis)
+        -- actions
+        map('n', '<leader>gd', gitsigns.diffthis, { desc = 'Git diff' })
         map('n', '<leader>gl', function()
             gitsigns.blame_line { full = true }
-        end)
-        map('n', '<leader>gb', gitsigns.toggle_current_line_blame)
+        end, { desc = 'Git blame line' })
+        map('n', '<leader>gh', gitsigns.toggle_current_line_blame, { desc = 'Git toggle blame line' })
     end,
 }
