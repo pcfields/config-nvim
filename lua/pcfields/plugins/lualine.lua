@@ -4,9 +4,9 @@
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = 'codedark', -- auto | palenight | base16 16color ayu_dark  ayu_mirage codedark
+        theme = 'ayu_mirage', -- auto | palenight | base16 16color ayu_dark  ayu_mirage codedark
         component_separators = '',
-        section_separators = { left = '', right = '' },
+        section_separators = '',
         disabled_filetypes = {
             statusline = {},
             winbar = {},
@@ -22,8 +22,8 @@ require('lualine').setup {
     },
     sections = {
         lualine_a = { 'mode' },
-        lualine_b = { 'filename' },
-        lualine_c = { 'branch', 'diff', 'diagnostics' },
+        lualine_b = { 'diagnostics', 'filename', 'filesize' },
+        lualine_c = { 'branch', 'diff' },
         lualine_x = { 'encoding', 'fileformat', 'filetype' },
         lualine_y = { 'progress' },
         lualine_z = { 'location' },
