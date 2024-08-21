@@ -10,3 +10,6 @@ require('ufo').setup {
         return { 'treesitter', 'indent' }
     end,
 }
+
+vim.keymap.set('n', '<leader>ko', require('ufo').openAllFolds)
+vim.keymap.set('n', '<leader>kc', require('ufo').closeAllFolds)
