@@ -37,8 +37,8 @@ local on_attach = function(_, bufnr)
     nmap('<leader>oi', vim.lsp.buf.implementation, 'Go to Implementation')
     nmap('<leader>ot', vim.lsp.buf.type_definition, 'Go to Type Definition')
     nmap('<leader>oh', vim.lsp.buf.hover, 'Display Hover Documentation')
-    nmap('<leader>ov', telescope_builtin.lsp_document_symbols, 'List of Document Variables/Symbols')
     nmap('<leader>ox', vim.lsp.buf.signature_help, 'Display Signature Documentation')
+    nmap('<leader>ov', telescope_builtin.lsp_document_symbols, 'List of Document Variables/Symbols')
     -- nmap('<leader>lw', telescope_builtin.lsp_dynamic_workspace_symbols, 'Display Workspace Symbols')
 
     -- Create a command `:Format` local to the LSP buffer
