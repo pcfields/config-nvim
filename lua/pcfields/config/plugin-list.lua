@@ -18,7 +18,7 @@ local plugins = {
     ----------------------------------------------------------------------------------------
     {
         'EdenEast/nightfox.nvim',
-        lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = load_config 'plugins.colorscheme',
     },
@@ -36,7 +36,7 @@ local plugins = {
     -- Code related
     ----------------------------------------------------------------------------------------
     'tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
-    {                   -- Autopairs
+    { -- Autopairs
         'windwp/nvim-autopairs',
         config = load_config 'plugins.autopairs',
         event = 'InsertEnter',
@@ -73,8 +73,8 @@ local plugins = {
             'hrsh7th/cmp-nvim-lsp',
             'saadparwaiz1/cmp_luasnip', -- source for autocompletion
             'L3MON4D3/LuaSnip',
-            'hrsh7th/cmp-buffer',       -- source for text in buffer
-            'hrsh7th/cmp-path',         -- source for file system paths
+            'hrsh7th/cmp-buffer', -- source for text in buffer
+            'hrsh7th/cmp-path', -- source for file system paths
             'hrsh7th/cmp-cmdline',
             'hrsh7th/nvim-cmp',
             'rafamadriz/friendly-snippets', -- useful snippets
@@ -93,7 +93,7 @@ local plugins = {
                 'j-hui/fidget.nvim',
                 tag = 'legacy',
                 opts = {},
-            },                       -- Useful status updates for LSP
+            }, -- Useful status updates for LSP
             { 'folke/neodev.nvim' }, -- Additional lua configuration, makes nvim stuff amazing!
         },
     },
@@ -135,14 +135,20 @@ local plugins = {
         },
     },
     {
-        "kylechui/nvim-surround",
-        version = "*", -- Use for stability; omit to use `main` branch for the latest features
-        event = "VeryLazy",
+        'kylechui/nvim-surround',
         config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
-        end
+            require('nvim-surround').setup {}
+        end,
+        version = '*', -- Use for stability; omit to use `main` branch for the latest features
+        event = 'VeryLazy',
+    },
+    {
+        'kylechui/nvim-surround',
+        version = '*', -- Use for stability; omit to use `main` branch for the latest features
+        event = 'VeryLazy',
+        config = function()
+            require('nvim-surround').setup {}
+        end,
     },
     --------------------------------------------------------------------------------------------------------
     -- UI related
@@ -228,27 +234,27 @@ local plugins = {
         config = load_config 'plugins.toggleterm',
         version = '*',
     },
-    {                                       -- Debugger
+    { -- Debugger
         'mfussenegger/nvim-dap',
-        dependencies = {                    -- Creates a beautiful debugger UI
-            'rcarriga/nvim-dap-ui',         -- Installs the debug adapters for you
+        dependencies = { -- Creates a beautiful debugger UI
+            'rcarriga/nvim-dap-ui', -- Installs the debug adapters for you
             'williamboman/mason.nvim',
             'jay-babu/mason-nvim-dap.nvim', -- Add your own debuggers here
-            "theHamsta/nvim-dap-virtual-text",
-            "nvim-neotest/nvim-nio",
-            "williamboman/mason.nvim",
-            "mxsdev/nvim-dap-vscode-js"
+            'theHamsta/nvim-dap-virtual-text',
+            'nvim-neotest/nvim-nio',
+            'williamboman/mason.nvim',
+            'mxsdev/nvim-dap-vscode-js',
         },
-        config = load_config('plugins.dap'),
+        config = load_config 'plugins.dap',
     },
     {
-        "ThePrimeagen/refactoring.nvim",
+        'ThePrimeagen/refactoring.nvim',
         dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
+            'nvim-lua/plenary.nvim',
+            'nvim-treesitter/nvim-treesitter',
         },
         config = function()
-            require("refactoring").setup()
+            require('refactoring').setup()
         end,
     },
     --------------------------------------------------------------------------------------------------------
