@@ -34,7 +34,7 @@ map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'Save file' })
 map('n', '<leader>nf', '<cmd>enew<cr>', { desc = 'File new ' })
 
 -- File explorer
-map('n', '<leader>fw', '<cmd>:Neotree toggle<cr>', { desc = 'File explorer' })
+map('n', '<leader>fw', '<cmd>Neotree toggle reveal=true<cr>', { desc = 'File explorer' })
 
 -- File Explorer git status
 map('n', '<leader>fg', '<cmd>:Neotree git_status<cr>', { desc = 'File git status' })
