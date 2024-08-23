@@ -34,6 +34,8 @@ config.font = wezterm.font {
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
 }
 
+config.window_background_opacity = 0.95
+
 config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 2000 }
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
 config.keys = {
@@ -52,9 +54,9 @@ config.keys = {
         key = 'm',
         action = wezterm.action.TogglePaneZoomState,
     },
-    { -- rotate panes [s]wap
+    { -- rotate panes swap
         mods = 'LEADER',
-        key = 's',
+        key = 'n',
         action = wezterm.action.RotatePanes 'Clockwise',
     },
     { -- show the pane selection mode SWAP,
@@ -164,30 +166,65 @@ config.keys = {
     },
 }
 
--- RIGHT STATUS
-wezterm.on('update-right-status', function(window)
-    local date = wezterm.strftime '%b %-d' -- "Wed"
-    local day = wezterm.strftime '%a' -- "Mar 3"
-    local time = wezterm.strftime '%H:%M' -- "08:14"
+local battery_formatted = function()
     local battery = ''
 
     for _, b in ipairs(wezterm.battery_info()) do
-        battery = '   🔋' .. string.format('%.0f%%', b.state_of_charge * 100)
+        battery = '  🔋' .. string.format('%.0f%%', b.state_of_charge * 100)
     end
 
+    return battery
+end
+
+-- RIGHT STATUS
+wezterm.on('update-right-status', function(window)
+    local LEFT_DIVIDER = ''
+
+    local blue_grey_colors = {
+        section3 = '#212529',
+        section2 = '#343a40',
+        section1 = '#444a51',
+    }
+    local colors = {
+        bg = blue_grey_colors,
+        fg = '#fff',
+    }
+
+    local date = wezterm.strftime '%b %-d' -- "Wed"
+    local day = wezterm.strftime '%a' -- "Mar 3"
+    local time = wezterm.strftime '%H:%M' -- "08:14"
+
     window:set_right_status(wezterm.format {
-        { Background = { Color = '#222' } },
-        { Text = battery .. ' ' },
-        { Foreground = { Color = '#999' } },
-        { Text = '' },
+        -- First, we draw the arrow...
+        { Background = { Color = 'none' } },
+        { Foreground = { Color = colors.bg.section1 } },
+        { Text = LEFT_DIVIDER },
+        -- battery section
+        { Background = { Color = colors.bg.section1 } },
+        { Foreground = { Color = colors.fg } },
+        { Text = battery_formatted() .. ' ' },
+
+        -- Date section
+        { Background = { Color = colors.bg.section1 } },
+        { Foreground = { Color = colors.bg.section2 } },
+        { Text = LEFT_DIVIDER },
+
+        { Background = { Color = colors.bg.section2 } },
+        { Foreground = { Color = colors.fg } },
         { Text = ' ' .. day .. ' ' },
-        { Foreground = { Color = 'white' } },
+        -- { Foreground = { Color = 'white' } },
         { Text = ' ' .. date .. ' ' },
-        { Foreground = { Color = 'green' } },
+        { Foreground = { Color = '#ff477e' } },
         { Text = ' ' .. time .. ' ' },
-        { Foreground = { Color = '#999' } },
-        { Text = '' },
-        { Text = '~ ' .. wezterm.home_dir .. ' ' },
+
+        -- Home directory section
+        { Background = { Color = colors.bg.section2 } },
+        { Foreground = { Color = colors.bg.section3 } },
+        { Text = LEFT_DIVIDER },
+
+        { Background = { Color = colors.bg.section3 } },
+        { Foreground = { Color = '#adb5bd' } },
+        { Text = ' ' .. wezterm.home_dir .. ' ' },
     })
 
     local prefix = ''
