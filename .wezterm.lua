@@ -28,14 +28,12 @@ config.default_prog = { os_shell }
 config.window_decorations = 'RESIZE|TITLE'
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 config.hide_tab_bar_if_only_one_tab = false
+config.window_background_opacity = 0.95
 config.font = wezterm.font {
     family = 'JetBrains Mono',
     weight = 'Medium',
-    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }, -- don't use font ligatures
 }
-
-config.window_background_opacity = 0.95
-
 config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 2000 }
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
 config.keys = {
@@ -166,11 +164,18 @@ config.keys = {
     },
 }
 
-local battery_formatted = function()
+local battery_percentage = function()
     local battery = ''
 
     for _, b in ipairs(wezterm.battery_info()) do
-        battery = '  🔋' .. string.format('%.0f%%', b.state_of_charge * 100)
+        local percentage_value = b.state_of_charge * 100
+        local percentage = string.format('%.0f%%', percentage_value)
+
+        if percentage_value > 50 then
+            battery = '󰁹 ' .. percentage
+        else
+            battery = '󰁾' .. percentage
+        end
     end
 
     return battery
@@ -179,9 +184,11 @@ end
 -- RIGHT STATUS
 wezterm.on('update-right-status', function(window)
     local LEFT_DIVIDER = ''
+    local date = wezterm.strftime '%b %-d' -- "Wed"
+    local day = wezterm.strftime '%a' -- "Mar 3"
+    local time = wezterm.strftime '%H:%M' -- "08:14"
     local bg_color = wezterm.color.parse '#373d68'
     local fg_color = wezterm.color.parse '#fff'
-
     local colors = {
         bg = {
             light = bg_color,
@@ -194,10 +201,6 @@ wezterm.on('update-right-status', function(window)
             dark = fg_color:darken(0.4),
         },
     }
-
-    local date = wezterm.strftime '%b %-d' -- "Wed"
-    local day = wezterm.strftime '%a' -- "Mar 3"
-    local time = wezterm.strftime '%H:%M' -- "08:14"
 
     window:set_right_status(wezterm.format {
         -- 1st SECTION Divider
@@ -216,7 +219,7 @@ wezterm.on('update-right-status', function(window)
         -- battery section
         { Background = { Color = colors.bg.medium } },
         { Foreground = { Color = colors.fg.medium } },
-        { Text = battery_formatted() .. ' ' },
+        { Text = battery_percentage() .. ' ' },
 
         -- 3rd SECTION Divider
         { Background = { Color = colors.bg.medium } },
