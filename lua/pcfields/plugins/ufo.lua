@@ -11,5 +11,5 @@ require('ufo').setup {
     end,
 }
 
-vim.keymap.set('n', '<leader>ko', require('ufo').openAllFolds)
-vim.keymap.set('n', '<leader>kc', require('ufo').closeAllFolds)
+vim.keymap.set('n', '<leader>ko', require('ufo').openAllFolds, { desc = 'Open all folds' })
+vim.keymap.set('n', '<leader>kc', require('ufo').closeAllFolds, { desc = 'Close all folds' })

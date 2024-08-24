@@ -37,7 +37,7 @@ map('n', '<leader>nf', '<cmd>enew<cr>', { desc = 'File new ' })
 map('n', '<leader>fw', '<cmd>Neotree toggle reveal=true<cr>', { desc = 'File explorer' })
 
 -- File Explorer git status
-map('n', '<leader>fg', '<cmd>:Neotree git_status<cr>', { desc = 'File git status' })
+map('n', '<leader>fg', '<cmd>Neotree git_status<cr>', { desc = 'File git status' })
 
 -- Select all text in buffer
 map('n', '<leader>aa', 'gg<S-v>G', { desc = 'Select all text in buffer' })
