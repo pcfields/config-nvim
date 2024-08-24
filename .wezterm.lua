@@ -106,12 +106,12 @@ config.keys = {
     },
     { -- go the next tab
         mods = 'LEADER',
-        key = 'i',
+        key = 'o',
         action = wezterm.action.ActivateTabRelative(1),
     },
     { -- go to previous tab
         mods = 'LEADER',
-        key = 'o',
+        key = 'i',
         action = wezterm.action.ActivateTabRelative(-1),
     },
     { -- go to left pane
@@ -134,7 +134,7 @@ config.keys = {
         key = 'l',
         action = wezterm.action.ActivatePaneDirection 'Right',
     },
-    { -- [r]esize panes
+    { -- [r]esize panes <leader> r + [ h,j,k,l ]
         mods = 'LEADER',
         key = 'r',
         action = wezterm.action.ActivateKeyTable {
