@@ -179,15 +179,20 @@ end
 -- RIGHT STATUS
 wezterm.on('update-right-status', function(window)
     local LEFT_DIVIDER = ''
+    local bg_color = wezterm.color.parse '#373d68'
+    local fg_color = wezterm.color.parse '#fff'
 
-    local blue_grey_colors = {
-        section3 = '#212529',
-        section2 = '#343a40',
-        section1 = '#444a51',
-    }
     local colors = {
-        bg = blue_grey_colors,
-        fg = '#fff',
+        bg = {
+            light = bg_color,
+            medium = bg_color:darken(0.2),
+            dark = bg_color:darken(0.4),
+        },
+        fg = {
+            light = fg_color:darken(0.1),
+            medium = fg_color:darken(0.3),
+            dark = fg_color:darken(0.4),
+        },
     }
 
     local date = wezterm.strftime '%b %-d' -- "Wed"
@@ -195,36 +200,35 @@ wezterm.on('update-right-status', function(window)
     local time = wezterm.strftime '%H:%M' -- "08:14"
 
     window:set_right_status(wezterm.format {
-        -- First, we draw the arrow...
+        -- 1st SECTION Divider
         { Background = { Color = 'none' } },
-        { Foreground = { Color = colors.bg.section1 } },
+        { Foreground = { Color = colors.bg.light } },
+        { Text = LEFT_DIVIDER },
+        -- workspace section
+        { Background = { Color = colors.bg.light } },
+        { Foreground = { Color = colors.fg.light } },
+        { Text = ' ' .. window:mux_window():get_workspace() .. ' ' },
+
+        -- 2nd SECTION Divider
+        { Background = { Color = colors.bg.light } },
+        { Foreground = { Color = colors.bg.medium } },
         { Text = LEFT_DIVIDER },
         -- battery section
-        { Background = { Color = colors.bg.section1 } },
-        { Foreground = { Color = colors.fg } },
+        { Background = { Color = colors.bg.medium } },
+        { Foreground = { Color = colors.fg.medium } },
         { Text = battery_formatted() .. ' ' },
 
+        -- 3rd SECTION Divider
+        { Background = { Color = colors.bg.medium } },
+        { Foreground = { Color = colors.bg.dark } },
+        { Text = LEFT_DIVIDER },
         -- Date section
-        { Background = { Color = colors.bg.section1 } },
-        { Foreground = { Color = colors.bg.section2 } },
-        { Text = LEFT_DIVIDER },
-
-        { Background = { Color = colors.bg.section2 } },
-        { Foreground = { Color = colors.fg } },
+        { Background = { Color = colors.bg.dark } },
+        { Foreground = { Color = colors.fg.dark } },
         { Text = ' ' .. day .. ' ' },
-        -- { Foreground = { Color = 'white' } },
         { Text = ' ' .. date .. ' ' },
-        { Foreground = { Color = '#ff477e' } },
-        { Text = ' ' .. time .. ' ' },
-
-        -- Home directory section
-        { Background = { Color = colors.bg.section2 } },
-        { Foreground = { Color = colors.bg.section3 } },
-        { Text = LEFT_DIVIDER },
-
-        { Background = { Color = colors.bg.section3 } },
-        { Foreground = { Color = '#adb5bd' } },
-        { Text = ' ' .. wezterm.home_dir .. ' ' },
+        { Foreground = { Color = '#b1b1b1' } },
+        { Text = ' ' .. time .. '  ' },
     })
 
     local prefix = ''
