@@ -1,17 +1,17 @@
 local wezterm = require 'wezterm' -- Pull in the wezterm API
 local mux = wezterm.mux
-local config = {} -- This table will hold the configuration.
 local working_dir = wezterm.home_dir
 local color_schemes = { Adventure = 'Adventure', Abernathy = 'Abernathy', Argonaut = 'Argonaut' }
-
 local webapp_dir = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp'
--- Config Helper Functions ___________________________________________________
 local windows_platform = 'x86_64-pc-windows-msvc'
+local os_shell = 'bash'
+
+local config = {} -- This table will hold the configuration.
+-- Config Helper Functions ___________________________________________________
 local function is_windows_platform()
     return wezterm.target_triple == windows_platform
 end
 
-local os_shell = 'bash'
 if is_windows_platform() then
     os_shell = 'pwsh.exe'
     working_dir = webapp_dir
@@ -116,7 +116,7 @@ config.keys = {
     },
     { -- display list of workspaces
         mods = 'LEADER',
-        key = 'w',
+        key = 'f',
         action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
     },
     { -- split bottom [v]ertical
@@ -223,10 +223,12 @@ local battery_percentage = function()
         local percentage_value = b.state_of_charge * 100
         local percentage = string.format('%.0f%%', percentage_value)
 
-        if percentage_value > 50 then
-            battery = '󰁹 ' .. percentage
+        if percentage_value >= 66 then
+            battery = '󱊣' .. percentage
+        elseif percentage_value >= 33 then
+            battery = '󱊢' .. percentage
         else
-            battery = '󰁾' .. percentage
+            battery = '󱊡' .. percentage
         end
     end
 
@@ -243,7 +245,7 @@ wezterm.on('update-right-status', function(window)
     local fg_color = wezterm.color.parse '#fff'
     local colors = {
         bg = {
-            light = bg_color,
+            light = bg_color:lighten(0.5),
             medium = bg_color:darken(0.2),
             dark = bg_color:darken(0.4),
         },
@@ -299,13 +301,13 @@ end)
 -- Create split screen on startup
 wezterm.on('gui-startup', function()
     local tab, terminal_pane = mux.spawn_window {
-        workspace = 'code-editor',
+        workspace = 'coding',
         cwd = working_dir,
         size = 0.1,
         args = { os_shell },
     }
 
-    tab:set_title 'Editor'
+    tab:set_title 'Coding'
 
     local editor_pane = terminal_pane:split {
         direction = 'Right',
