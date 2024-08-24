@@ -1,11 +1,11 @@
 local wezterm = require 'wezterm' -- Pull in the wezterm API
 local mux = wezterm.mux
-
 local config = {} -- This table will hold the configuration.
-
 local working_dir = wezterm.home_dir
 local color_schemes = { Adventure = 'Adventure', Abernathy = 'Abernathy', Argonaut = 'Argonaut' }
 
+local webapp_dir = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp'
+-- Config Helper Functions ___________________________________________________
 local windows_platform = 'x86_64-pc-windows-msvc'
 local function is_windows_platform()
     return wezterm.target_triple == windows_platform
@@ -14,11 +14,7 @@ end
 local os_shell = 'bash'
 if is_windows_platform() then
     os_shell = 'pwsh.exe'
-    working_dir = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp'
-end
-
-if wezterm.config_builder then
-    config = wezterm.config_builder()
+    working_dir = webapp_dir
 end
 
 local function resize_pane(key, direction)
@@ -38,6 +34,55 @@ local function go_to_tab(tab_number)
     }
 end
 
+local projects_root = {
+    work = 'C:/Projects',
+    personal = wezterm.home_dir .. '/ws',
+}
+
+local function work_projects()
+    local projects = {}
+    local sub_directories = wezterm.glob(projects_root.work .. '/*')
+
+    for _, sub_directory in ipairs(sub_directories) do
+        table.insert(projects, sub_directory)
+    end
+
+    return projects
+end
+
+local function choose_project()
+    local projects = {}
+
+    for _, project_dir in ipairs(work_projects()) do
+        table.insert(projects, { label = project_dir })
+    end
+
+    return wezterm.action.InputSelector {
+        title = 'Choose a project',
+        choices = projects,
+        fuzzy = true,
+        action = wezterm.action_callback(function(child_window, child_pane, id, label)
+            if not label then
+                return
+            end
+
+            local directory_name = label:match '([^/]+)$' -- get last segment of directory path
+
+            child_window:perform_action(
+                wezterm.action.SwitchToWorkspace {
+                    name = directory_name,
+                    spawn = { cwd = label },
+                },
+                child_pane
+            )
+        end),
+    }
+end
+
+-- CONFIG ___________________________________________________
+if wezterm.config_builder then
+    config = wezterm.config_builder()
+end
 -- This is where you actually apply your config choices
 config.color_scheme = color_schemes.Abernathy
 config.default_cwd = working_dir
@@ -64,6 +109,16 @@ config.key_tables = {
 config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 2000 }
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
 config.keys = {
+    { -- display list of projects
+        mods = 'LEADER',
+        key = 'p',
+        action = choose_project(),
+    },
+    { -- display list of workspaces
+        mods = 'LEADER',
+        key = 'w',
+        action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
+    },
     { -- split bottom [v]ertical
         mods = 'LEADER',
         key = 'v',
