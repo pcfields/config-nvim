@@ -21,6 +21,23 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
+local function resize_pane(key, direction)
+    return {
+        key = key,
+        action = wezterm.action.AdjustPaneSize { direction, 3 },
+    }
+end
+
+local function go_to_tab(tab_number)
+    local zero_index_tab = tab_number - 1
+
+    return {
+        mods = 'LEADER',
+        key = tostring(tab_number),
+        action = wezterm.action.ActivateTab(zero_index_tab),
+    }
+end
+
 -- This is where you actually apply your config choices
 config.color_scheme = color_schemes.Abernathy
 config.default_cwd = working_dir
@@ -34,6 +51,16 @@ config.font = wezterm.font {
     weight = 'Medium',
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }, -- don't use font ligatures
 }
+--https://alexplescan.com/posts/2024/08/10/wezterm/
+config.key_tables = {
+    resize_panes = {
+        resize_pane('j', 'Down'),
+        resize_pane('k', 'Up'),
+        resize_pane('h', 'Left'),
+        resize_pane('l', 'Right'),
+    },
+}
+
 config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 2000 }
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
 config.keys = {
@@ -107,51 +134,21 @@ config.keys = {
         key = 'l',
         action = wezterm.action.ActivatePaneDirection 'Right',
     },
-    { -- increase width to the left
+    { -- [r]esize panes
         mods = 'LEADER',
-        key = 'w',
-        action = wezterm.action.AdjustPaneSize { 'Left', 20 },
-    },
-    { -- increase width to the right
-        mods = 'LEADER',
-        key = 'e',
-        action = wezterm.action.AdjustPaneSize { 'Right', 20 },
-    },
-    { -- move pane height down
-        mods = 'LEADER',
-        key = 'DownArrow',
-        action = wezterm.action.AdjustPaneSize { 'Down', 20 },
-    },
-    { -- move pane height up
-        mods = 'LEADER',
-        key = 'UpArrow',
-        action = wezterm.action.AdjustPaneSize { 'Up', 20 },
-    },
-    { -- go to first tab
-        mods = 'LEADER',
-        key = '1',
-        action = wezterm.action.ActivateTab(0),
-    },
-    { -- go to second tab
-        mods = 'LEADER',
-        key = '2',
-        action = wezterm.action.ActivateTab(1),
-    },
-    { -- go to third tab
-        mods = 'LEADER',
-        key = '3',
-        action = wezterm.action.ActivateTab(2),
-    },
-    { -- go to 4th tab
-        mods = 'LEADER',
-        key = '4',
-        action = wezterm.action.ActivateTab(3),
-    },
-    { -- go to 5th tab
-        mods = 'LEADER',
-        key = '5',
-        action = wezterm.action.ActivateTab(4),
-    },
+        key = 'r',
+        action = wezterm.action.ActivateKeyTable {
+            name = 'resize_panes', -- same name as in the `config.key_tables`
+            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
+            timeout_milliseconds = 1000, -- deactivate key table after timeout
+        },
+    }, -- Go to specific tab <leader> number
+    go_to_tab(1),
+    go_to_tab(2),
+    go_to_tab(3),
+    go_to_tab(4),
+    go_to_tab(5),
+    go_to_tab(6),
     { -- scroll up by page
         mods = 'LEADER',
         key = 'u',
