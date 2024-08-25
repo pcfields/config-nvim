@@ -7,6 +7,7 @@ local windows_platform = 'x86_64-pc-windows-msvc'
 local os_shell = 'bash'
 
 local config = {} -- This table will hold the configuration.
+
 -- Config Helper Functions ___________________________________________________
 local function is_windows_platform()
     return wezterm.target_triple == windows_platform
@@ -39,22 +40,49 @@ local projects_root = {
     personal = wezterm.home_dir .. '/ws',
 }
 
-local function work_projects()
-    local projects = {}
-    local sub_directories = wezterm.glob(projects_root.work .. '/*')
+local function project_list(root_dir)
+    local project_dirs = {}
+    local sub_dirs = wezterm.glob(root_dir .. '/*')
 
-    for _, sub_directory in ipairs(sub_directories) do
-        table.insert(projects, sub_directory)
+    for _, sub_dir in ipairs(sub_dirs) do
+        table.insert(project_dirs, sub_dir)
     end
 
-    return projects
+    return project_dirs
 end
 
 local function choose_project()
     local projects = {}
 
-    for _, project_dir in ipairs(work_projects()) do
-        table.insert(projects, { label = project_dir })
+    local work_projects = project_list(projects_root.work)
+    local personal_projects = {
+        apps = project_list(projects_root.personal .. '/apps'),
+        learn = project_list(projects_root.personal .. '/learn'),
+        pcfields = project_list(projects_root.personal .. '/pcfields'),
+        clients = project_list(projects_root.personal .. '/clients')
+    }
+
+    local function is_folder(name)
+        return not string.find(name, '%.')
+    end
+
+    local function add_projects(project_dirs)
+        for _, project_dir in ipairs(project_dirs) do
+            local remove_from_path = wezterm.home_dir
+            local folder_name = string.gsub(project_dir, remove_from_path, '')
+
+            if is_folder(folder_name) then
+                table.insert(projects, { id = project_dir, label = folder_name })
+            end
+        end
+    end
+
+    if is_windows_platform() then
+        add_projects(work_projects)
+    else
+        for _, project_dir_list in pairs(personal_projects) do
+            add_projects(project_dir_list)
+        end
     end
 
     return wezterm.action.InputSelector {
@@ -66,12 +94,12 @@ local function choose_project()
                 return
             end
 
-            local directory_name = label:match '([^/]+)$' -- get last segment of directory path
+            local directory_name = label:match('([^/]+)$') -- get last segment of directory path
 
             child_window:perform_action(
                 wezterm.action.SwitchToWorkspace {
                     name = directory_name,
-                    spawn = { cwd = label },
+                    spawn = { label = 'Workspace: ' .. label, cwd = id },
                 },
                 child_pane
             )
@@ -105,6 +133,18 @@ config.key_tables = {
         resize_pane('l', 'Right'),
     },
 }
+
+-- TODO: explore how to use this for lazygit
+wezterm.on('split-pane', function(window, pane)
+    local cwd = pane:get_current_working_dir()
+
+    window:perform_action(
+        wezterm.action.SpawnCommandInNewWindow {
+            args = { 'lazygit' },
+        },
+        pane
+    )
+end)
 
 config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 2000 }
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
@@ -193,11 +233,11 @@ config.keys = {
         mods = 'LEADER',
         key = 'r',
         action = wezterm.action.ActivateKeyTable {
-            name = 'resize_panes', -- same name as in the `config.key_tables`
-            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
+            name = 'resize_panes',       -- same name as in the `config.key_tables`
+            one_shot = false,            -- Ensures the keytable stays active after it handles its first keypress.
             timeout_milliseconds = 1000, -- deactivate key table after timeout
         },
-    }, -- Go to specific tab <leader> number
+    },                                   -- Go to specific tab <leader> number
     go_to_tab(1),
     go_to_tab(2),
     go_to_tab(3),
@@ -239,13 +279,13 @@ end
 wezterm.on('update-right-status', function(window)
     local LEFT_DIVIDER = ''
     local date = wezterm.strftime '%b %-d' -- "Wed"
-    local day = wezterm.strftime '%a' -- "Mar 3"
-    local time = wezterm.strftime '%H:%M' -- "08:14"
+    local day = wezterm.strftime '%a'      -- "Mar 3"
+    local time = wezterm.strftime '%H:%M'  -- "08:14"
     local bg_color = wezterm.color.parse '#373d68'
     local fg_color = wezterm.color.parse '#fff'
     local colors = {
         bg = {
-            light = bg_color:lighten(0.5),
+            light = bg_color:lighten(0.1),
             medium = bg_color:darken(0.2),
             dark = bg_color:darken(0.4),
         },
@@ -296,30 +336,6 @@ wezterm.on('update-right-status', function(window)
     window:set_left_status(wezterm.format {
         { Text = prefix },
     })
-end)
-
--- Create split screen on startup
-wezterm.on('gui-startup', function()
-    local tab, terminal_pane = mux.spawn_window {
-        workspace = 'coding',
-        cwd = working_dir,
-        size = 0.1,
-        args = { os_shell },
-    }
-
-    tab:set_title 'Coding'
-
-    local editor_pane = terminal_pane:split {
-        direction = 'Right',
-        size = 0.9,
-        cwd = working_dir,
-        top_level = true,
-    }
-
-    editor_pane:send_paste 'nvim .'
-    if is_windows_platform() then
-        terminal_pane:send_paste 'npm run test --'
-    end
 end)
 
 return config
