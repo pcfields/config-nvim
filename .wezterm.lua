@@ -59,7 +59,7 @@ local function choose_project()
         apps = project_list(projects_root.personal .. '/apps'),
         learn = project_list(projects_root.personal .. '/learn'),
         pcfields = project_list(projects_root.personal .. '/pcfields'),
-        clients = project_list(projects_root.personal .. '/clients')
+        clients = project_list(projects_root.personal .. '/clients'),
     }
 
     local function is_folder(name)
@@ -94,7 +94,7 @@ local function choose_project()
                 return
             end
 
-            local directory_name = label:match('([^/]+)$') -- get last segment of directory path
+            local directory_name = label:match '([^/]+)$' -- get last segment of directory path
 
             child_window:perform_action(
                 wezterm.action.SwitchToWorkspace {
@@ -233,11 +233,11 @@ config.keys = {
         mods = 'LEADER',
         key = 'r',
         action = wezterm.action.ActivateKeyTable {
-            name = 'resize_panes',       -- same name as in the `config.key_tables`
-            one_shot = false,            -- Ensures the keytable stays active after it handles its first keypress.
+            name = 'resize_panes', -- same name as in the `config.key_tables`
+            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
             timeout_milliseconds = 1000, -- deactivate key table after timeout
         },
-    },                                   -- Go to specific tab <leader> number
+    }, -- Go to specific tab <leader> number
     go_to_tab(1),
     go_to_tab(2),
     go_to_tab(3),
@@ -279,8 +279,8 @@ end
 wezterm.on('update-right-status', function(window)
     local LEFT_DIVIDER = ''
     local date = wezterm.strftime '%b %-d' -- "Wed"
-    local day = wezterm.strftime '%a'      -- "Mar 3"
-    local time = wezterm.strftime '%H:%M'  -- "08:14"
+    local day = wezterm.strftime '%a' -- "Mar 3"
+    local time = wezterm.strftime '%H:%M' -- "08:14"
     local bg_color = wezterm.color.parse '#373d68'
     local fg_color = wezterm.color.parse '#fff'
     local colors = {
