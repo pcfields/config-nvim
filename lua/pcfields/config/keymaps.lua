@@ -110,16 +110,15 @@ map('n', '<leader>xa', '<cmd>qa<cr>', { desc = 'Quit all' })
 map('n', '<leader>xc', '<cmd>q<cr>', { desc = 'Quit' })
 
 -- Exit insert mode
-map('i', 'jj', '<esc>', { desc = 'Exit insert mode' })
 map('i', 'jk', '<esc>', { desc = 'Exit insert mode' })
 
 -- Line movement - left, right
-map({ 'n', 'v' }, '<leader>hh', '^', { desc = 'Go to beginning of line' })
-map({ 'n', 'v' }, '<leader>ll', '$', { desc = 'Go to end of line' })
+map({ 'n', 'v' }, '<leader>jh', '^', { desc = 'Go to beginning of line' })
+map({ 'n', 'v' }, '<leader>jl', '$', { desc = 'Go to end of line' })
 
 -- Line movement - top, bottom
-map({ 'n', 'v' }, '<leader>kk', 'gg', { desc = 'Go to top of file' })
-map({ 'n', 'v' }, '<leader>jj', '<S-g>', { desc = 'Go to bottom of file' })
+map({ 'n', 'v' }, '<leader>ju', 'gg', { desc = 'Go to top of file' })
+map({ 'n', 'v' }, '<leader>jn', '<S-g>', { desc = 'Go to bottom of file' })
 
 -- Move Lines --------------------------------------------------------------------------------------------
 -- Move down
@@ -142,7 +141,6 @@ function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
     vim.keymap.set('t', '<C-e>', [[<C-\><C-n>]], opts)
     vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-    vim.keymap.set('t', 'jj', [[<C-\><C-n>]], opts)
     vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
     vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
     vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
@@ -164,7 +162,9 @@ map('n', '<C-p>', '<cmd>:Lazy<cr>', { desc = 'Open Lazy Plugin Manager' })
 -- Diagnostic keymaps
 map('n', '<leader>dj', vim.diagnostic.goto_next, { desc = 'Go to next [d]iagnostic message' })
 map('n', '<leader>dk', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })
+
 map('n', '<leader>di', vim.diagnostic.open_float, { desc = 'Open floating [d]iagnostic info message' })
+
 map('n', '<leader>df', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble: Buffer/[f]ile [d]iagnostics' })
 map('n', '<leader>da', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: [A]ll open Buffer [d]iagnostics' })
 
@@ -172,8 +172,15 @@ map('n', '<leader>os', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = '
 map('n', '<leader>ol', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble: [O]pen [L]SP diagnostics' })
 
 --- Code changes
--- Rename variable
-map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename variable' })
+
+map('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Refactor: Rename variable' })
+map('x', '<leader>re', ':Refactor extract ', { desc = 'Refactor: Extract' })
+map('x', '<leader>rf', ':Refactor extract_to_file ', { desc = 'Refactor: Extract to file' })
+map('x', '<leader>rv', ':Refactor extract_var ', { desc = 'Refactor: Extract variable' })
+map({ 'n', 'x' }, '<leader>ri', ':Refactor inline_var', { desc = 'Refactor: Inline variable' })
+map('n', '<leader>rI', ':Refactor inline_func', { desc = 'Refactor: Inline function' })
+map('n', '<leader>rb', ':Refactor extract_block', { desc = 'Refactor: Extract block' })
+map('n', '<leader>rbf', ':Refactor extract_block_to_file', { desc = 'Refactor: extract block to file' })
 
 -- Code action
 map('n', '<leader>ka', vim.lsp.buf.code_action, { desc = 'Code action' })
