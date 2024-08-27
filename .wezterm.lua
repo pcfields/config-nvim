@@ -1,5 +1,4 @@
 local wezterm = require 'wezterm' -- Pull in the wezterm API
-local mux = wezterm.mux
 local working_dir = wezterm.home_dir
 local color_schemes = { Adventure = 'Adventure', Abernathy = 'Abernathy', Argonaut = 'Argonaut' }
 local webapp_dir = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp'
@@ -55,6 +54,8 @@ local function choose_project()
     local projects = {}
 
     local work_projects = project_list(projects_root.work)
+    table.insert(work_projects, 'C:/Users/PeterFields/AppData/Local/nvim')
+
     local personal_projects = {
         apps = project_list(projects_root.personal .. '/apps'),
         learn = project_list(projects_root.personal .. '/learn'),
@@ -62,8 +63,15 @@ local function choose_project()
         clients = project_list(projects_root.personal .. '/clients'),
     }
 
-    local function is_folder(name)
-        return not string.find(name, '%.')
+    local function is_folder(path)
+        local length = #path
+        local index_of_dot_in_name = string.find(path, '%.')
+
+        if index_of_dot_in_name and length - index_of_dot_in_name < 4 then
+            return false
+        end
+
+        return true
     end
 
     local function add_projects(project_dirs)
@@ -136,10 +144,8 @@ config.key_tables = {
 
 -- TODO: explore how to use this for lazygit
 wezterm.on('split-pane', function(window, pane)
-    local cwd = pane:get_current_working_dir()
-
     window:perform_action(
-        wezterm.action.SpawnCommandInNewWindow {
+        wezterm.action.SpawnCommandInNewTab {
             args = { 'lazygit' },
         },
         pane
