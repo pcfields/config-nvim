@@ -146,8 +146,7 @@ config.key_tables = {
     },
 }
 
--- TODO: explore how to use this for lazygit
-wezterm.on('split-pane', function(window, pane)
+wezterm.on('open-lazygit', function(window, pane)
     window:perform_action(
         wezterm.action.SpawnCommandInNewTab {
             args = { 'lazygit' },
@@ -163,6 +162,11 @@ config.keys = {
         mods = 'LEADER',
         key = 'p',
         action = choose_project(),
+    },
+    { -- Open lazygit in new tab
+        mods = 'LEADER',
+        key = 'g',
+        action = wezterm.action.EmitEvent 'open-lazygit',
     },
     { -- display list of workspaces
         mods = 'LEADER',
