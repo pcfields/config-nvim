@@ -53,8 +53,10 @@ end
 local function choose_project()
     local projects = {}
 
-    local work_projects = project_list(projects_root.work)
-    table.insert(work_projects, 'C:/Users/PeterFields/AppData/Local/nvim')
+    local work_projects = { 'C:/Projects/gliderbim.webapp/GliderBim.WebApp', 'C:/Users/PeterFields/AppData/Local/nvim' }
+    for _, dir_path in ipairs(project_list(projects_root.work)) do
+        table.insert(work_projects, dir_path)
+    end
 
     local personal_projects = {
         apps = project_list(projects_root.personal .. '/apps'),
@@ -78,6 +80,7 @@ local function choose_project()
         for _, project_dir in ipairs(project_dirs) do
             local remove_from_path = wezterm.home_dir
             local folder_name = string.gsub(project_dir, remove_from_path, '')
+            folder_name = string.gsub(project_dir, projects_root.work, '')
 
             if is_folder(folder_name) then
                 table.insert(projects, { id = project_dir, label = folder_name })
@@ -119,6 +122,7 @@ end
 if wezterm.config_builder then
     config = wezterm.config_builder()
 end
+
 -- This is where you actually apply your config choices
 config.color_scheme = color_schemes.Abernathy
 config.default_cwd = working_dir
