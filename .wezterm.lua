@@ -24,6 +24,13 @@ local function resize_pane(key, direction)
     }
 end
 
+local function split_pane(key, direction)
+    return {
+        key = key,
+        action = wezterm.action.SplitPane { direction = direction, size = { Percent = 30 } },
+    }
+end
+
 local function go_to_tab(tab_number)
     local zero_index_tab = tab_number - 1
 
@@ -144,16 +151,13 @@ config.key_tables = {
         resize_pane('h', 'Left'),
         resize_pane('l', 'Right'),
     },
+    split_panes = {
+        split_pane('j', 'Down'),
+        split_pane('k', 'Up'),
+        split_pane('h', 'Left'),
+        split_pane('l', 'Right'),
+    },
 }
-
-wezterm.on('open-lazygit', function(window, pane)
-    window:perform_action(
-        wezterm.action.SpawnCommandInNewTab {
-            args = { 'lazygit' },
-        },
-        pane
-    )
-end)
 
 config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 2000 }
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
@@ -166,7 +170,9 @@ config.keys = {
     { -- Open lazygit in new tab
         mods = 'LEADER',
         key = 'g',
-        action = wezterm.action.EmitEvent 'open-lazygit',
+        action = wezterm.action.SpawnCommandInNewTab {
+            args = { 'lazygit' },
+        },
     },
     { -- display list of workspaces
         mods = 'LEADER',
@@ -178,10 +184,14 @@ config.keys = {
         key = 'v',
         action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
     },
-    { -- split right [s]ide
+    { -- [s]plit pane <leader> s + [ h,j,k,l ]
         mods = 'LEADER',
         key = 's',
-        action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+        action = wezterm.action.ActivateKeyTable {
+            name = 'split_panes', -- same name as in the `config.key_tables`
+            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
+            timeout_milliseconds = 1000, -- deactivate key table after timeout
+        },
     },
     { -- [m]aximize pane
         mods = 'LEADER',
