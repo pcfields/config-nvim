@@ -23,6 +23,14 @@ map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', {
 -- Search word under cursor
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 
+map('x', 'p', [["_dP]]) -- Fix copy and paste, keep the copied text instead of keeping the text pasted over
+
+map('n', 'n', 'nzz')
+map('n', 'N', 'Nzz')
+map('n', '*', '*zz')
+map('n', '#', '#zz')
+map('n', 'g*', 'g*zz')
+map('n', 'g#', 'g#zz')
 --------------------------------------------------------------------------------------------
 -- Files + Buffers -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
