@@ -76,3 +76,6 @@ require('nvim-treesitter.configs').setup {
         -- }
     },
 }
+
+-- Setup rename open & closing html tag
+require('nvim-ts-autotag').setup {}
