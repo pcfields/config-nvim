@@ -1,7 +1,6 @@
 local wezterm = require 'wezterm' -- Pull in the wezterm API
 local working_dir = wezterm.home_dir
 local color_schemes = { Adventure = 'Adventure', Abernathy = 'Abernathy', Argonaut = 'Argonaut' }
-local webapp_dir = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp'
 local windows_platform = 'x86_64-pc-windows-msvc'
 local os_shell = 'bash'
 
@@ -14,7 +13,6 @@ end
 
 if is_windows_platform() then
     os_shell = 'pwsh.exe'
-    working_dir = webapp_dir
 end
 
 local function resize_pane(key, direction)

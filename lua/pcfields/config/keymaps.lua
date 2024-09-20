@@ -25,6 +25,9 @@ map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 
 map('x', 'p', [["_dP]]) -- Fix copy and paste, keep the copied text instead of keeping the text pasted over
 
+-- Delete to end of line
+map('n', '<leader>de', 'd$')
+
 map('n', 'n', 'nzz')
 map('n', 'N', 'Nzz')
 map('n', '*', '*zz')
@@ -35,6 +38,7 @@ map('n', 'g#', 'g#zz')
 -- Files + Buffers -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
+map({ 'n' }, '<leader>ss', '/', { desc = 'Search', noremap = true, silent = false })
 -- Save file
 map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'Save file' })
 
