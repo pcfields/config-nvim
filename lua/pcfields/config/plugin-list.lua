@@ -200,13 +200,13 @@ local plugins = {
             -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
     },
-    { -- Buffer tabs
-        'akinsho/bufferline.nvim',
-        config = load_config 'plugins.bufferline',
-        event = 'VeryLazy',
-        version = '*',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-    },
+    -- { -- Buffer tabs
+    --     'akinsho/bufferline.nvim',
+    --     config = load_config 'plugins.bufferline',
+    --     event = 'VeryLazy',
+    --     version = '*',
+    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    -- },
     { -- Improved vim editing window
         'stevearc/dressing.nvim',
         config = load_config 'plugins.dressing',

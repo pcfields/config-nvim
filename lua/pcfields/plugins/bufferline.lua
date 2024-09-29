@@ -2,7 +2,7 @@
 
 require('bufferline').setup {
     options = {
-        mode = 'buffers', -- set to "tabs" to only show tabpages instead
+        mode = 'tabs', --"buffers"| "tabs" -- set to "tabs" to only show tabpages instead
         diagnostics = 'nvim_lsp', -- false | "nvim_lsp" | "coc",
         numbers = 'ordinal', --"none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
