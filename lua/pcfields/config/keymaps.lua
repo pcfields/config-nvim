@@ -11,7 +11,6 @@ vim.g.maplocalleader = ' '
 
 -- Clear search with <esc>
 map({ 'i', 'n', 'v' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
-map({ 'i', 'n', 'v' }, '<C-e>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
 -- Clear search, diff update and redraw
 map({ 'n' }, '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / clear hlsearch / diff update' })
@@ -45,20 +44,7 @@ map({ 'n' }, '<leader>xx', '<cmd>:bd<cr>', { desc = 'Close buffer' })
 map({ 'n' }, '<A-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map({ 'n' }, '<A-h>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
 map({ 'n' }, '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
-map({ 'n' }, '<leader>1', '<cmd>BufferLineGoToBuffer 1<cr>', { desc = 'Go to buffer 1' })
-map({ 'n' }, '<leader>2', '<cmd>BufferLineGoToBuffer 2<cr>', { desc = 'Go to buffer 2' })
-map({ 'n' }, '<leader>3', '<cmd>BufferLineGoToBuffer 3<cr>', { desc = 'Go to buffer 3' })
-map({ 'n' }, '<leader>4', '<cmd>BufferLineGoToBuffer 4<cr>', { desc = 'Go to buffer 4' })
-map({ 'n' }, '<leader>5', '<cmd>BufferLineGoToBuffer 5<cr>', { desc = 'Go to buffer 5' })
-map({ 'n' }, '<leader>6', '<cmd>BufferLineGoToBuffer 6<cr>', { desc = 'Go to buffer 6' })
-map({ 'n' }, '<leader>7', '<cmd>BufferLineGoToBuffer 7<cr>', { desc = 'Go to buffer 7' })
-map({ 'n' }, '<leader>8', '<cmd>BufferLineGoToBuffer 8<cr>', { desc = 'Go to buffer 8' })
-map({ 'n' }, '<leader>9', '<cmd>BufferLineGoToBuffer 9<cr>', { desc = 'Go to buffer 9' })
-map({ 'n' }, '<leader>0', '<cmd>BufferLineGoToBuffer -1<cr>', { desc = 'Go to last buffer' })
-map({ 'n' }, '<leader>bl', '<cmd>BufferLineCloseRight<cr>', { desc = 'Close all buffers to the RIGHT' })
-map({ 'n' }, '<leader>bh', '<cmd>BufferLineCloseLeft<cr>', { desc = 'Close all buffer to the LEFT' })
-map({ 'n' }, '<leader>bo', '<cmd>BufferLineCloseOthers<cr>', { desc = 'Close all other buffers' })
--- map({ 'n' }, '<leader>bb', '<cmd>:BufferLinePick<cr>', { desc = 'Select a buffer with letter' })
+map({ 'n' }, '<leader>bo', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
 
 --------------------------------------------------------------------------------------------
 -- Windows ---------------------------------------------------------------------------------
@@ -134,14 +120,15 @@ end
 
 -- terminal
 function _G.set_terminal_keymaps()
-    local opts = { buffer = 0 }
-    vim.keymap.set('t', '<C-e>', [[<C-\><C-n>]], opts)
-    vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-    vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-    vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-    vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-    vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-    vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+    local terminal_opts = { buffer = 0 }
+
+    vim.keymap.set('t', '<C-e>', [[<C-\><C-n>]], terminal_opts)
+    vim.keymap.set('t', 'jk', [[<C-\><C-n>]], terminal_opts)
+    vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], terminal_opts)
+    vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], terminal_opts)
+    vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], terminal_opts)
+    vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], terminal_opts)
+    vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], terminal_opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
