@@ -174,13 +174,8 @@ config.keys = {
     },
     { -- display list of workspaces
         mods = 'LEADER',
-        key = 'f',
+        key = 'w',
         action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
-    },
-    { -- split bottom [v]ertical
-        mods = 'LEADER',
-        key = 'v',
-        action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
     },
     { -- [s]plit pane <leader> s + [ h,j,k,l ]
         mods = 'LEADER',
@@ -203,12 +198,12 @@ config.keys = {
     },
     { -- show the pane selection mode SWAP,
         mods = 'LEADER',
-        key = 'y',
+        key = 'v',
         action = wezterm.action.PaneSelect { mode = 'Activate' },
     },
     { -- activate copy mode or vim mode
         mods = 'LEADER',
-        key = 'Enter',
+        key = 'y',
         action = wezterm.action.ActivateCopyMode,
     },
     { -- create new tab
