@@ -10,13 +10,14 @@ local telescope = require 'telescope'
 telescope.setup {
     defaults = {
         -- path_display = { shorten = { len = 3 } },
-        path_display = { 'smart' },
+        path_display = { 'truncate' },
+        layout_strategy = 'vertical',
         layout_config = {
             horizontal = {
                 height = 0.9,
                 width = 0.9,
-                preview_cutoff = 120,
-                prompt_position = 'bottom',
+                preview_cutoff = 50,
+                prompt_position = 'top',
             },
         },
         mappings = {
@@ -25,6 +26,7 @@ telescope.setup {
                 ['<C-d>'] = false,
             },
         },
+        -- preview = false,
     },
     pickers = {
         buffers = {
