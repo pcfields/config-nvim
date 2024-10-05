@@ -59,8 +59,11 @@ local search_files = function()
     end
 end
 
+local telescope_buffers = function()
+    telescope_builtin.buffers { sort_mru = true, sort_lastused = true }
+end
 -- Files
-map('n', '<leader><space>', telescope_builtin.buffers, { desc = 'Find existing buffers' })
+map('n', '<leader><space>', telescope_buffers, { desc = 'Find existing buffers' })
 map('n', '<leader>sr', telescope_builtin.oldfiles, { desc = 'Search recently opened files' })
 map('n', '<leader>sf', search_files, { desc = 'Search Files' })
 map('n', '<leader>si', telescope_themes_dropdown, { desc = 'Fuzzily Search In current buffer' })
