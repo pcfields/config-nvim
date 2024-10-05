@@ -18,7 +18,9 @@ map({ 'n' }, '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
 -- Search word under cursor
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 
-map({ 'x' }, 'p', [["_dP]]) -- Fix copy and paste, keep the copied text instead of keeping the text pasted over
+-- Fix copy and paste, keep the copied text instead of keeping the text pasted over
+map({ 'n', 'x' }, 'p', [["_dP]])
+map({ 'n' }, '<leader>xn', '<cmd>Noice dismiss<cr>', { desc = 'Dismiss all notifications' })
 
 --------------------------------------------------------------------------------------------
 -- Files  -----------------------------------------------------------------------------------
@@ -27,6 +29,8 @@ map({ 'x' }, 'p', [["_dP]]) -- Fix copy and paste, keep the copied text instead 
 map({ 'n' }, '<leader>ss', '/', { desc = 'Search', noremap = true, silent = false })
 map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'Save file' })
 map({ 'n' }, '<leader>nf', '<cmd>enew<cr>', { desc = 'File new ' })
+-- map({ 'n' }, '<leader>cfn', '<cmd>expand("%:t")', { desc = 'Copy filename' })
+-- map({ 'n' }, '<leader>cfp', '<cmd>expand("%:p")', { desc = 'Copy file path' })
 
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
@@ -43,7 +47,7 @@ map({ 'n' }, '<leader>aa', 'gg<S-v>G', { desc = 'Select all text in buffer' })
 map({ 'n' }, '<leader>xx', '<cmd>:bd<cr>', { desc = 'Close buffer' })
 map({ 'n' }, '<A-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map({ 'n' }, '<A-h>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
-map({ 'n' }, '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
+map({ 'n' }, '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to last used buffer' })
 map({ 'n' }, '<leader>bo', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
 
 --------------------------------------------------------------------------------------------
@@ -100,8 +104,8 @@ map({ 'n', 'v' }, '<leader>jb', '%', { desc = 'Find the next (curly/square) brac
 map({ 'n' }, '<leader>de', 'd$', { desc = 'Delete to end of line' })
 
 -- Vertical line movement
-map({ 'n', 'v' }, '<leader>ju', 'gg', { desc = 'Go to top of file' })
-map({ 'n', 'v' }, '<leader>jn', '<S-g>', { desc = 'Go to bottom of file' })
+map({ 'n', 'v' }, '<leader>ju', 'gg', { desc = 'Go to top of buffer' })
+map({ 'n', 'v' }, '<leader>jn', '<S-g>', { desc = 'Go to bottom of buffer' })
 
 -- Move line down
 map({ 'n' }, '<A-j>', '<cmd>m .+1<cr>==', { desc = 'Move down' })
@@ -112,11 +116,6 @@ map('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = 'Move down' })
 map({ 'n' }, '<A-k>', '<cmd>m .-2<cr>==', { desc = 'Move up' })
 map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move up' })
 map('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move up' })
-
--- highlights under cursor
-if vim.fn.has 'nvim-0.9.0' == 1 then
-    map({ 'n' }, '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
-end
 
 -- terminal
 function _G.set_terminal_keymaps()
@@ -149,8 +148,6 @@ map({ 'n' }, '<leader>dk', vim.diagnostic.goto_prev, { desc = 'Go to previous [d
 map({ 'n' }, '<leader>di', vim.diagnostic.open_float, { desc = 'Open floating [d]iagnostic info message' })
 map({ 'n' }, '<leader>df', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble: Buffer/[f]ile [d]iagnostics' })
 map({ 'n' }, '<leader>da', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: [A]ll open Buffer [d]iagnostics' })
--- map({ 'n' }, '<leader>os', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Trouble: [O]pen [s]ymbols diagnostics ' })
--- map({ 'n' }, '<leader>ol', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble: [O]pen [L]SP diagnostics' })
 
 --------------------------------------------------------------------------------------------
 -- Refactor  --------------------------------------------------------------------------------
@@ -168,14 +165,8 @@ map({ 'n' }, '<leader>rbf', ':Refactor extract_block_to_file', { desc = 'Refacto
 --------------------------------------------------------------------------------------------
 -- Refactor  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
--- Code action
+
 map({ 'n' }, '<leader>ka', vim.lsp.buf.code_action, { desc = 'Code action' })
-
--- Twilight highlights current block and dims other code
-map({ 'n' }, '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' })
-
--- Code folding
+map({ 'n' }, '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' }) -- Twilight highlights current block and dims other code
 map({ 'n' }, '<leader>kf', 'za', { desc = 'Code folding' })
-
---Todo comments in telescope
 map({ 'n' }, '<leader>lt', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })

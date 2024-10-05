@@ -62,6 +62,7 @@ end
 local telescope_buffers = function()
     telescope_builtin.buffers { sort_mru = true, sort_lastused = true }
 end
+
 -- Files
 map('n', '<leader><space>', telescope_buffers, { desc = 'Find existing buffers' })
 map('n', '<leader>sr', telescope_builtin.oldfiles, { desc = 'Search recently opened files' })
