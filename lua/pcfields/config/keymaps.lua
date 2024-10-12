@@ -19,7 +19,7 @@ map({ 'n' }, '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 
 -- Fix copy and paste, keep the copied text instead of keeping the text pasted over
-map({ 'n', 'x' }, 'p', [["_dP]])
+map({ 'x' }, 'p', [["_dP]])
 map({ 'n' }, '<leader>xn', '<cmd>Noice dismiss<cr>', { desc = 'Dismiss all notifications' })
 
 --------------------------------------------------------------------------------------------
