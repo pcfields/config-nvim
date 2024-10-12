@@ -4,7 +4,7 @@
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = 'ayu_mirage', -- auto | palenight | base16 16color ayu_dark  ayu_mirage codedark
+        theme = 'auto', -- auto | palenight | base16 16color ayu_dark  ayu_mirage codedark
         component_separators = '',
         section_separators = '',
         disabled_filetypes = {
