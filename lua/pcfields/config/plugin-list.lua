@@ -77,7 +77,7 @@ local plugins = {
             'hrsh7th/cmp-path', -- source for file system paths
             'hrsh7th/cmp-cmdline',
             'hrsh7th/nvim-cmp',
-            'rafamadriz/friendly-snippets', -- useful snippets
+            -- 'rafamadriz/friendly-snippets', -- useful snippets
         },
     },
     { -- LSP Configuration & Plugins
