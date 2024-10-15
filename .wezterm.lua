@@ -57,8 +57,10 @@ end
 
 local function choose_project()
     local projects = {}
+    local work_nvim_dir = 'C:/Users/PeterFields/AppData/Local/nvim'
+    local work_webapp_frontend_dir = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp'
+    local work_projects = { work_webapp_frontend_dir, work_nvim_dir }
 
-    local work_projects = { 'C:/Projects/gliderbim.webapp/GliderBim.WebApp', 'C:/Users/PeterFields/AppData/Local/nvim' }
     for _, dir_path in ipairs(project_list(projects_root.work)) do
         table.insert(work_projects, dir_path)
     end
@@ -85,6 +87,7 @@ local function choose_project()
         for _, project_dir in ipairs(project_dirs) do
             local remove_from_path = wezterm.home_dir
             local folder_name = string.gsub(project_dir, remove_from_path, '')
+
             folder_name = string.gsub(project_dir, projects_root.work, '')
 
             if is_folder(folder_name) then
@@ -94,7 +97,8 @@ local function choose_project()
     end
 
     if is_windows_platform() then
-        add_projects(work_projects)
+        table.insert(projects, { id = work_webapp_frontend_dir, label = 'Webapp Frontend' })
+        table.insert(projects, { id = work_nvim_dir, label = 'Neovim Config' })
     else
         for _, project_dir_list in pairs(personal_projects) do
             add_projects(project_dir_list)
