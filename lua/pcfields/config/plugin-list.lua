@@ -28,6 +28,7 @@ local plugins = {
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
     'kdheepak/lazygit.nvim',
+    'sindrets/diffview.nvim',
     {
         'lewis6991/gitsigns.nvim',
         config = load_config 'plugins.gitsigns',
