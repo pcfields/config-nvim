@@ -64,7 +64,7 @@ local telescope_buffers = function()
 end
 
 -- Files
-map('n', '<leader><space>', telescope_buffers, { desc = 'Find existing buffers' })
+map('n', '<leader>bb', telescope_buffers, { desc = 'Find existing buffers' })
 map('n', '<leader>sr', telescope_builtin.oldfiles, { desc = 'Search recently opened files' })
 map('n', '<leader>sf', search_files, { desc = 'Search Files' })
 map('n', '<leader>si', telescope_themes_dropdown, { desc = 'Fuzzily Search In current buffer' })

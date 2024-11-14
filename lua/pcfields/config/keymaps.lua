@@ -47,8 +47,8 @@ map({ 'n' }, '<leader>aa', 'gg<S-v>G', { desc = 'Select all text in buffer' })
 map({ 'n' }, '<leader>xx', '<cmd>:bd<cr>', { desc = 'Close buffer' })
 map({ 'n' }, '<A-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map({ 'n' }, '<A-h>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
-map({ 'n' }, '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to last used buffer' })
-map({ 'n' }, '<leader>bo', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
+map({ 'n' }, '<leader>bk', '<cmd>e #<cr>', { desc = 'Switch to last used buffer' })
+map({ 'n' }, '<leader>bc', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
 
 --------------------------------------------------------------------------------------------
 -- Windows ---------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ map({ 'n' }, '<C-Right>', '<cmd>vertical resize -4<cr>', { desc = 'Decrease wind
 --------------------------------------------------------------------------------------------
 map({ 'n' }, '<leader>xa', '<cmd>qa<cr>', { desc = 'Quit all, Close Neovim' })
 map({ 'n' }, '<leader>xc', '<cmd>q<cr>', { desc = 'Quit' })
-map('i', 'jk', '<esc>', { desc = 'Exit insert mode' })
+map('i', '<leader><leader>', '<esc>', { desc = 'Exit insert mode' })
 
 --------------------------------------------------------------------------------------------
 -- Line movement ---------------------------------------------------------------------------------
