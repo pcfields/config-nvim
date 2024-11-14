@@ -1,62 +1,67 @@
 {
-	"$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-	"version": 2,
-	"final_space": true,
-	"console_title_template": "{{ .Shell }} in {{ .Folder }}",
-	"blocks": [
-		{
-			"type": "prompt",
-			"alignment": "left",
-			"newline": true,
-			"segments": [
-				{
-					"type": "path",
-					"style": "plain",
-					"background": "transparent",
-					"foreground": "green",
-					"template": " {{ .Path }}",
-					"properties": {
-						"style": "full"
-					}
-				}
-			]
-		},
-		{
-			"type": "prompt",
-			"alignment": "left",
-			"newline": true,
-			"segments": [
-				{
-					"type": "git",
-					"style": "plain",
-					"foreground": "#aaaaaa",
-					"background": "transparent",
-					"template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}",
-					"properties": {
-						"fetch_status": true,
-						"fetch_upstream_icon": true,
-						"source": "cli"
-					}
-				}
-			]
-		},
-		{
-			"type": "prompt",
-			"alignment": "left",
-			"newline": true,
-			"segments": [
-				{
-					"type": "text",
-					"style": "plain",
-					"foreground": "magenta",
-					"background": "transparent",
-					"template": "󰅂",
-					"foreground_templates": [
-						"{{if eq .Code 0}}green{{end}}",
-						"{{if gt .Code 0}}red{{end}}"
-					]
-				}
-			]
-		}
-	]
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "console_title_template": "{{ .Shell }} in {{ .Folder }}",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "cache_duration": "none",
+            "style": "full"
+          },
+          "template": "\ue795 {{ .Path }}",
+          "foreground": "green",
+          "background": "transparent",
+          "type": "path",
+          "style": "plain"
+        }
+      ],
+      "newline": true
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "cache_duration": "none",
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "source": "cli"
+          },
+          "template": "\ueb61 {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf0c7 {{ .StashCount }}{{ end }}",
+          "foreground": "#aaaaaa",
+          "background": "transparent",
+          "type": "git",
+          "style": "plain"
+        }
+      ],
+      "newline": true
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "\udb80\udd42",
+          "foreground": "magenta",
+          "background": "transparent",
+          "type": "text",
+          "style": "plain",
+          "foreground_templates": [
+            "{{if eq .Code 0}}green{{end}}",
+            "{{if gt .Code 0}}red{{end}}"
+          ]
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "version": 3,
+  "final_space": true
 }
