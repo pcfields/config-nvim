@@ -47,8 +47,8 @@ map({ 'n' }, '<leader>aa', 'gg<S-v>G', { desc = 'Select all text in buffer' })
 map({ 'n' }, '<leader>xx', '<cmd>:bd<cr>', { desc = 'Close buffer' })
 map({ 'n' }, '<A-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map({ 'n' }, '<A-h>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
-map({ 'n' }, '<leader>bk', '<cmd>e #<cr>', { desc = 'Switch to last used buffer' })
-map({ 'n' }, '<leader>bc', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
+map({ 'n' }, '<leader>vk', '<cmd>e #<cr>', { desc = 'Switch to last used buffer' })
+map({ 'n' }, '<leader>vc', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
 
 --------------------------------------------------------------------------------------------
 -- Windows ---------------------------------------------------------------------------------
