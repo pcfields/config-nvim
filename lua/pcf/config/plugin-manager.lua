@@ -1,4 +1,3 @@
-local plugins = require('pcfields.config.plugin-list').plugins
 -- Install package manager ----------------------------------
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -16,13 +15,3 @@ if not vim.loop.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
------------------------------------------------------
-local status_ok, lazy = pcall(require, 'lazy')
-if not status_ok then
-    return
-end
-
-local opts = {}
-
-lazy.setup(plugins, opts)

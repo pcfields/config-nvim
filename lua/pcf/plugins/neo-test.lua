@@ -1,4 +1,4 @@
-local map = require('pcfields.utils').map
+local map = require('pcf.utils').map
 local neo_test = require 'neotest'
 
 neo_test.setup {

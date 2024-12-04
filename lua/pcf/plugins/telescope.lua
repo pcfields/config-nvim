@@ -3,7 +3,7 @@
 
 -- Fuzzy Finder (files, lsp, etc)
 
-local map = require('pcfields.utils').map
+local map = require('pcf.utils').map
 local telescope_builtin = require 'telescope.builtin'
 local telescope = require 'telescope'
 

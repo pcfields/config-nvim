@@ -8,40 +8,17 @@ end
 
 local function load_config(package)
     return function()
-        require('pcfields/' .. package)
+        require('pcf/' .. package)
     end
 end
 
 local plugins = {
     --------------------------------------------------------------------------------------------------------
-    -- Colorschemes
-    ----------------------------------------------------------------------------------------
-    {
-        'EdenEast/nightfox.nvim',
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
-        priority = 1000, -- make sure to load this before all the other start plugins
-        config = load_config 'plugins.colorscheme',
-    },
-    --------------------------------------------------------------------------------------------------------
     -- Git related plugins
     ----------------------------------------------------------------------------------------
-    'tpope/vim-fugitive',
-    'tpope/vim-rhubarb',
-    'kdheepak/lazygit.nvim',
-    'sindrets/diffview.nvim',
-    {
-        'lewis6991/gitsigns.nvim',
-        config = load_config 'plugins.gitsigns',
-    },
     --------------------------------------------------------------------------------------------------------
     -- Code related
     ----------------------------------------------------------------------------------------
-    'tpope/vim-sleuth', -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
-    { -- Autopairs
-        'windwp/nvim-autopairs',
-        config = load_config 'plugins.autopairs',
-        event = 'InsertEnter',
-    },
     { -- Commenting
         'numToStr/Comment.nvim',
         config = load_config 'plugins.comment',
@@ -74,8 +51,8 @@ local plugins = {
             'hrsh7th/cmp-nvim-lsp',
             'saadparwaiz1/cmp_luasnip', -- source for autocompletion
             'L3MON4D3/LuaSnip',
-            'hrsh7th/cmp-buffer', -- source for text in buffer
-            'hrsh7th/cmp-path', -- source for file system paths
+            'hrsh7th/cmp-buffer',       -- source for text in buffer
+            'hrsh7th/cmp-path',         -- source for file system paths
             'hrsh7th/cmp-cmdline',
             'hrsh7th/nvim-cmp',
             -- 'rafamadriz/friendly-snippets', -- useful snippets
@@ -94,7 +71,7 @@ local plugins = {
                 'j-hui/fidget.nvim',
                 tag = 'legacy',
                 opts = {},
-            }, -- Useful status updates for LSP
+            },                       -- Useful status updates for LSP
             { 'folke/neodev.nvim' }, -- Additional lua configuration, makes nvim stuff amazing!
         },
     },
@@ -201,13 +178,7 @@ local plugins = {
             -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
     },
-    -- { -- Buffer tabs
-    --     'akinsho/bufferline.nvim',
-    --     config = load_config 'plugins.bufferline',
-    --     event = 'VeryLazy',
-    --     version = '*',
-    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    -- },
+
     { -- Improved vim editing window
         'stevearc/dressing.nvim',
         config = load_config 'plugins.dressing',
@@ -235,10 +206,10 @@ local plugins = {
         config = load_config 'plugins.toggleterm',
         version = '*',
     },
-    { -- Debugger
+    {                                       -- Debugger
         'mfussenegger/nvim-dap',
-        dependencies = { -- Creates a beautiful debugger UI
-            'rcarriga/nvim-dap-ui', -- Installs the debug adapters for you
+        dependencies = {                    -- Creates a beautiful debugger UI
+            'rcarriga/nvim-dap-ui',         -- Installs the debug adapters for you
             'williamboman/mason.nvim',
             'jay-babu/mason-nvim-dap.nvim', -- Add your own debuggers here
             'theHamsta/nvim-dap-virtual-text',
