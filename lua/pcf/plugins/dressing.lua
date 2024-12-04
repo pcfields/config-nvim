@@ -1,2 +1,7 @@
 -- https://github.com/stevearc/dressing.nvim
-require('dressing').setup {}
+return { -- Improved vim editing window
+    'stevearc/dressing.nvim',
+    config = function()
+        require('dressing').setup {}
+    end,
+}

@@ -2,12 +2,14 @@
 -- adds git releated signs to the gutter, as well as utilities for managing changes
 -- see `:help gitsigns.txt`
 
-local map = require('pcf.utils').map
-local gitsigns = require 'gitsigns'
+
 
 return {
     'lewis6991/gitsigns.nvim',
     config = function()
+        local map = require('pcf.utils').map
+        local gitsigns = require 'gitsigns'
+
         gitsigns.setup {
             signs = {
                 add = { text = '┃' }, -- text = '+',
