@@ -4,18 +4,14 @@ require 'pcf.config.keymaps'
 require 'pcf.config.auto-commands'
 
 -- Install plugin manager
-require 'pcf.config.plugin-manager'
+local plugin_manager = require 'pcf.config.plugin-manager'
 
 -----------------------------------------------------
-local status_ok, lazy = pcall(require, 'lazy')
-if not status_ok then
-    return
-end
 
 local opts = {}
 
 -- Load plugins
-lazy.setup({
+plugin_manager.setup({
     require 'pcf.plugins.themes.nightfox',
     require 'pcf.plugins.autopairs',
     require 'pcf.plugins.cmp',
@@ -41,7 +37,6 @@ lazy.setup({
     require 'pcf.plugins.twilight',
     require 'pcf.plugins.ufo',
     require 'pcf.plugins.which-key',
-    -- require 'pcf.plugins.bufferline',
     { 'tpope/vim-fugitive' },
     { 'tpope/vim-rhubarb' },
     { 'kdheepak/lazygit.nvim' },
