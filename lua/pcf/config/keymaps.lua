@@ -1,5 +1,7 @@
 -- [[ Basic Keymaps ]]
 local map = require('pcf.utils').map
+local perform_action_on_node = require('pcf.utils').perform_action_on_node
+
 -- Keymaps for better default experiencep
 -- See `:help vim.keymap.set()`
 -- Set <space> as the leader key
@@ -13,8 +15,7 @@ vim.g.maplocalleader = ' '
 map({ 'i', 'n', 'v' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
 -- Clear search, diff update and redraw
-map({ 'n' }, '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>',
-    { desc = 'Redraw / clear hlsearch / diff update' })
+map({ 'n' }, '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / clear hlsearch / diff update' })
 
 -- Search word under cursor
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
@@ -49,8 +50,7 @@ map({ 'n' }, '<leader>xx', '<cmd>:bd<cr>', { desc = 'Close buffer' })
 map({ 'n' }, '<A-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map({ 'n' }, '<A-h>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
 map({ 'n' }, '<leader>vk', '<cmd>e #<cr>', { desc = 'Switch to last used buffer' })
-map({ 'n' }, '<leader>vc', [[:%bdelete|edit #|bdelete #<CR>]],
-    { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
+map({ 'n' }, '<leader>vc', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
 
 --------------------------------------------------------------------------------------------
 -- Windows ---------------------------------------------------------------------------------
@@ -90,16 +90,13 @@ map('i', '<leader><leader>', '<esc>', { desc = 'Exit insert mode' })
 -- Line movement ---------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ 'n' }, 'k', "v:count == 0 ? 'gk' : 'k'",
-    { desc = 'Move up one line and manage word wrap', expr = true, silent = true })
-map({ 'n' }, 'j', "v:count == 0 ? 'gj' : 'j'",
-    { desc = 'Move down one line and manage word wrap', expr = true, silent = true })
+map({ 'n' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Move up one line and manage word wrap', expr = true, silent = true })
+map({ 'n' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Move down one line and manage word wrap', expr = true, silent = true })
 map({ 'n' }, 'n', 'nzz', { desc = 'Go to next and center cursor in middle of screen' })
 map({ 'n' }, 'N', 'Nzz', { desc = 'Go to previous and center cursor in middle of screen' })
 map({ 'n' }, '*', '*zz', { desc = 'Search forward for the word under the cursor and center cursor in middle of screen' })
 map({ 'n' }, '#', '#zz', { desc = 'Search backward and center cursor in middle of screen' })
-map({ 'n' }, 'g*', 'g*zz',
-    { desc = 'Search forward for the word under the cursor and center cursor in middle of screen' })
+map({ 'n' }, 'g*', 'g*zz', { desc = 'Search forward for the word under the cursor and center cursor in middle of screen' })
 map({ 'n' }, 'g#', 'g#zz', { desc = 'Search backward and center cursor in middle of screen' })
 
 -- Horizontal line movement
@@ -148,12 +145,11 @@ map({ 'n' }, '<C-p>', '<cmd>:Lazy<cr>', { desc = 'Open Lazy Plugin Manager' })
 -- Diagnostics  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ 'n' }, '<leader>dj', vim.diagnostic.goto_next, { desc = 'Go to next [d]iagnostic message' })
-map({ 'n' }, '<leader>dk', vim.diagnostic.goto_prev, { desc = 'Go to previous [d]iagnostic message' })
-map({ 'n' }, '<leader>di', vim.diagnostic.open_float, { desc = 'Open floating [d]iagnostic info message' })
-map({ 'n' }, '<leader>df', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
-    { desc = 'Trouble: Buffer/[f]ile [d]iagnostics' })
-map({ 'n' }, '<leader>da', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: [A]ll open Buffer [d]iagnostics' })
+map({ 'n' }, '<leader>ej', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic [e]rror message' })
+map({ 'n' }, '<leader>ek', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic [e]rror message' })
+map({ 'n' }, '<leader>ei', vim.diagnostic.open_float, { desc = 'Open floating diagnostic [e]rror info message' })
+map({ 'n' }, '<leader>ef', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble: Buffer/[f]ile [d]iagnostics' })
+map({ 'n' }, '<leader>ea', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: [A]ll open Buffer [d]iagnostics' })
 
 --------------------------------------------------------------------------------------------
 -- Refactor  --------------------------------------------------------------------------------
@@ -176,3 +172,19 @@ map({ 'n' }, '<leader>ka', vim.lsp.buf.code_action, { desc = 'Code action' })
 map({ 'n' }, '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' }) -- Twilight highlights current block and dims other code
 map({ 'n' }, '<leader>kf', 'za', { desc = 'Code folding' })
 map({ 'n' }, '<leader>lt', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
+
+map({ 'n', 'v' }, '<leader>yi', function()
+    perform_action_on_node 'yi'
+end, { desc = 'Yank inside (...) or [...] or {...} or "..." ' })
+
+map({ 'n', 'v' }, '<leader>ya', function()
+    perform_action_on_node 'ya'
+end, { desc = 'Yank around include braces and quotes (...) or [...] or {...} or "..." ' })
+
+map({ 'n', 'v' }, '<leader>di', function()
+    perform_action_on_node 'di'
+end, { desc = 'Delete inside (...) or [...] or {...} or "..." ' })
+
+map({ 'n', 'v' }, '<leader>da', function()
+    perform_action_on_node 'da'
+end, { desc = 'Delete around include braces and quotes (...) or [...] or {...} or "..." ' })
