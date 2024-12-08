@@ -162,7 +162,11 @@ config.key_tables = {
     },
 }
 
-config.leader = { key = 'Space', mods = 'SHIFT', timeout_milliseconds = 2000 }
+config.leader = {
+    key = 'Space',
+    mods = 'SHIFT',
+    timeout_milliseconds = 2000,
+}
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
 config.keys = {
     { -- display list of projects
@@ -174,7 +178,7 @@ config.keys = {
         mods = 'LEADER',
         key = 'g',
         action = wezterm.action.SpawnCommandInNewTab {
-            args = { 'lazygit' },
+            args = { 'bash', '-c', 'lazygit || read -p "Press enter to exit..."' },
         },
     },
     { -- display list of workspaces
