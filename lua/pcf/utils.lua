@@ -12,9 +12,22 @@ function Utils.perform_action_on_node(command)
 
     local node_type_commands = {
         array = '[',
+        subscript_expression = '[',
         object = '{',
         object_pattern = '{',
+        object_type = '{',
+        interface_declaration = '{',
+        enum_declaration = '{',
+        statement_block = '{',
+        template_substitution = '{',
+        type_parameters = '<',
+        type_parameter = '<',
+        type_arguments = '<',
         formal_parameters = '(',
+        arguments = '(',
+        argument = '(',
+        for_statement = '(',
+        parenthesized_expression = '(',
         string = '"',
         string_fragment = '"',
     }
