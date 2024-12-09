@@ -158,13 +158,9 @@ map({ 'n' }, '<leader>ea', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trou
 --------------------------------------------------------------------------------------------
 
 map({ 'n' }, '<leader>rn', vim.lsp.buf.rename, { desc = 'Refactor: Rename variable' })
-map({ 'x' }, '<leader>re', ':Refactor extract ', { desc = 'Refactor: Extract' })
-map({ 'x' }, '<leader>rf', ':Refactor extract_to_file ', { desc = 'Refactor: Extract to file' })
-map({ 'x' }, '<leader>rv', ':Refactor extract_var ', { desc = 'Refactor: Extract variable' })
-map({ 'n', 'x' }, '<leader>ri', ':Refactor inline_var', { desc = 'Refactor: Inline variable' })
-map({ 'n' }, '<leader>rI', ':Refactor inline_func', { desc = 'Refactor: Inline function' })
-map({ 'n' }, '<leader>rb', ':Refactor extract_block', { desc = 'Refactor: Extract block' })
-map({ 'n' }, '<leader>rbf', ':Refactor extract_block_to_file', { desc = 'Refactor: extract block to file' })
+map({ 'n', 'x' }, '<leader>rr', function()
+    require('refactoring').select_refactor {}
+end, { desc = 'Prompt for a refactor to apply when the remap is triggered' })
 
 --------------------------------------------------------------------------------------------
 --  --------------------------------------------------------------------------------

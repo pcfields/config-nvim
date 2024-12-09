@@ -1,18 +1,27 @@
+-----------------------------------------------------
 -- Load configuration
+-----------------------------------------------------
 require 'pcf.config.options'
 require 'pcf.config.keymaps'
 require 'pcf.config.auto-commands'
 
+-----------------------------------------------------
 -- Install plugin manager
+-----------------------------------------------------
 local plugin_manager = require 'pcf.config.plugin-manager'
 
 -----------------------------------------------------
-
-local opts = {}
-
 -- Load plugins
+-----------------------------------------------------
 plugin_manager.setup({
-    require 'pcf.plugins.themes.nightfox',
+    require 'pcf.plugins.themes.nightfox', -- MAIN THEME
+    { 'sindrets/diffview.nvim' },
+    { 'kdheepak/lazygit.nvim' },
+    { 'nvim-tree/nvim-web-devicons' },
+    { 'nvim-lua/plenary.nvim' },
+    { 'tpope/vim-fugitive' },
+    { 'tpope/vim-rhubarb' },
+    { 'tpope/vim-sleuth' }, -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
     require 'pcf.plugins.autopairs',
     require 'pcf.plugins.cmp',
     require 'pcf.plugins.comment',
@@ -34,14 +43,6 @@ plugin_manager.setup({
     require 'pcf.plugins.todo-comments',
     require 'pcf.plugins.treesitter',
     require 'pcf.plugins.trouble',
-    require 'pcf.plugins.twilight',
     require 'pcf.plugins.ufo',
     require 'pcf.plugins.which-key',
-    { 'tpope/vim-fugitive' },
-    { 'tpope/vim-rhubarb' },
-    { 'kdheepak/lazygit.nvim' },
-    { 'sindrets/diffview.nvim' },
-    { 'tpope/vim-sleuth' }, -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
-    { 'nvim-lua/plenary.nvim' },
-    { 'nvim-tree/nvim-web-devicons' },
-}, opts)
+}, {})
