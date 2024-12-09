@@ -6,10 +6,12 @@ return { -- Neovim statusline plugin
     event = 'VeryLazy',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
+        local macro_recording_text = require('pcf.utils').macro_recording_text
+
         require('lualine').setup {
             options = {
                 icons_enabled = true,
-                theme = 'auto', -- auto | palenight | base16 16color ayu_dark  ayu_mirage codedark
+                theme = 'palenight', -- auto | palenight | ayu_dark | ayu_mirage | codedark
                 component_separators = '',
                 section_separators = '',
                 disabled_filetypes = {
@@ -29,7 +31,7 @@ return { -- Neovim statusline plugin
             sections = {
                 lualine_a = { 'mode' },
                 lualine_b = { 'diagnostics', 'filename', 'filesize' },
-                lualine_c = { 'branch', 'diff' },
+                lualine_c = { 'branch', 'diff', macro_recording_text },
                 lualine_x = { 'encoding', 'fileformat', 'filetype' },
                 lualine_y = { 'progress' },
                 lualine_z = { 'location' },

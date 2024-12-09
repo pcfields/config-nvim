@@ -3,13 +3,12 @@
 
 -- Fuzzy Finder (files, lsp, etc)
 
-
-
 return { -- Search
     'nvim-telescope/telescope.nvim',
     tag = '0.1.6',
     version = '*',
-    dependencies = { { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+        { 'nvim-lua/plenary.nvim' },
         { -- Fuzzy searching functionality
             'nvim-telescope/telescope-fzf-native.nvim',
             -- NOTE: If you are having trouble with this installation,
@@ -18,7 +17,8 @@ return { -- Search
             cond = function()
                 return vim.fn.executable 'make' == 1
             end,
-        } },
+        },
+    },
     config = function()
         local map = require('pcf.utils').map
         local telescope_builtin = require 'telescope.builtin'
@@ -55,6 +55,9 @@ return { -- Search
                         prompt_position = 'top',
                     },
                 },
+                marks = {
+                    initial_mode = 'normal',
+                },
             },
         }
 
@@ -80,6 +83,10 @@ return { -- Search
             telescope_builtin.buffers { sort_mru = true, sort_lastused = true }
         end
 
+        local telescope_marks = function()
+            telescope_builtin.marks { sort_mru = true, sort_lastused = true }
+        end
+
         -- Files
         map('n', '<leader>vv', telescope_buffers, { desc = 'Find existing buffers' })
         map('n', '<leader>sr', telescope_builtin.oldfiles, { desc = 'Search recently opened files' })
@@ -87,6 +94,7 @@ return { -- Search
         map('n', '<leader>si', telescope_themes_dropdown, { desc = 'Fuzzily Search In current buffer' })
         -- Jumplist
         map('n', '<leader>sj', telescope_builtin.jumplist, { desc = 'Search Jump List' })
+        map('n', '<leader>sm', telescope_marks, { desc = 'Search marks' })
         -- Text
         map('n', '<leader>sw', telescope_builtin.grep_string, { desc = 'Search current Word' })
         map('n', '<leader>se', telescope_builtin.live_grep, { desc = 'Search everywhere by text using Grep' })

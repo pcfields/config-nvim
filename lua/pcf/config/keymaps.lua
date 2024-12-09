@@ -1,6 +1,8 @@
 -- [[ Basic Keymaps ]]
 local map = require('pcf.utils').map
 local perform_action_on_node = require('pcf.utils').perform_action_on_node
+local play_macro = require('pcf.utils').play_macro
+local record_macro = require('pcf.utils').record_macro
 
 -- Keymaps for better default experiencep
 -- See `:help vim.keymap.set()`
@@ -67,8 +69,8 @@ map({ 'n' }, '<leader>wk', '<C-w>k', { desc = 'Go to upper window' })
 map({ 'n' }, '<leader>wl', '<C-w>l', { desc = 'Go to right window' })
 
 -- Split windows
-map({ 'n' }, '<leader>wb', '<C-w>s', { desc = 'Split window below' })
-map({ 'n' }, '<leader>wr', '<C-w>v', { desc = 'Split window right' })
+map({ 'n' }, '<leader>ws', '<C-w>s', { desc = 'Split window below' })
+map({ 'n' }, '<leader>wv', '<C-w>v', { desc = 'Split window right' })
 
 -- Resize windows 50/50
 map({ 'n' }, '<leader>w2', '<C-w>=', { desc = 'Resize windows to be 50|50' })
@@ -142,7 +144,7 @@ map({ 'n' }, '<leader>gg', '<cmd>:LazyGit<cr>', { desc = 'Open LazyGit' })
 map({ 'n' }, '<C-p>', '<cmd>:Lazy<cr>', { desc = 'Open Lazy Plugin Manager' })
 
 --------------------------------------------------------------------------------------------
--- Diagnostics  --------------------------------------------------------------------------------
+-- Diagnostics/Errors  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
 map({ 'n' }, '<leader>ej', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic [e]rror message' })
@@ -165,7 +167,7 @@ map({ 'n' }, '<leader>rb', ':Refactor extract_block', { desc = 'Refactor: Extrac
 map({ 'n' }, '<leader>rbf', ':Refactor extract_block_to_file', { desc = 'Refactor: extract block to file' })
 
 --------------------------------------------------------------------------------------------
--- Refactor  --------------------------------------------------------------------------------
+--  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
 map({ 'n' }, '<leader>ka', vim.lsp.buf.code_action, { desc = 'Code action' })
@@ -188,3 +190,10 @@ end, { desc = 'Delete inside (...) or [...] or {...} or "..." ' })
 map({ 'n', 'v' }, '<leader>da', function()
     perform_action_on_node 'da'
 end, { desc = 'Delete around include braces and quotes (...) or [...] or {...} or "..." ' })
+
+--------------------------------------------------------------------------------------------
+-- Macros  --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+
+map({ 'n' }, '<leader>me', play_macro, { noremap = true, silent = true, desc = 'Execute/Play a macro from a specified register' })
+map({ 'n' }, '<leader>mr', record_macro, { noremap = true, silent = true, desc = 'Record a macro in a specified register' })

@@ -1,7 +1,7 @@
 // Enum
 enum LogLevel {
   Info = "INFO",
-  Warn = "WARN",
+  Warn = "hi" + "WARN",
   Error = "ERROR",
 }
 
