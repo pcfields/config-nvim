@@ -42,8 +42,18 @@ return { -- LSP Configuration & Plugins
                 })
             end
 
+            local function open_lsp_references()
+                telescope_builtin.lsp_references {
+                    show_line = false,
+                    include_declaration = true,
+                    include_current_line = false,
+                    trim_text = true,
+                    reuse_win = false,
+                }
+            end
+
             nmap('<leader>od', telescope_builtin.lsp_definitions, 'Go to Definition')
-            nmap('<leader>or', telescope_builtin.lsp_references, 'Go to References')
+            nmap('<leader>or', open_lsp_references, 'Go to References')
             nmap('<leader>oi', vim.lsp.buf.implementation, 'Go to Implementation')
             nmap('<leader>ot', vim.lsp.buf.type_definition, 'Go to Type Definition')
             nmap('<leader>oh', vim.lsp.buf.hover, 'Display Hover Documentation')
