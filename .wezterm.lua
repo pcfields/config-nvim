@@ -178,7 +178,7 @@ config.keys = {
         mods = 'LEADER',
         key = 'g',
         action = wezterm.action.SpawnCommandInNewTab {
-            args = { 'bash', '-c', 'lazygit || read -p "Press enter to exit..."' },
+            args = { os_shell, '-c', 'lazygit || read -p "Press enter to exit..."' },
         },
     },
     { -- display list of workspaces
