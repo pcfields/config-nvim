@@ -58,6 +58,9 @@ return { -- Search
                 marks = {
                     initial_mode = 'normal',
                 },
+                git_files = {
+                    theme = 'ivy',
+                },
             },
         }
 
