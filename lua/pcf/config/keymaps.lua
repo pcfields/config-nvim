@@ -167,7 +167,6 @@ end, { desc = 'Prompt for a refactor to apply when the remap is triggered' })
 --------------------------------------------------------------------------------------------
 
 map({ 'n' }, '<leader>ka', vim.lsp.buf.code_action, { desc = 'Code action' })
-map({ 'n' }, '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' }) -- Twilight highlights current block and dims other code
 map({ 'n' }, '<leader>kf', 'za', { desc = 'Code folding' })
 map({ 'n' }, '<leader>lt', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
 
