@@ -171,6 +171,7 @@ map({ 'n' }, '<leader>kt', '<cmd>Twilight<cr>', { desc = 'Turn on Twilight' }) -
 map({ 'n' }, '<leader>kf', 'za', { desc = 'Code folding' })
 map({ 'n' }, '<leader>lt', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
 
+map({ 'n', 'v' }, '<leader>ye', 'y$', { desc = 'Yank till end of line' })
 map({ 'n', 'v' }, '<leader>yi', function()
     perform_action_on_node 'yi'
 end, { desc = 'Yank inside (...) or [...] or {...} or "..." ' })
@@ -191,5 +192,5 @@ end, { desc = 'Delete around include braces and quotes (...) or [...] or {...} o
 -- Macros  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ 'n' }, '<leader>me', play_macro, { noremap = true, silent = true, desc = 'Execute/Play a macro from a specified register' })
+map({ 'n' }, '<leader>mp', play_macro, { noremap = true, silent = true, desc = 'Play a macro from a specified register' })
 map({ 'n' }, '<leader>mr', record_macro, { noremap = true, silent = true, desc = 'Record a macro in a specified register' })
