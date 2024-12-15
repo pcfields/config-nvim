@@ -7,6 +7,7 @@ return { -- Neovim statusline plugin
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
         local macro_recording_text = require('pcf.utils').macro_recording_text
+        local get_winbar_filename = require('pcf.utils').get_winbar_filename
 
         require('lualine').setup {
             options = {
@@ -45,8 +46,12 @@ return { -- Neovim statusline plugin
                 lualine_z = {},
             },
             tabline = {},
-            winbar = {},
-            inactive_winbar = {},
+            winbar = {
+                lualine_c = { get_winbar_filename },
+            },
+            inactive_winbar = {
+                lualine_b = { get_winbar_filename },
+            },
             extensions = {},
         }
     end,
