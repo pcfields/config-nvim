@@ -9,7 +9,8 @@ end
 
 function Utils.perform_action_on_node(command)
     local ts_utils = require 'nvim-treesitter.ts_utils'
-    local node = ts_utils.get_node_at_cursor()
+    local node_at_cursor = ts_utils.get_node_at_cursor()
+    local node = node_at_cursor
 
     local node_type_commands = {
         array = '[',
@@ -29,8 +30,14 @@ function Utils.perform_action_on_node(command)
         argument = '(',
         for_statement = '(',
         parenthesized_expression = '(',
-        string = '"',
-        string_fragment = '"',
+        template_string = '`',
+        string = function(current_node)
+            local start_row, start_col, _, _ = current_node:range()
+            local line = vim.api.nvim_buf_get_lines(0, start_row, start_row + 1, false)[1]
+            local quote = line:sub(start_col + 1, start_col + 1)
+
+            return quote == "'" and "'" or '"'
+        end,
     }
 
     while node do
@@ -38,6 +45,10 @@ function Utils.perform_action_on_node(command)
         local command_suffix = node_type_commands[node_type]
 
         if command_suffix then
+            if type(command_suffix) == 'function' then
+                command_suffix = command_suffix(node)
+            end
+
             vim.cmd('normal! ' .. command .. command_suffix)
 
             return
