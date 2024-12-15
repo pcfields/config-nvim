@@ -32,6 +32,7 @@ plugin_manager.setup({
     require 'pcf.plugins.lazydev',
     require 'pcf.plugins.lint',
     require 'pcf.plugins.lsp-config',
+    require 'pcf.plugins.lsp-lens',
     require 'pcf.plugins.lualine',
     require 'pcf.plugins.neo-test',
     require 'pcf.plugins.neo-tree',
