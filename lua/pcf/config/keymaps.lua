@@ -172,20 +172,24 @@ map({ 'n' }, '<leader>lt', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo
 
 map({ 'n', 'v' }, '<leader>ye', 'y$', { desc = 'Yank till end of line' })
 map({ 'n', 'v' }, '<leader>yi', function()
-    perform_action_on_node 'yi'
+    perform_action_on_node 'yii'
 end, { desc = 'Yank inside (...) or [...] or {...} or "..." ' })
 
-map({ 'n', 'v' }, '<leader>ya', function()
-    perform_action_on_node 'ya'
-end, { desc = 'Yank around include braces and quotes (...) or [...] or {...} or "..." ' })
+-- map({ 'n', 'v' }, '<leader>yif', function()
+--     perform_action_on_node 'yii'
+-- end, { desc = 'Yank inside (...) or [...] or {...} or "..." ' })
 
-map({ 'n', 'v' }, '<leader>di', function()
+map({ 'n', 'v' }, '<leader>yaa', function()
+    perform_action_on_node 'ya'
+end, { desc = 'Yank around (...) or [...] or {...} or "..." ' })
+
+map({ 'n', 'v' }, '<leader>dii', function()
     perform_action_on_node 'di'
 end, { desc = 'Delete inside (...) or [...] or {...} or "..." ' })
 
-map({ 'n', 'v' }, '<leader>da', function()
+map({ 'n', 'v' }, '<leader>daa', function()
     perform_action_on_node 'da'
-end, { desc = 'Delete around include braces and quotes (...) or [...] or {...} or "..." ' })
+end, { desc = 'Delete around (...) or [...] or {...} or "..." ' })
 
 --------------------------------------------------------------------------------------------
 -- Macros  --------------------------------------------------------------------------------

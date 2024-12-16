@@ -50,7 +50,7 @@ opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
 opt.sidescrolloff = 8 -- Columns of context
 opt.shortmess:append { W = true, I = true, c = true, C = true }
-opt.showmode = true -- Dont show mode since we have a statusline
+opt.showmode = true
 opt.signcolumn = 'yes' -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartindent = true -- Insert indents automatically
 opt.smartcase = true -- Don't ignore case with capitals
