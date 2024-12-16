@@ -33,6 +33,7 @@ plugin_manager.setup({
     require 'pcf.plugins.lint',
     require 'pcf.plugins.lsp-config',
     require 'pcf.plugins.lualine',
+    require 'pcf.plugins.mini-files',
     require 'pcf.plugins.neo-test',
     require 'pcf.plugins.neo-tree',
     require 'pcf.plugins.noice',
