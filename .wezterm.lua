@@ -190,8 +190,8 @@ config.keys = {
         mods = 'LEADER',
         key = 's',
         action = wezterm.action.ActivateKeyTable {
-            name = 'split_panes', -- same name as in the `config.key_tables`
-            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
+            name = 'split_panes',        -- same name as in the `config.key_tables`
+            one_shot = false,            -- Ensures the keytable stays active after it handles its first keypress.
             timeout_milliseconds = 1000, -- deactivate key table after timeout
         },
     },
@@ -259,11 +259,11 @@ config.keys = {
         mods = 'LEADER',
         key = 'r',
         action = wezterm.action.ActivateKeyTable {
-            name = 'resize_panes', -- same name as in the `config.key_tables`
-            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
+            name = 'resize_panes',       -- same name as in the `config.key_tables`
+            one_shot = false,            -- Ensures the keytable stays active after it handles its first keypress.
             timeout_milliseconds = 1000, -- deactivate key table after timeout
         },
-    }, -- Go to specific tab <leader> number
+    },                                   -- Go to specific tab <leader> number
     go_to_tab(1),
     go_to_tab(2),
     go_to_tab(3),
@@ -282,31 +282,11 @@ config.keys = {
     },
 }
 
-local battery_percentage = function()
-    local battery = ''
-
-    for _, b in ipairs(wezterm.battery_info()) do
-        local percentage_value = b.state_of_charge * 100
-        local percentage = string.format('%.0f%%', percentage_value)
-
-        if percentage_value >= 66 then
-            battery = '󱊣' .. percentage
-        elseif percentage_value >= 33 then
-            battery = '󱊢' .. percentage
-        else
-            battery = '󱊡' .. percentage
-        end
-    end
-
-    return battery
-end
 
 -- RIGHT STATUS
 wezterm.on('update-right-status', function(window)
     local LEFT_DIVIDER = ''
-    local date = wezterm.strftime '%b %-d' -- "Wed"
-    local day = wezterm.strftime '%a' -- "Mar 3"
-    local time = wezterm.strftime '%H:%M' -- "08:14"
+
     local bg_color = wezterm.color.parse '#373d68'
     local fg_color = wezterm.color.parse '#fff'
     local colors = {
@@ -327,6 +307,7 @@ wezterm.on('update-right-status', function(window)
         { Background = { Color = 'none' } },
         { Foreground = { Color = colors.bg.light } },
         { Text = LEFT_DIVIDER },
+
         -- workspace section
         { Background = { Color = colors.bg.light } },
         { Foreground = { Color = colors.fg.light } },
@@ -336,23 +317,57 @@ wezterm.on('update-right-status', function(window)
         { Background = { Color = colors.bg.light } },
         { Foreground = { Color = colors.bg.medium } },
         { Text = LEFT_DIVIDER },
-        -- battery section
-        { Background = { Color = colors.bg.medium } },
-        { Foreground = { Color = colors.fg.medium } },
-        { Text = battery_percentage() .. ' ' },
+
 
         -- 3rd SECTION Divider
         { Background = { Color = colors.bg.medium } },
         { Foreground = { Color = colors.bg.dark } },
         { Text = LEFT_DIVIDER },
-        -- Date section
-        { Background = { Color = colors.bg.dark } },
-        { Foreground = { Color = colors.fg.dark } },
-        { Text = ' ' .. day .. ' ' },
-        { Text = ' ' .. date .. ' ' },
-        { Foreground = { Color = '#b1b1b1' } },
-        { Text = ' ' .. time .. '  ' },
+
     })
+
+    local battery_percentage = function()
+        local battery = ''
+
+        for _, b in ipairs(wezterm.battery_info()) do
+            local percentage_value = b.state_of_charge * 100
+            local percentage = string.format('%.0f%%', percentage_value)
+
+            if percentage_value >= 66 then
+                battery = '󱊣' .. percentage
+            elseif percentage_value >= 33 then
+                battery = '󱊢' .. percentage
+            else
+                battery = '󱊡' .. percentage
+            end
+        end
+
+        return battery
+    end
+
+    local function battery_percentage_section()
+        -- battery section
+        return {
+            { Background = { Color = colors.bg.medium } },
+            { Foreground = { Color = colors.fg.medium } },
+            { Text = battery_percentage() .. ' ' },
+        }
+    end
+
+    local function date_section()
+        local date = wezterm.strftime '%b %-d' -- "Wed"
+        local day = wezterm.strftime '%a'      -- "Mar 3"
+        local time = wezterm.strftime '%H:%M'  -- "08:14"
+        -- Date section
+        return {
+            { Background = { Color = colors.bg.dark } },
+            { Foreground = { Color = colors.fg.dark } },
+            { Text = ' ' .. day .. ' ' },
+            { Text = ' ' .. date .. ' ' },
+            { Foreground = { Color = '#b1b1b1' } },
+            { Text = ' ' .. time .. '  ' },
+        }
+    end
 
     local prefix = ''
     if window:leader_is_active() then
