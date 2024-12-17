@@ -171,8 +171,8 @@ map({ 'n' }, '<leader>kf', 'za', { desc = 'Code folding' })
 map({ 'n' }, '<leader>lt', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
 
 map({ 'n', 'v' }, '<leader>ye', 'y$', { desc = 'Yank till end of line' })
-map({ 'n', 'v' }, '<leader>yi', function()
-    perform_action_on_node 'yii'
+map({ 'n', 'v' }, '<leader>yii', function()
+    perform_action_on_node 'yi'
 end, { desc = 'Yank inside (...) or [...] or {...} or "..." ' })
 
 -- map({ 'n', 'v' }, '<leader>yif', function()
