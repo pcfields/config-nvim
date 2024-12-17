@@ -5,6 +5,9 @@ return {
     'echasnovski/mini.files',
     version = '*',
     config = function()
-        require('mini.files').setup()
+        local map = require('pcf.utils').map
+        require('mini.files').setup {}
+
+        map({ 'n', 'v' }, '<leader>fo', '<cmd>lua require("mini.files").open()<CR>', { desc = 'Open mini.files explorer' })
     end,
 }
