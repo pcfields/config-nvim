@@ -43,7 +43,6 @@ return { -- Search
                         ['<C-d>'] = false,
                     },
                 },
-                -- preview = false,
             },
             pickers = {
                 buffers = {
@@ -57,9 +56,6 @@ return { -- Search
                 },
                 marks = {
                     initial_mode = 'normal',
-                },
-                git_files = {
-                    theme = 'ivy',
                 },
             },
         }
@@ -75,10 +71,12 @@ return { -- Search
         end
 
         local search_files = function()
-            local ok = pcall(telescope_builtin.git_files { use_git_root = false, show_untracked = true })
+            local ok = pcall(require('telescope.builtin').git_files, {
+                show_untracked = true,
+            })
 
             if not ok then
-                telescope_builtin.find_files()
+                require('telescope.builtin').find_files()
             end
         end
 
