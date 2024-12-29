@@ -44,70 +44,60 @@ local projects_root = {
     personal = wezterm.home_dir .. '/ws',
 }
 
-local function project_list(root_dir)
-    local project_dirs = {}
-    local sub_dirs = wezterm.glob(root_dir .. '/*')
+local function add_subdirectories_for(root_directory)
+    local sub_directories = {}
+    local directories_under_root_directory = wezterm.glob(root_directory .. '/*')
 
-    for _, sub_dir in ipairs(sub_dirs) do
-        table.insert(project_dirs, sub_dir)
+    for _, sub_directory in ipairs(directories_under_root_directory) do
+        table.insert(sub_directories, sub_directory)
     end
 
-    return project_dirs
+    return sub_directories
 end
 
-local function choose_project()
-    local projects = {}
-    local work_nvim_dir = 'C:/Users/PeterFields/AppData/Local/nvim'
-    local work_webapp_frontend_dir = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp'
-    local work_projects = { work_webapp_frontend_dir, work_nvim_dir }
-
-    for _, dir_path in ipairs(project_list(projects_root.work)) do
-        table.insert(work_projects, dir_path)
-    end
-
-    local personal_projects = {
-        apps = project_list(projects_root.personal .. '/apps'),
-        learn = project_list(projects_root.personal .. '/learn'),
-        pcfields = project_list(projects_root.personal .. '/pcfields'),
-        clients = project_list(projects_root.personal .. '/clients'),
+local function display_project_list()
+    local project_list = {}
+    local work_dir = {
+        nvim = 'C:/Users/PeterFields/AppData/Local/nvim',
+        webapp_frontend = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp',
     }
 
     local function is_folder(path)
-        local length = #path
-        local index_of_dot_in_name = string.find(path, '%.')
+        local extension = path:match '%.([^%.]+)$'
 
-        if index_of_dot_in_name and length - index_of_dot_in_name < 4 then
-            return false
-        end
-
-        return true
+        return not extension or #extension > 3
     end
 
-    local function add_projects(project_dirs)
-        for _, project_dir in ipairs(project_dirs) do
-            local remove_from_path = wezterm.home_dir
-            local folder_name = string.gsub(project_dir, remove_from_path, '')
-
-            folder_name = string.gsub(project_dir, projects_root.work, '')
+    local function add_paths_to_project_list(options)
+        for _, project_directory in ipairs(options.directories) do
+            local folder_name = project_directory:match '([^/]+)$'
 
             if is_folder(folder_name) then
-                table.insert(projects, { id = project_dir, label = folder_name })
+                table.insert(project_list, { id = project_directory, label = folder_name })
             end
         end
     end
 
     if is_windows_platform() then
-        table.insert(projects, { id = work_webapp_frontend_dir, label = 'Webapp Frontend' })
-        table.insert(projects, { id = work_nvim_dir, label = 'Neovim Config' })
+        table.insert(project_list, { id = work_dir.webapp_frontend, label = 'Webapp Frontend' })
+        table.insert(project_list, { id = work_dir.nvim, label = 'Neovim Config' })
+
+        add_paths_to_project_list { directories = add_subdirectories_for(projects_root.work) }
     else
-        for _, project_dir_list in pairs(personal_projects) do
-            add_projects(project_dir_list)
+        local folder_names = { 'apps', 'learn', 'pcfields', 'clients' }
+
+        table.insert(project_list, { id = '~/.config/nvim', label = 'Neovim Config' })
+
+        for _, folder_name in ipairs(folder_names) do
+            local project_path = projects_root.personal .. '/' .. folder_name
+
+            add_paths_to_project_list { directories = add_subdirectories_for(project_path) }
         end
     end
 
     return wezterm.action.InputSelector {
         title = 'Choose a project',
-        choices = projects,
+        choices = project_list,
         fuzzy = true,
         action = wezterm.action_callback(function(child_window, child_pane, id, label)
             if not label then
@@ -172,7 +162,7 @@ config.keys = {
     { -- display list of projects
         mods = 'LEADER',
         key = 'p',
-        action = choose_project(),
+        action = display_project_list(),
     },
     { -- Open lazygit in new tab
         mods = 'LEADER',
@@ -190,8 +180,8 @@ config.keys = {
         mods = 'LEADER',
         key = 's',
         action = wezterm.action.ActivateKeyTable {
-            name = 'split_panes',        -- same name as in the `config.key_tables`
-            one_shot = false,            -- Ensures the keytable stays active after it handles its first keypress.
+            name = 'split_panes', -- same name as in the `config.key_tables`
+            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
             timeout_milliseconds = 1000, -- deactivate key table after timeout
         },
     },
@@ -259,11 +249,11 @@ config.keys = {
         mods = 'LEADER',
         key = 'r',
         action = wezterm.action.ActivateKeyTable {
-            name = 'resize_panes',       -- same name as in the `config.key_tables`
-            one_shot = false,            -- Ensures the keytable stays active after it handles its first keypress.
+            name = 'resize_panes', -- same name as in the `config.key_tables`
+            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
             timeout_milliseconds = 1000, -- deactivate key table after timeout
         },
-    },                                   -- Go to specific tab <leader> number
+    }, -- Go to specific tab <leader> number
     go_to_tab(1),
     go_to_tab(2),
     go_to_tab(3),
@@ -281,7 +271,6 @@ config.keys = {
         action = wezterm.action.ScrollByPage(1),
     },
 }
-
 
 -- RIGHT STATUS
 wezterm.on('update-right-status', function(window)
@@ -318,56 +307,11 @@ wezterm.on('update-right-status', function(window)
         { Foreground = { Color = colors.bg.medium } },
         { Text = LEFT_DIVIDER },
 
-
         -- 3rd SECTION Divider
         { Background = { Color = colors.bg.medium } },
         { Foreground = { Color = colors.bg.dark } },
         { Text = LEFT_DIVIDER },
-
     })
-
-    local battery_percentage = function()
-        local battery = ''
-
-        for _, b in ipairs(wezterm.battery_info()) do
-            local percentage_value = b.state_of_charge * 100
-            local percentage = string.format('%.0f%%', percentage_value)
-
-            if percentage_value >= 66 then
-                battery = '󱊣' .. percentage
-            elseif percentage_value >= 33 then
-                battery = '󱊢' .. percentage
-            else
-                battery = '󱊡' .. percentage
-            end
-        end
-
-        return battery
-    end
-
-    local function battery_percentage_section()
-        -- battery section
-        return {
-            { Background = { Color = colors.bg.medium } },
-            { Foreground = { Color = colors.fg.medium } },
-            { Text = battery_percentage() .. ' ' },
-        }
-    end
-
-    local function date_section()
-        local date = wezterm.strftime '%b %-d' -- "Wed"
-        local day = wezterm.strftime '%a'      -- "Mar 3"
-        local time = wezterm.strftime '%H:%M'  -- "08:14"
-        -- Date section
-        return {
-            { Background = { Color = colors.bg.dark } },
-            { Foreground = { Color = colors.fg.dark } },
-            { Text = ' ' .. day .. ' ' },
-            { Text = ' ' .. date .. ' ' },
-            { Foreground = { Color = '#b1b1b1' } },
-            { Text = ' ' .. time .. '  ' },
-        }
-    end
 
     local prefix = ''
     if window:leader_is_active() then
