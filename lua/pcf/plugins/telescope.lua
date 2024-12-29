@@ -75,10 +75,10 @@ return { -- Search
         end
 
         local search_files = function()
-            if vim.fn.filereadable './.git/HEAD' then
-                telescope_builtin.git_files { use_git_root = false, show_untracked = true }
-            else
-                telescope_builtin.search_files()
+            local ok = pcall(telescope_builtin.git_files { use_git_root = false, show_untracked = true })
+
+            if not ok then
+                telescope_builtin.find_files()
             end
         end
 
