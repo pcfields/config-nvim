@@ -56,7 +56,7 @@ local function add_subdirectories_for(root_directory)
 end
 
 local function display_project_list()
-    local project_list = {}
+    local projects_list = {}
     local work_dir = {
         nvim = 'C:/Users/PeterFields/AppData/Local/nvim',
         webapp_frontend = 'C:/Projects/gliderbim.webapp/GliderBim.WebApp',
@@ -73,20 +73,20 @@ local function display_project_list()
             local folder_name = project_directory:match '([^/]+)$'
 
             if is_folder(folder_name) then
-                table.insert(project_list, { id = project_directory, label = folder_name })
+                table.insert(projects_list, { id = project_directory, label = folder_name })
             end
         end
     end
 
     if is_windows_platform() then
-        table.insert(project_list, { id = work_dir.webapp_frontend, label = 'Webapp Frontend' })
-        table.insert(project_list, { id = work_dir.nvim, label = 'Neovim Config' })
+        table.insert(projects_list, { id = work_dir.webapp_frontend, label = 'Webapp Frontend' })
+        table.insert(projects_list, { id = work_dir.nvim, label = 'Neovim Config' })
 
         add_paths_to_project_list { directories = add_subdirectories_for(projects_root.work) }
     else
         local folder_names = { 'apps', 'learn', 'pcfields', 'clients' }
 
-        table.insert(project_list, { id = '~/.config/nvim', label = 'Neovim Config' })
+        table.insert(projects_list, { id = '/home/pcfields/.config/nvim', label = 'Neovim Config' })
 
         for _, folder_name in ipairs(folder_names) do
             local project_path = projects_root.personal .. '/' .. folder_name
@@ -94,10 +94,10 @@ local function display_project_list()
             add_paths_to_project_list { directories = add_subdirectories_for(project_path) }
         end
     end
-
+    print(projects_list)
     return wezterm.action.InputSelector {
         title = 'Choose a project',
-        choices = project_list,
+        choices = projects_list,
         fuzzy = true,
         action = wezterm.action_callback(function(child_window, child_pane, id, label)
             if not label then
