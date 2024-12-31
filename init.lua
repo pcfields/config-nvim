@@ -23,7 +23,7 @@ plugin_manager.setup({
     { 'tpope/vim-rhubarb' },
     { 'tpope/vim-sleuth' }, -- This plugin automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file
     require 'pcf.plugins.autopairs',
-    require 'pcf.plugins.cmp',
+    require 'pcf.plugins.blink',
     require 'pcf.plugins.comment',
     require 'pcf.plugins.conform',
     require 'pcf.plugins.dap',
