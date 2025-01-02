@@ -33,9 +33,9 @@ map({ 'n' }, '<leader>xn', '<cmd>Noice dismiss<cr>', { desc = 'Dismiss all notif
 map({ 'n' }, '<leader>ss', '/', { desc = 'Search', noremap = true, silent = false })
 map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'Save file' })
 map({ 'n' }, '<leader>nf', '<cmd>enew<cr>', { desc = 'File new ' })
--- map({ 'n' }, '<leader>cfn', '<cmd>expand("%:t")', { desc = 'Copy filename' })
--- map({ 'n' }, '<leader>cfp', '<cmd>expand("%:p")', { desc = 'Copy file path' })
-
+-- Copy
+map('n', '<leader>cfn', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:t'))<CR>]], { noremap = true, silent = true, desc = 'Copy filename' })
+map('n', '<leader>cfp', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>]], { noremap = true, silent = true, desc = 'Copy file path' })
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
