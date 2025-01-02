@@ -57,9 +57,7 @@ return { -- Search
                 },
                 marks = {
                     initial_mode = 'normal',
-                },
-                git_files = {
-                    theme = 'ivy',
+                    theme = 'dropdown',
                 },
             },
         }
@@ -97,7 +95,7 @@ return { -- Search
         map('n', '<leader>si', telescope_themes_dropdown, { desc = 'Fuzzily Search In current buffer' })
         -- Jumplist
         map('n', '<leader>sj', telescope_builtin.jumplist, { desc = 'Search Jump List' })
-        map('n', '<leader>sm', telescope_marks, { desc = 'Search marks' })
+        map('n', '<leader>sm', telescope_builtin.marks, { desc = 'Search marks' })
         -- Text
         map('n', '<leader>sw', telescope_builtin.grep_string, { desc = 'Search current Word' })
         map('n', '<leader>se', telescope_builtin.live_grep, { desc = 'Search everywhere by text using Grep' })
