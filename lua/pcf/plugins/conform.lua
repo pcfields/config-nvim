@@ -1,11 +1,16 @@
 -- https://github.com/stevearc/conform.nvim
 
-
 return { -- Code formatting
     'stevearc/conform.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
         local conform = require 'conform'
+
+        local save_settings = {
+            lsp_fallback = true,
+            async = false,
+            timeout_ms = 10000,
+        }
 
         conform.setup {
             formatters_by_ft = {
@@ -22,20 +27,11 @@ return { -- Code formatting
                 liquid = { 'prettier' },
                 lua = { 'stylua' },
             },
-            format_on_save = {
-                lsp_fallback = true,
-                async = false,
-                timeout_ms = 1000,
-            },
+            format_on_save = save_settings,
         }
 
         vim.keymap.set({ 'n', 'v' }, '<leader>ff', function()
-            conform.format {
-                lsp_fallback = true,
-                async = false,
-                timeout_ms = 1000,
-            }
+            conform.format(save_settings)
         end, { desc = 'Format file or range (in visual mode)' })
     end,
-
 }
