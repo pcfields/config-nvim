@@ -1,6 +1,5 @@
 -- https://github.com/neovim/nvim-lspconfig
 -- https://github.com/williamboman/mason-lspconfig.nvim
--- https://github.com/hrsh7th/cmp-nvim-lsp
 
 return { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -15,10 +14,10 @@ return { -- LSP Configuration & Plugins
             tag = 'legacy',
             opts = {},
         }, -- Useful status updates for LSP
+        { 'saghen/blink.cmp' },
     },
     config = function()
         local mason_lspconfig = require 'mason-lspconfig'
-        local cmp_nvim_lsp = require 'cmp_nvim_lsp'
         local lspconfig = require 'lspconfig'
         local telescope_builtin = require 'telescope.builtin'
 
@@ -59,7 +58,6 @@ return { -- LSP Configuration & Plugins
             nmap('<leader>oh', vim.lsp.buf.hover, 'Display Hover Documentation')
             nmap('<leader>ox', vim.lsp.buf.signature_help, 'Display Signature Documentation')
             nmap('<leader>ov', telescope_builtin.lsp_document_symbols, 'List of Document Variables/Symbols')
-            -- nmap('<leader>lw', telescope_builtin.lsp_dynamic_workspace_symbols, 'Display Workspace Symbols')
 
             -- Create a command `:Format` local to the LSP buffer
             vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -77,9 +75,7 @@ return { -- LSP Configuration & Plugins
         local servers = {
             remark_ls = {},
             jsonls = {},
-            cssmodules_ls = {},
             cssls = {},
-            rust_analyzer = {},
             ts_ls = {},
             lua_ls = {
                 Lua = {
@@ -94,7 +90,7 @@ return { -- LSP Configuration & Plugins
         }
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
         local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+        capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
         -- Ensure the servers above are installed
         mason_lspconfig.setup {
