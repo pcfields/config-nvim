@@ -6,8 +6,11 @@ return {
     version = '*',
     config = function()
         local map = require('pcf.utils').map
+
         require('mini.files').setup {}
 
-        map({ 'n', 'v' }, '<leader>fo', '<cmd>lua require("mini.files").open()<CR>', { desc = 'Open mini.files explorer' })
+        map('n', '<leader>fm', function()
+            require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
+        end, { desc = 'Open mini.files (Directory of Current File)' })
     end,
 }
