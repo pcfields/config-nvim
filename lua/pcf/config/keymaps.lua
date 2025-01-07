@@ -41,6 +41,7 @@ map('n', '<leader>cfp', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>]
 --------------------------------------------------------------------------------------------
 
 map({ 'n' }, '<leader>fw', '<cmd>Neotree toggle reveal=true<cr>', { desc = 'File explorer' })
+map({ 'n' }, '<leader>fm', '<cmd>Neotree position=current reveal toggle<cr>', { desc = 'File explorer tab' })
 map({ 'n' }, '<leader>fg', '<cmd>Neotree git_status<cr>', { desc = 'File git status' })
 map({ 'n' }, '<leader>aa', 'gg<S-v>G', { desc = 'Select all text in buffer' })
 
