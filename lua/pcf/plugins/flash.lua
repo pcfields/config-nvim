@@ -6,6 +6,10 @@ return {
         char = {
             enabled = false,
         },
+        modes = {
+            search = { enabled = true },
+            char = { jump_labels = true },
+        },
     },
   -- stylua: ignore
   keys = {
