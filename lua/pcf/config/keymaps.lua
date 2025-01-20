@@ -4,7 +4,7 @@ local perform_action_on_node = require('pcf.utils').perform_action_on_node
 local play_macro = require('pcf.utils').play_macro
 local record_macro = require('pcf.utils').record_macro
 
--- Keymaps for better default experiencep
+-- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -22,8 +22,6 @@ map({ 'n' }, '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
 -- Search word under cursor
 map({ 'n', 'x' }, 'gw', '*N', { desc = 'Search word under cursor' })
 
--- Fix copy and paste, keep the copied text instead of keeping the text pasted over
--- map({ 'x' }, 'p', [["_dP]]) -- TODO: understand what this actually does
 map({ 'n' }, '<leader>xn', '<cmd>Noice dismiss<cr>', { desc = 'Dismiss all notifications' })
 
 --------------------------------------------------------------------------------------------
@@ -33,13 +31,25 @@ map({ 'n' }, '<leader>xn', '<cmd>Noice dismiss<cr>', { desc = 'Dismiss all notif
 map({ 'n' }, '<leader>ss', '/', { desc = 'Search', noremap = true, silent = false })
 map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'Save file' })
 map({ 'n' }, '<leader>nf', '<cmd>enew<cr>', { desc = 'File new ' })
+
 -- Copy
-map('n', '<leader>cfn', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:t'))<CR>]], { noremap = true, silent = true, desc = 'Copy filename' })
-map('n', '<leader>cfp', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>]], { noremap = true, silent = true, desc = 'Copy file path' })
+map({ 'n' }, '<leader>cfn', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:t'))<CR>]], { noremap = true, silent = true, desc = 'Copy filename' })
+map({ 'n' }, '<leader>cfp', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>]], { noremap = true, silent = true, desc = 'Copy file path' })
+map({ 'n' }, '<leader>ca', ':%y+<CR>', { desc = 'Copy all text in buffer to clipboard' })
+
+-- Overwrite default yank and paste to use z register
+map({ 'n', 'v' }, 'y', '"zy', { noremap = true, desc = 'Yank to z register' })
+map({ 'n', 'v' }, 'p', '"zp', { noremap = true, desc = 'Paste from z register' })
+
+-- Clipboard copy and paste
+map({ 'n', 'v' }, '<leader>yw', '"+yiw', { noremap = true, desc = 'Copy word to clipboard' })
+map({ 'n', 'v' }, '<leader>yl', '"+yy', { noremap = true, desc = 'Copy line to clipboard' })
+map({ 'n', 'v' }, '<leader>pc', '"+p', { noremap = true, desc = 'Paste text from clipboard' })
+map({ 'n', 'v' }, '<leader>pr', '"zp', { noremap = true, desc = 'Paste text from register' })
+
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-
 map({ 'n' }, '<leader>fw', '<cmd>Neotree toggle reveal=true<cr>', { desc = 'File explorer' })
 map({ 'n' }, '<leader>fm', '<cmd>Neotree position=current reveal toggle<cr>', { desc = 'File explorer tab' })
 map({ 'n' }, '<leader>fg', '<cmd>Neotree git_status<cr>', { desc = 'File git status' })
