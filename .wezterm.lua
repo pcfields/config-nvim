@@ -11,9 +11,9 @@ local function is_windows_platform()
     return wezterm.target_triple == windows_platform
 end
 
--- if is_windows_platform() then
---     os_shell = 'pwsh.exe'
--- end
+if is_windows_platform() then
+    os_shell = 'pwsh.exe'
+end
 
 local function resize_pane(key, direction)
     return {
@@ -125,7 +125,7 @@ end
 -- This is where you actually apply your config choices
 config.color_scheme = color_schemes.Abernathy
 config.default_cwd = working_dir
--- config.default_prog = { os_shell }
+config.default_prog = { os_shell }
 config.window_decorations = 'RESIZE|TITLE'
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 config.hide_tab_bar_if_only_one_tab = false
@@ -180,8 +180,8 @@ config.keys = {
         mods = 'LEADER',
         key = 's',
         action = wezterm.action.ActivateKeyTable {
-            name = 'split_panes',        -- same name as in the `config.key_tables`
-            one_shot = false,            -- Ensures the keytable stays active after it handles its first keypress.
+            name = 'split_panes', -- same name as in the `config.key_tables`
+            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
             timeout_milliseconds = 1000, -- deactivate key table after timeout
         },
     },
@@ -249,11 +249,11 @@ config.keys = {
         mods = 'LEADER',
         key = 'r',
         action = wezterm.action.ActivateKeyTable {
-            name = 'resize_panes',       -- same name as in the `config.key_tables`
-            one_shot = false,            -- Ensures the keytable stays active after it handles its first keypress.
+            name = 'resize_panes', -- same name as in the `config.key_tables`
+            one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
             timeout_milliseconds = 1000, -- deactivate key table after timeout
         },
-    },                                   -- Go to specific tab <leader> number
+    }, -- Go to specific tab <leader> number
     go_to_tab(1),
     go_to_tab(2),
     go_to_tab(3),
