@@ -1,13 +1,15 @@
+--https://github.com/folke/flash.nvim
+--
 return {
     'folke/flash.nvim',
     event = 'VeryLazy',
     ---@type Flash.Config
-    opts = {
-        char = {
+    char = {
+        opts = {
             enabled = false,
         },
         modes = {
-            search = { enabled = true },
+            search = { enabled = false },
             char = { jump_labels = true },
         },
     },
