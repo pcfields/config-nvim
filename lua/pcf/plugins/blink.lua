@@ -1,3 +1,5 @@
+-- https://github.com/Saghen/blink.cmp
+
 return {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
@@ -49,6 +51,14 @@ return {
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
+        },
+        completion = {
+            menu = {
+                -- Don't show completion menu automatically when searching
+                auto_show = function(ctx)
+                    return ctx.mode ~= 'cmdline' or not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+                end,
+            },
         },
     },
     opts_extend = { 'sources.default' },
