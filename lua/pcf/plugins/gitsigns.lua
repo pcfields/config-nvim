@@ -2,8 +2,6 @@
 -- adds git releated signs to the gutter, as well as utilities for managing changes
 -- see `:help gitsigns.txt`
 
-
-
 return {
     'lewis6991/gitsigns.nvim',
     config = function()
@@ -29,10 +27,6 @@ return {
             },
             on_attach = function()
                 -- actions
-                map('n', '<leader>gd', gitsigns.diffthis, { desc = 'Git diff' })
-                map('n', '<leader>gl', function()
-                    gitsigns.blame_line { full = true }
-                end, { desc = 'Git blame line' })
                 map('n', '<leader>gh', gitsigns.toggle_current_line_blame, { desc = 'Git toggle blame line' })
             end,
         }

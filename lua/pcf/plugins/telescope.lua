@@ -90,23 +90,23 @@ return { -- Search
         end
 
         -- Files
-        map('n', '<leader>vv', telescope_buffers, { desc = 'Find existing buffers' })
-        map('n', '<leader>sr', telescope_builtin.oldfiles, { desc = 'Search recently opened files' })
-        map('n', '<leader>sf', search_files, { desc = 'Search Files' })
-        map('n', '<leader>si', telescope_themes_dropdown, { desc = 'Fuzzily Search In current buffer' })
-        -- Jumplist
-        map('n', '<leader>sj', telescope_builtin.jumplist, { desc = 'Search Jump List' })
-        map('n', '<leader>sm', telescope_builtin.marks, { desc = 'Search marks' })
-        -- Text
-        map('n', '<leader>sw', telescope_builtin.grep_string, { desc = 'Search current Word' })
-        map('n', '<leader>se', telescope_builtin.live_grep, { desc = 'Search everywhere by text using Grep' })
-        map('n', '<leader>sh', telescope_builtin.help_tags, { desc = 'Search Help' })
-        -- Diagnostics
-        map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = 'Search Diagnostics' })
-        -- Git
-        map('n', '<leader>sg', telescope_builtin.git_files, { desc = 'Searh Git Files' })
-        map('n', '<leader>gs', telescope_builtin.git_status, { desc = 'Search Git Satus' })
-        map('n', '<leader>gb', telescope_builtin.git_branches, { desc = 'Search Git Branches' })
+        -- map('n', '<leader>vv', telescope_buffers, { desc = 'Find existing buffers' })
+        -- map('n', '<leader>sr', telescope_builtin.oldfiles, { desc = 'Search recently opened files' })
+        -- map('n', '<leader>sf', search_files, { desc = 'Search Files' })
+        -- map('n', '<leader>si', telescope_themes_dropdown, { desc = 'Fuzzily Search In current buffer' })
+        -- -- Jumplist
+        -- map('n', '<leader>sj', telescope_builtin.jumplist, { desc = 'Search Jump List' })
+        -- map('n', '<leader>sm', telescope_builtin.marks, { desc = 'Search marks' })
+        -- -- Text
+        -- map('n', '<leader>sw', telescope_builtin.grep_string, { desc = 'Search current Word' })
+        -- map('n', '<leader>se', telescope_builtin.live_grep, { desc = 'Search everywhere by text using Grep' })
+        -- map('n', '<leader>sh', telescope_builtin.help_tags, { desc = 'Search Help' })
+        -- -- Diagnostics
+        -- map('n', '<leader>sd', telescope_builtin.diagnostics, { desc = 'Search Diagnostics' })
+        -- -- Git
+        -- map('n', '<leader>sg', telescope_builtin.git_files, { desc = 'Searh Git Files' })
+        -- map('n', '<leader>gs', telescope_builtin.git_status, { desc = 'Search Git Satus' })
+        -- map('n', '<leader>gb', telescope_builtin.git_branches, { desc = 'Search Git Branches' })
 
         -- Fuzzy Finder Algorithm which requires local dependencies to be built.
         -- Only load if `make` is available. Make sure you have the system
