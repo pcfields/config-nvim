@@ -28,24 +28,26 @@ map({ 'n' }, '<leader>xn', '<cmd>Noice dismiss<cr>', { desc = 'Dismiss all notif
 -- Files  -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ 'n' }, '<leader>ss', '/', { desc = 'Search', noremap = true, silent = false })
+map({ 'n' }, '<leader>ss', '/', { desc = 'Search', silent = false })
 map({ 'n', 'v', 's' }, '<leader>fs', '<cmd>w<cr><esc>', { desc = 'Save file' })
 map({ 'n' }, '<leader>nf', '<cmd>enew<cr>', { desc = 'File new ' })
 
 -- Copy
-map({ 'n' }, '<leader>cfn', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:t'))<CR>]], { noremap = true, silent = true, desc = 'Copy filename' })
-map({ 'n' }, '<leader>cfp', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>]], { noremap = true, silent = true, desc = 'Copy file path' })
+map({ 'n' }, '<leader>cfn', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:t'))<CR>]], { desc = 'Copy filename' })
+map({ 'n' }, '<leader>cfp', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>]], { desc = 'Copy file path' })
 map({ 'n' }, '<leader>ca', ':%y+<CR>', { desc = 'Copy all text in buffer to clipboard' })
 
 -- Overwrite default yank and paste to use z register
-map({ 'n', 'v' }, 'y', '"zy', { noremap = true, desc = 'Yank to z register' })
-map({ 'n', 'v' }, 'p', '"zp', { noremap = true, desc = 'Paste from z register' })
+map({ 'n', 'v' }, 'y', '"zy', { desc = 'Yank to "z" register' })
+map({ 'n', 'v' }, 'p', '"zp', { desc = 'Paste from "z" register' })
+map({ 'n', 'v' }, 'd', '"_d', { desc = 'Delete without copying to register' })
+map({ 'n', 'v' }, '<leader>d', '"zd', { desc = 'Delete and copying to "z" register' })
 
 -- Clipboard copy and paste
-map({ 'n', 'v' }, '<leader>yw', '"+yiw', { noremap = true, desc = 'Copy word to clipboard' })
-map({ 'n', 'v' }, '<leader>yl', '"+yy', { noremap = true, desc = 'Copy line to clipboard' })
-map({ 'n', 'v' }, '<leader>pc', '"+p', { noremap = true, desc = 'Paste text from clipboard' })
-map({ 'n', 'v' }, '<leader>pr', '"zp', { noremap = true, desc = 'Paste text from register' })
+map({ 'n', 'v' }, '<leader>yy', '"+y', { desc = 'Copy to clipboard' })
+map({ 'n', 'v' }, '<leader>yl', '"+yy', { desc = 'Copy line to clipboard' })
+map({ 'n', 'v' }, '<leader>pc', '"+p', { desc = 'Paste from clipboard' })
+-- map({ 'n', 'v' }, '<leader>pd', '"zp', { desc = 'Paste from "z" register' })
 
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
@@ -63,7 +65,7 @@ map({ 'n' }, '<leader>xx', '<cmd>:bd<cr>', { desc = 'Close buffer' })
 map({ 'n' }, '<A-l>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 map({ 'n' }, '<A-h>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
 map({ 'n' }, '<leader>vk', '<cmd>e #<cr>', { desc = 'Switch to last used buffer' })
-map({ 'n' }, '<leader>vc', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer', noremap = true, silent = true })
+map({ 'n' }, '<leader>vc', [[:%bdelete|edit #|bdelete #<CR>]], { desc = 'Delete all buffers except current buffer' })
 
 --------------------------------------------------------------------------------------------
 -- Windows ---------------------------------------------------------------------------------
@@ -103,8 +105,8 @@ map('i', '<leader><leader>', '<esc>', { desc = 'Exit insert mode' })
 -- Line movement ---------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ 'n' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Move up one line and manage word wrap', expr = true, silent = true })
-map({ 'n' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Move down one line and manage word wrap', expr = true, silent = true })
+map({ 'n' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Move up one line and manage word wrap', expr = true })
+map({ 'n' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Move down one line and manage word wrap', expr = true })
 map({ 'n' }, 'n', 'nzz', { desc = 'Go to next and center cursor in middle of screen' })
 map({ 'n' }, 'N', 'Nzz', { desc = 'Go to previous and center cursor in middle of screen' })
 map({ 'n' }, '*', '*zz', { desc = 'Search forward for the word under the cursor and center cursor in middle of screen' })
@@ -206,5 +208,5 @@ end, { desc = 'Delete around (...) or [...] or {...} or "..." ' })
 -- Macros  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ 'n' }, '<leader>mp', play_macro, { noremap = true, silent = true, desc = 'Play a macro from a specified register' })
-map({ 'n' }, '<leader>mr', record_macro, { noremap = true, silent = true, desc = 'Record a macro in a specified register' })
+map({ 'n' }, '<leader>mp', play_macro, { desc = 'Play a macro from a specified register' })
+map({ 'n' }, '<leader>mr', record_macro, { desc = 'Record a macro in a specified register' })
