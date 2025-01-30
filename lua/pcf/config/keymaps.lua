@@ -52,8 +52,9 @@ map({ 'n', 'v' }, '<leader>pc', '"+p', { desc = 'Paste from clipboard' })
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-map({ 'n' }, '<leader>fw', '<cmd>Neotree toggle reveal=true<cr>', { desc = 'File explorer' })
-map({ 'n' }, '<leader>fm', '<cmd>Neotree position=current reveal toggle<cr>', { desc = 'File explorer tab' })
+map({ 'n' }, '<leader>fw', '<cmd>Neotree toggle float reveal=true<cr>', { desc = 'File explorer' })
+map({ 'n' }, '<leader>fu', '<cmd>Neotree toggle reveal=true<cr>', { desc = 'Floating File explorer' })
+map({ 'n' }, '<leader>ft', '<cmd>Neotree position=current reveal toggle<cr>', { desc = 'File explorer in tab' })
 map({ 'n' }, '<leader>fg', '<cmd>Neotree git_status<cr>', { desc = 'File git status' })
 map({ 'n' }, '<leader>aa', 'gg<S-v>G', { desc = 'Select all text in buffer' })
 
