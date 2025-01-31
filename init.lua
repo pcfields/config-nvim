@@ -42,7 +42,6 @@ plugin_manager.setup({
     require 'pcf.plugins.nvim-surround',
     require 'pcf.plugins.refactoring',
     require 'pcf.plugins.snacks',
-    require 'pcf.plugins.telescope',
     require 'pcf.plugins.todo-comments',
     require 'pcf.plugins.treesitter',
     require 'pcf.plugins.trouble',
