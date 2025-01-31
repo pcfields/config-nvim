@@ -26,21 +26,15 @@ return {
             function()
                 Snacks.picker.buffers()
             end,
-            desc = 'View Buffers',
+            desc = 'View Open Buffers',
         },
+        -- Search
         {
             '<leader>se',
             function()
                 Snacks.picker.grep()
             end,
             desc = 'Search everywhere using Grep',
-        },
-        {
-            '<leader>sc',
-            function()
-                Snacks.picker.command_history()
-            end,
-            desc = 'Search Command History',
         },
         {
             '<leader>sf',
@@ -61,7 +55,15 @@ return {
             function()
                 Snacks.picker.recent()
             end,
-            desc = 'Recent',
+            desc = 'Search Recent Files',
+        },
+        {
+            '<leader>sw',
+            function()
+                Snacks.picker.grep_word()
+            end,
+            desc = 'Search selection or word',
+            mode = { 'n', 'x' },
         },
         -- git
         {
@@ -69,14 +71,14 @@ return {
             function()
                 Snacks.picker.git_log_file()
             end,
-            desc = 'Git Log File',
+            desc = 'Git File Log',
         },
         {
-            '<leader>gL',
+            '<leader>gh',
             function()
-                Snacks.picker.git_log_file()
+                Snacks.picker.git_log()
             end,
-            desc = 'Git Log',
+            desc = 'Git Log History',
         },
         {
             '<leader>gs',
@@ -86,54 +88,18 @@ return {
             desc = 'Git Status',
         },
         {
-            '<leader>gd',
+            '<leader>gdl',
             function()
                 Snacks.picker.git_diff()
             end,
-            desc = 'Git Diff',
+            desc = 'Git Diff list',
         },
         {
             '<leader>gb',
             function()
                 Snacks.picker.git_branches()
             end,
-            desc = 'Git Branches',
-        },
-        {
-            '<leader>sw',
-            function()
-                Snacks.picker.grep_word()
-            end,
-            desc = 'Visual selection or word',
-            mode = { 'n', 'x' },
-        },
-        {
-            '<leader>so',
-            function()
-                Snacks.picker.registers()
-            end,
-            desc = 'Registers',
-        },
-        {
-            '<leader>sC',
-            function()
-                Snacks.picker.commands()
-            end,
-            desc = 'Search Commands',
-        },
-        {
-            '<leader>sd',
-            function()
-                Snacks.picker.diagnostics_buffer()
-            end,
-            desc = 'Search Diagnostics',
-        },
-        {
-            '<leader>sD',
-            function()
-                Snacks.picker.diagnostics()
-            end,
-            desc = 'Search Diagnostics',
+            desc = 'List Git Branches',
         },
         {
             '<leader>sh',
@@ -142,42 +108,37 @@ return {
             end,
             desc = 'Search Help Pages',
         },
-        {
-            '<leader>sj',
-            function()
-                Snacks.picker.jumps()
-            end,
-            desc = 'Search Jumps',
-        },
-        {
-            '<leader>sm',
-            function()
-                Snacks.picker.marks()
-            end,
-            desc = 'Search Marks',
-        },
-        {
-            '<leader>uc',
-            function()
-                Snacks.picker.colorschemes()
-            end,
-            desc = 'Search Colorschemes',
-        },
-        {
-            '<leader>vp',
-            function()
-                Snacks.picker.projects()
-            end,
-            desc = 'View Projects',
-        },
         -- LSP
         {
-            '<leader>od',
+            '<leader>jd',
             function()
                 Snacks.picker.lsp_definitions()
             end,
             desc = 'Goto Definition',
         },
+        {
+            '<leader>ji',
+            function()
+                Snacks.picker.lsp_implementations()
+            end,
+            desc = 'Goto Implementation',
+        },
+        -- Lists
+        {
+            '<leader>ef',
+            function()
+                Snacks.picker.diagnostics_buffer()
+            end,
+            desc = 'Search Diagnostics',
+        },
+        {
+            '<leader>ea',
+            function()
+                Snacks.picker.diagnostics()
+            end,
+            desc = 'Search All Diagnostics',
+        },
+        -- Open
         {
             '<leader>or',
             function()
@@ -187,11 +148,11 @@ return {
             desc = 'Goto References',
         },
         {
-            '<leader>oi',
+            '<leader>os',
             function()
-                Snacks.picker.lsp_implementations()
+                Snacks.picker.lsp_symbols()
             end,
-            desc = 'Goto Implementation',
+            desc = 'List LSP Symbols',
         },
         {
             '<leader>ot',
@@ -201,11 +162,25 @@ return {
             desc = 'Goto T[y]pe Definition',
         },
         {
-            '<leader>ss',
+            '<leader>om',
             function()
-                Snacks.picker.lsp_symbols()
+                Snacks.picker.marks()
             end,
-            desc = 'LSP Symbols',
+            desc = 'Search Marks',
+        },
+        {
+            '<leader>oj',
+            function()
+                Snacks.picker.jumps()
+            end,
+            desc = 'Search Jumps',
+        },
+        {
+            '<leader>oo',
+            function()
+                Snacks.picker.registers()
+            end,
+            desc = 'Display Registers',
         },
     },
 }

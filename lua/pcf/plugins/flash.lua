@@ -4,8 +4,8 @@ return {
     'folke/flash.nvim',
     event = 'VeryLazy',
     ---@type Flash.Config
-    char = {
-        opts = {
+    opts = {
+        char = {
             enabled = false,
         },
         modes = {
@@ -15,6 +15,6 @@ return {
     },
   -- stylua: ignore
   keys = {
-    { "<leader>if", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash search" },
+    { "<leader>si", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash search" },
   },
 }

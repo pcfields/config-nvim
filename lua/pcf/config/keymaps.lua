@@ -41,13 +41,12 @@ map({ 'n' }, '<leader>ca', ':%y+<CR>', { desc = 'Copy all text in buffer to clip
 map({ 'n', 'v' }, 'y', '"zy', { desc = 'Yank to "z" register' })
 map({ 'n', 'v' }, 'p', '"zp', { desc = 'Paste from "z" register' })
 map({ 'n', 'v' }, 'd', '"_d', { desc = 'Delete without copying to register' })
-map({ 'n', 'v' }, '<leader>d', '"zd', { desc = 'Delete and copying to "z" register' })
+map({ 'n', 'v' }, '<leader>dd', '"zd', { desc = 'Delete and copying to "z" register' })
 
 -- Clipboard copy and paste
-map({ 'n', 'v' }, '<leader>yy', '"+y', { desc = 'Copy to clipboard' })
+map({ 'n', 'v' }, '<leader>yc', '"+y', { desc = 'Copy to clipboard' })
 map({ 'n', 'v' }, '<leader>yl', '"+yy', { desc = 'Copy line to clipboard' })
 map({ 'n', 'v' }, '<leader>pc', '"+p', { desc = 'Paste from clipboard' })
--- map({ 'n', 'v' }, '<leader>pd', '"zp', { desc = 'Paste from "z" register' })
 
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
@@ -117,7 +116,7 @@ map({ 'n' }, 'g#', 'g#zz', { desc = 'Search backward and center cursor in middle
 -- Horizontal line movement
 map({ 'n', 'v' }, '<leader>jh', '^', { desc = 'Go to beginning of line' })
 map({ 'n', 'v' }, '<leader>jl', '$', { desc = 'Go to end of line' })
-map({ 'n', 'v' }, '<leader>jb', '%', { desc = 'Find the next (curly/square) bracket on this line and go to its match' })
+map({ 'n', 'v' }, '<leader>jm', '%', { desc = 'Jump to the next matching bracket' })
 map({ 'n' }, '<leader>de', 'd$', { desc = 'Delete to end of line' })
 
 -- Vertical line movement
@@ -163,8 +162,10 @@ map({ 'n' }, '<C-p>', '<cmd>:Lazy<cr>', { desc = 'Open Lazy Plugin Manager' })
 map({ 'n' }, '<leader>ej', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic [e]rror message' })
 map({ 'n' }, '<leader>ek', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic [e]rror message' })
 map({ 'n' }, '<leader>ei', vim.diagnostic.open_float, { desc = 'Open floating diagnostic [e]rror info message' })
-map({ 'n' }, '<leader>ef', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble: Buffer/[f]ile [d]iagnostics' })
-map({ 'n' }, '<leader>ea', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: [A]ll open Buffer [d]iagnostics' })
+
+map({ 'n' }, '<leader>tef', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Trouble: File/buffer issues' })
+map({ 'n' }, '<leader>tea', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: All open File/buffer issues' })
+map({ 'n' }, '<leader>tea', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: All open File/buffer issues' })
 
 --------------------------------------------------------------------------------------------
 -- Refactor  --------------------------------------------------------------------------------
@@ -178,19 +179,16 @@ end, { desc = 'Prompt for a refactor to apply when the remap is triggered' })
 --------------------------------------------------------------------------------------------
 --  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-
+---
 map({ 'n' }, '<leader>ka', vim.lsp.buf.code_action, { desc = 'Code action' })
 map({ 'n' }, '<leader>kf', 'za', { desc = 'Code folding' })
-map({ 'n' }, '<leader>lt', '<cmd>:TodoTelescope<cr>', { desc = 'Display all todo comments in telescope' })
 
-map({ 'n', 'v' }, '<leader>ye', 'y$', { desc = 'Yank till end of line' })
+-- Yank keymaps
+--
+map({ 'n', 'v' }, '<leader>ye', '"zy$', { desc = 'Yank till end of line' })
 map({ 'n', 'v' }, '<leader>yii', function()
     perform_action_on_node 'yi'
 end, { desc = 'Yank inside (...) or [...] or {...} or "..." ' })
-
--- map({ 'n', 'v' }, '<leader>yif', function()
---     perform_action_on_node 'yii'
--- end, { desc = 'Yank inside (...) or [...] or {...} or "..." ' })
 
 map({ 'n', 'v' }, '<leader>yaa', function()
     perform_action_on_node 'ya'
@@ -208,5 +206,5 @@ end, { desc = 'Delete around (...) or [...] or {...} or "..." ' })
 -- Macros  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ 'n' }, '<leader>mp', play_macro, { desc = 'Play a macro from a specified register' })
-map({ 'n' }, '<leader>mr', record_macro, { desc = 'Record a macro in a specified register' })
+map({ 'n' }, '<leader>pm', play_macro, { desc = 'Play a macro from a specified register' })
+map({ 'n' }, '<leader>rm', record_macro, { desc = 'Record a macro in a specified register' })
