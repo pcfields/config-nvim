@@ -1,8 +1,10 @@
 -- [[ Basic Keymaps ]]
-local map = require('pcf.utils').map
-local perform_action_on_node = require('pcf.utils').perform_action_on_node
-local play_macro = require('pcf.utils').play_macro
-local record_macro = require('pcf.utils').record_macro
+local pcf_utils = require('pcf.utils')
+
+local map = pcf_utils.map
+local execute_command_on_enclosing_node = pcf_utils.execute_command_on_enclosing_node
+local play_macro = pcf_utils.play_macro
+local record_macro = pcf_utils.record_macro
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -185,21 +187,32 @@ map({ 'n' }, '<leader>kf', 'za', { desc = 'Code folding' })
 -- Yank keymaps
 --
 map({ 'n', 'v' }, '<leader>ye', '"zy$', { desc = 'Yank till end of line' })
+
+local brackets_or_strings_text = ' (...) or [...] or {...} or strings'
+
 map({ 'n', 'v' }, '<leader>yii', function()
-    perform_action_on_node 'yi'
-end, { desc = 'Yank inside (...) or [...] or {...} or "..." ' })
+    local command_yank_inside_to_register_z = '"zyi'
+
+    execute_command_on_enclosing_node(command_yank_inside_to_register_z)
+end, { desc = 'Yank inside ' .. brackets_or_strings_text })
 
 map({ 'n', 'v' }, '<leader>yaa', function()
-    perform_action_on_node 'ya'
-end, { desc = 'Yank around (...) or [...] or {...} or "..." ' })
+    local command_yank_around_to_register_z = '"zya'
+
+    execute_command_on_enclosing_node(command_yank_around_to_register_z)
+end, { desc = 'Yank around ' .. brackets_or_strings_text })
 
 map({ 'n', 'v' }, '<leader>dii', function()
-    perform_action_on_node 'di'
-end, { desc = 'Delete inside (...) or [...] or {...} or "..." ' })
+    local command_delete_inside = 'di'
+
+    execute_command_on_enclosing_node(command_delete_inside)
+end, { desc = 'Delete inside ' .. brackets_or_strings_text })
 
 map({ 'n', 'v' }, '<leader>daa', function()
-    perform_action_on_node 'da'
-end, { desc = 'Delete around (...) or [...] or {...} or "..." ' })
+    local command_delete_around = 'da'
+
+    execute_command_on_enclosing_node(command_delete_around)
+end, { desc = 'Delete around ' .. brackets_or_strings_text })
 
 --------------------------------------------------------------------------------------------
 -- Macros  --------------------------------------------------------------------------------
