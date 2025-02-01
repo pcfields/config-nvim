@@ -5,11 +5,9 @@ local map = pcf_utils.map
 local execute_command_on_enclosing_node = pcf_utils.execute_command_on_enclosing_node
 local play_macro = pcf_utils.play_macro
 local record_macro = pcf_utils.record_macro
+local yank_register = '"z'
+-- NOTE: I am using 'z' register for yanking and pasting
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
--- Set <space> as the leader key
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.g.mapleader = ' '
@@ -40,10 +38,10 @@ map({ 'n' }, '<leader>cfp', [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<
 map({ 'n' }, '<leader>ca', ':%y+<CR>', { desc = 'Copy all text in buffer to clipboard' })
 
 -- Overwrite default yank and paste to use z register
-map({ 'n', 'v' }, 'y', '"zy', { desc = 'Yank to "z" register' })
-map({ 'n', 'v' }, 'p', '"zp', { desc = 'Paste from "z" register' })
+map({ 'n', 'v' }, 'y', yank_register .. 'y', { desc = 'Yank to [' .. yank_register .. '] register' })
+map({ 'n', 'v' }, 'p', yank_register .. 'p', { desc = 'Paste from [' .. yank_register .. '] register' })
 map({ 'n', 'v' }, 'd', '"_d', { desc = 'Delete without copying to register' })
-map({ 'n', 'v' }, '<leader>dd', '"zd', { desc = 'Delete and copying to "z" register' })
+map({ 'n', 'v' }, '<leader>dd', yank_register .. 'd', { desc = 'Delete and copy to [' .. yank_register .. '] register' })
 
 -- Clipboard copy and paste
 map({ 'n', 'v' }, '<leader>yc', '"+y', { desc = 'Copy to clipboard' })
@@ -184,18 +182,18 @@ map({ 'n' }, '<leader>kf', 'za', { desc = 'Code folding' })
 
 -- Yank keymaps
 --
-map({ 'n', 'v' }, '<leader>ye', '"zy$', { desc = 'Yank till end of line' })
+map({ 'n', 'v' }, '<leader>ye', yank_register .. 'y$', { desc = 'Yank till end of line' })
 
 local brackets_or_strings_text = ' (...) or [...] or {...} or strings'
 
 map({ 'n', 'v' }, '<leader>yii', function()
-    local command_yank_inside_to_register_z = '"zyi'
+    local command_yank_inside_to_register_z = yank_register .. 'yi'
 
     execute_command_on_enclosing_node(command_yank_inside_to_register_z)
 end, { desc = 'Yank inside ' .. brackets_or_strings_text })
 
 map({ 'n', 'v' }, '<leader>yaa', function()
-    local command_yank_around_to_register_z = '"zya'
+    local command_yank_around_to_register_z = yank_register .. 'ya'
 
     execute_command_on_enclosing_node(command_yank_around_to_register_z)
 end, { desc = 'Yank around ' .. brackets_or_strings_text })
