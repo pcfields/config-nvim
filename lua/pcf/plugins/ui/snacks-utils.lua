@@ -1,4 +1,4 @@
-local Snacks = require('snacks')
+local Snacks = require 'snacks'
 
 local M = {}
 
@@ -96,6 +96,14 @@ end
 
 M.Explorer = function()
     Snacks.explorer()
+end
+
+M.ToggleTerminal = function()
+    Snacks.terminal.toggle()
+end
+
+M.TodoComments = function()
+    Snacks.picker.todo_comments()
 end
 
 return M

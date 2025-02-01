@@ -163,8 +163,7 @@ function Utils.get_winbar_filename()
     local is_buffer_modified = vim.api.nvim_eval_statusline('%m', {}).str == '[+]'
     local modified_buffer_icon = is_buffer_modified and Icons.MODIFIED or Icons.UNMODIFIED
 
-    return '%#BuffersCountColor#' ..
-        modified_buffer_icon .. '(' .. open_buffers_count .. ') ' .. '%#FilePathColor#' .. '' .. file_path
+    return '%#BuffersCountColor#' .. modified_buffer_icon .. '(' .. open_buffers_count .. ') ' .. '%#FilePathColor#' .. '' .. file_path
 end
 
 return Utils

@@ -4,16 +4,9 @@
 return { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-        {
-            'williamboman/mason.nvim',
-            config = true,
-        },
+        { 'williamboman/mason.nvim', config = true },
         { 'williamboman/mason-lspconfig.nvim' },
-        {
-            'j-hui/fidget.nvim',
-            tag = 'legacy',
-            opts = {},
-        }, -- Useful status updates for LSP
+        { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} }, -- Useful status updates for LSP
         { 'saghen/blink.cmp' },
     },
     config = function()
@@ -52,6 +45,7 @@ return { -- LSP Configuration & Plugins
                 },
             },
         }
+
         -- code completion supports additional completion capabilities, so broadcast that to servers
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
