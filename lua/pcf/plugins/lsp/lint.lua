@@ -1,27 +1,36 @@
+-- https://github.com/mfussenegger/nvim-lint
+--
 return {
 	"mfussenegger/nvim-lint",
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local lint = require("lint")
+		local map = require("pcf.utils").map
+
+		local linters = {
+			js = { "biomejs", "eslint_d" },
+		}
 
 		lint.linters_by_ft = {
-			-- javascript = { 'biomejs' },
-			-- typescript = { 'biomejs' },
-			-- javascriptreact = { 'biomejs' },
-			-- typescriptreact = { 'biomejs' },
+			javascript = linters.js,
+			javascriptreact = linters.js,
+			typescript = linters.js,
+			typescriptreact = linters.js,
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 			group = lint_augroup,
 			callback = function()
 				lint.try_lint()
 			end,
 		})
 
-		vim.keymap.set("n", "<leader>fl", function()
+		local function lint_code()
 			lint.try_lint()
-		end, { desc = "Trigger linting for current file" })
+		end
+
+		map("n", "<leader>fl", lint_code, { desc = "Lint current file" })
 	end,
 }
