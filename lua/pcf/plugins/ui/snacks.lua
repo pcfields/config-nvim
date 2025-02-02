@@ -57,7 +57,8 @@ return {
         map({ 'n', 'v' }, '<leader>oj', u.SearchJumps, { desc = 'Search Jumps' })
         map({ 'n', 'v' }, '<leader>oo', u.DisplayRegisters, { desc = 'Display Registers' })
         map({ 'n', 'v' }, '<leader>oe', u.Explorer, { desc = 'Explorer' })
-        map({ 'n', 'v' }, '<leader>ot', u.ToggleTerminal, { desc = 'Toggle Terminal' })
-        map({ 'n', 'v' }, '<leader>oa', u.TodoComments, { desc = 'Toggle Terminal' })
+        map({ 'n', 'v' }, '<leader>oh', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
+        -- map({ 'n', 'v' }, '<leader>ot', u.ToggleTerminal, { desc = 'Toggle Terminal' })
+        -- map({ 'n', 'v' }, '<leader>oa', u.TodoComments, { desc = 'Toggle Terminal' })
     end,
 }
