@@ -1,10 +1,13 @@
 -- [[ Basic Keymaps ]]
 local pcf_utils = require("pcf.utils")
+local utils_treesitter = require("pcf.utils.treesitter")
+local utils_macros = require("pcf.utils.macros")
 
 local map = pcf_utils.map
-local execute_command_on_enclosing_node = pcf_utils.execute_command_on_enclosing_node
-local play_macro = pcf_utils.play_macro
-local record_macro = pcf_utils.record_macro
+local execute_command_on_enclosing_node = utils_treesitter.execute_command_on_enclosing_node
+local play_macro = utils_macros.play_macro
+local record_macro = utils_macros.record_macro
+
 local yank_register = '"z'
 -- NOTE: I am using 'z' register for yanking and pasting
 
@@ -159,9 +162,20 @@ map({ "n" }, "<leader>gdx", "<cmd>::DiffviewClose<cr>", { desc = "Close Git diff
 -- Diagnostics/Errors  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ "n" }, "<leader>ej", vim.diagnostic.goto_next, { desc = "Go to next diagnostic [e]rror message" })
-map({ "n" }, "<leader>ek", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic [e]rror message" })
-map({ "n" }, "<leader>ei", vim.diagnostic.open_float, { desc = "Open floating diagnostic [e]rror info message" })
+map({ "n" }, "<leader>ej", vim.diagnostic.goto_next, { desc = "Go to next diagnostic/error message" })
+map({ "n" }, "<leader>ek", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic/error message" })
+map({ "n" }, "<leader>ei", vim.diagnostic.open_float, { desc = "Open floating diagnostic/error info message" })
+map("n", "<leader>es", function()
+	local toggled_value = not vim.diagnostic.config().virtual_text
+
+	vim.diagnostic.config({ virtual_text = toggled_value })
+end, { desc = "Toggle diagnostic virtual_text" })
+
+map("n", "<leader>el", function()
+	local new_config = not vim.diagnostic.config().virtual_lines
+
+	vim.diagnostic.config({ virtual_lines = new_config })
+end, { desc = "Toggle diagnostic virtual_lines" })
 
 map({ "n" }, "<leader>tef", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
 map({ "n" }, "<leader>tea", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble: All open File/buffer issues" })

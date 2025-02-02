@@ -6,8 +6,8 @@ return { -- Neovim statusline plugin
 	event = "VeryLazy",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
-		local macro_recording_text = require("pcf.utils").macro_recording_text
-		local get_winbar_filename = require("pcf.utils").get_winbar_filename
+		local macro_recording_text = require("pcf.utils.macros").macro_recording_text
+		local get_winbar_filename = require("pcf.utils.buffers").get_winbar_filename
 
 		require("lualine").setup({
 			options = {
