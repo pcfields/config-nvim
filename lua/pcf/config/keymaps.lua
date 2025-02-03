@@ -10,6 +10,7 @@ local record_macro = utils_macros.record_macro
 
 -- NOTE: I am using 'z' register for yanking and pasting
 local yank_register = '"z'
+local clipboard_register = '"+'
 
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
@@ -44,12 +45,12 @@ map({ "n" }, "<leader>ca", ":%y+<CR>", { desc = "Copy all text in buffer to clip
 map({ "n", "v" }, "y", yank_register .. "y", { desc = "Yank to [" .. yank_register .. "] register" })
 map({ "n", "v" }, "p", yank_register .. "p", { desc = "Paste from [" .. yank_register .. "] register" })
 map({ "n", "v" }, "d", '"_d', { desc = "Delete without copying to register" })
-map({ "n", "v" }, "<leader>dd", yank_register .. "d", { desc = "Delete and copy to [" .. yank_register .. "] register" })
 
--- Clipboard copy and paste
-map({ "n", "v" }, "<leader>yc", '"+y', { desc = "Copy to clipboard" })
-map({ "n", "v" }, "<leader>yl", '"+yy', { desc = "Copy line to clipboard" })
-map({ "n", "v" }, "<leader>pc", '"+p', { desc = "Paste from clipboard" })
+-- Clipboard copy, delete and paste
+map({ "n", "v" }, "<leader>yc", clipboard_register .. "yy", { desc = "Copy to clipboard" })
+map({ "n", "v" }, "<leader>pc", clipboard_register .. "p", { desc = "Paste from clipboard" })
+map({ "n", "v" }, "<leader>dd", yank_register .. "dd", { desc = "Delete and copy to [" .. yank_register .. "] register" })
+map({ "n", "v" }, "<leader>dc", clipboard_register .. "dd", { desc = "Delete and copy to clipboard" })
 
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
