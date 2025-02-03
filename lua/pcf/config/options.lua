@@ -3,25 +3,26 @@
 local opt = vim.opt
 
 vim.wo.number = true -- Make line numbers default
-
-vim.g.loaded_netrw = 1 -- Disable native file tree
+-- Disable Netrw, Vim's built-in file explorer, to use a custom file tree plugin instead
+vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
 
-opt.autowrite = true -- Enable auto write
-opt.autoindent = true -- Copy indent from current line when starting a new line
+vim.g.markdown_recommended_style = 0 -- Disable default markdown styling for custom configuration
 
-opt.backup = false
-opt.breakindent = true -- Enable break indent
+opt.autowrite = true -- Automatically save files when switching buffers or leaving Vim
+opt.autoindent = true -- Automatically indent new lines based on the previous line
 
--- opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim.  Remove this option if you want your OS clipboard to remain independent.
-opt.completeopt = "menu,menuone,noselect" -- Set completeopt to have a better completion experience
-opt.conceallevel = 2 -- Hide * markup for bold and italic
-opt.confirm = true -- Confirm to save changes before exiting modified buffer
-opt.cursorline = true -- Enable highlighting of the current line
+opt.backup = false -- Disable backup files to avoid cluttering directories
+opt.breakindent = true -- Maintain indent when wrapping lines for better readability
 
-opt.expandtab = true -- Use spaces instead of tabs
+opt.completeopt = "menu,menuone,noselect" -- Configure completion menu for better usability
+opt.conceallevel = 2 -- Hide certain syntax characters in markdown and other files
+opt.confirm = true -- Prompt to save changes when closing unsaved buffers
+opt.cursorline = true -- Highlight the current line for easier visual tracking
 
+opt.expandtab = true -- Use spaces instead of tabs for consistent indentation
+
+-- Configure various UI folding elements and characters for a cleaner interface
 opt.fillchars = {
 	foldopen = "",
 	foldclose = "",
@@ -30,61 +31,60 @@ opt.fillchars = {
 	diff = "╱",
 	eob = " ",
 }
-opt.foldcolumn = "1"
-opt.foldenable = true
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.formatoptions = "jcroqlnt" -- tcqj
+opt.foldenable = true -- Enable code folding functionality
+opt.foldlevel = 99 -- Start with all folds open by default
+opt.foldlevelstart = 99 -- Start with all folds open
+opt.foldcolumn = "1" -- Display fold indicators in the left column (1 character wide)
+opt.formatoptions = "jcroqlnt" -- Auto-format: comments, text wrap, lists; preserve long lines
 
-opt.grepformat = "%f:%l:%c:%m"
-opt.grepprg = "rg --vimgrep"
+opt.grepformat = "%f:%l:%c:%m" -- Set the format for grep results
+opt.grepprg = "rg --vimgrep" -- Use ripgrep for faster and more powerful searching
 
-opt.hlsearch = true -- Set highlight on search
+opt.hlsearch = true -- Highlight all matches when searching
 
+opt.inccommand = "nosplit" -- Show live results of substitute commands
 opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
-opt.inccommand = "nosplit" -- preview incremental substitute
 opt.iskeyword = opt.iskeyword + "-" -- this makes kebab-case one whole word when selecting a word.
 
-opt.laststatus = 3 -- global statusline
-opt.list = true -- Show some invisible characters (tabs...
+opt.list = true -- Show hidden characters like tabs and trailing spaces
+opt.laststatus = 3 -- Enable global statusline (single statusline at bottom)
 
-opt.mouse = "a" -- Enable mouse mode
+opt.mouse = "a" -- Enable mouse support in all modes for easier navigation
 
-opt.number = true -- Print line number
+opt.number = true -- Show absolute line numbers
 
-opt.pumblend = 10 -- Popup blend
-opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.pumblend = 0 -- Sets popup menu transparency
+opt.pumheight = 10 -- Maximum number of items to show in the popup menu
 
 opt.relativenumber = true -- Relative line numbers
 
-opt.scrolloff = 4 -- Number of screen lines to keep above and below the cursor
--- opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize' }
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.scrolloff = 8 -- Number of screen lines to keep above and below the cursor
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal,skiprtp"
 opt.shiftround = true -- Round indent to multiple of 'shiftwidth'
 opt.shiftwidth = 2 -- Size of an indent
 opt.sidescrolloff = 8 -- Columns of context
-opt.showmode = true
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.signcolumn = "yes" -- -- Always show the sign column to prevent text shifting
+opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- Shorten various Vim messages
+opt.showmode = true -- Display the current mode in the status line
 opt.showtabline = 0 -- neovim only display tabline when there are at least two tab pages. If you want always display tabline
-opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartindent = true -- Insert indents automatically
-opt.smartcase = true -- Don't ignore case with capitals
-opt.smoothscroll = true
+opt.smartcase = true -- Make searches case-sensitive when using uppercase letters.Don't ignore case with capitals
+opt.smoothscroll = true -- Enable smooth scrolling for better visual experience
 opt.spelllang = { "en" }
 opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
-opt.swapfile = false
+opt.swapfile = false -- Disable swap files to avoid cluttering directories
 opt.softtabstop = 2 -- Number of spaces that a <Tab> counts for while performing editing operations
 
-opt.tabstop = 2 -- Number of spaces tabs count for
-opt.termguicolors = true -- NOTE: You should make sure your terminal supports this
-opt.timeout = true
+opt.tabstop = 2 -- Number of spaces tabs count for-- Set the width of a tab character
+opt.termguicolors = true -- Enable true color support for better color rendering
+opt.timeout = true -- Enable timeout for key mappings
 opt.timeoutlen = 300
 
-opt.undolevels = 10000
-opt.undofile = true -- Save undo history
-opt.updatetime = 200 -- Decrease update time Save swap file and trigger CursorHold
+opt.undolevels = 10000 -- Increase the number of available undo levels
+opt.undofile = true -- Save undo history -- Enable persistent undo across sessions
+opt.updatetime = 200 -- Reduce updatetime for faster response and better user experience
 
 opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 opt.wildmode = "longest:full,full" -- Command-line completion mode
