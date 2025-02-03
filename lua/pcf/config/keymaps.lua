@@ -8,8 +8,8 @@ local execute_command_on_enclosing_node = utils_treesitter.execute_command_on_en
 local play_macro = utils_macros.play_macro
 local record_macro = utils_macros.record_macro
 
-local yank_register = '"z'
 -- NOTE: I am using 'z' register for yanking and pasting
+local yank_register = '"z'
 
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
