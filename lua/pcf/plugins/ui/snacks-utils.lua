@@ -2,8 +2,13 @@ local Snacks = require("snacks")
 
 local M = {}
 
+local function enter_normal_mode()
+	vim.api.nvim_input("<Esc>")
+end
+
 M.ViewOpenBuffers = function()
 	Snacks.picker.buffers()
+	enter_normal_mode()
 end
 
 M.SearchGrep = function()
@@ -63,11 +68,15 @@ M.GotoImplementation = function()
 end
 
 M.SearchDiagnosticsBuffer = function()
-	Snacks.picker.diagnostics_buffer()
+	Snacks.picker.diagnostics_buffer({
+		layout = "vertical",
+	})
 end
 
 M.SearchAllDiagnostics = function()
-	Snacks.picker.diagnostics()
+	Snacks.picker.diagnostics({
+		layout = "vertical",
+	})
 end
 
 M.GotoReferences = function()
