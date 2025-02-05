@@ -4,6 +4,9 @@ local utils_treesitter = require("pcf.utils.treesitter")
 local utils_macros = require("pcf.utils.macros")
 
 local map = pcf_utils.map
+local copy_file_path_to_clipboard = pcf_utils.copy_file_path_to_clipboard
+local copy_file_name_to_clipboard = pcf_utils.copy_file_name_to_clipboard
+local close_buffer_and_keep_split = pcf_utils.close_buffer_and_keep_split
 local execute_command_on_enclosing_node = utils_treesitter.execute_command_on_enclosing_node
 local play_macro = utils_macros.play_macro
 local record_macro = utils_macros.record_macro
@@ -11,6 +14,7 @@ local record_macro = utils_macros.record_macro
 -- NOTE: I am using 'z' register for yanking and pasting
 local yank_register = '"z'
 local clipboard_register = '"+'
+local delete_register = '"x'
 
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
@@ -31,25 +35,28 @@ map({ "n" }, "<leader>xn", "<cmd>Noice dismiss<cr>", { desc = "Dismiss all notif
 --------------------------------------------------------------------------------------------
 -- Files  -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
+map("i", "<leader><leader>", "<esc>", { desc = "Exit insert mode" })
 
 map({ "n" }, "<leader>ss", "/", { desc = "Search", silent = false })
-map({ "n", "v", "s" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "Save file" })
-map({ "n" }, "<leader>nf", "<cmd>enew<cr>", { desc = "File new " })
 
 -- Copy
-map({ "n" }, "<leader>cfn", [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:t'))<CR>]], { desc = "Copy filename" })
-map({ "n" }, "<leader>cfp", [[<cmd>lua vim.fn.setreg('+', vim.fn.expand('%:p'))<CR>]], { desc = "Copy file path" })
+map({ "n" }, "<leader>cfn", copy_file_path_to_clipboard, { desc = "Copy filename to clipboard" })
+map({ "n" }, "<leader>cfp", copy_file_name_to_clipboard, { desc = "Copy file path to clipboard" })
 map({ "n" }, "<leader>ca", ":%y+<CR>", { desc = "Copy all text in buffer to clipboard" })
+map({ "n" }, "<leader>aa", "gg<S-v>G", { desc = "Select all text in buffer" })
 
 -- Overwrite default yank and paste to use z register
 map({ "n", "v" }, "y", yank_register .. "y", { desc = "Yank to [" .. yank_register .. "] register" })
 map({ "n", "v" }, "p", yank_register .. "p", { desc = "Paste from [" .. yank_register .. "] register" })
-map({ "n", "v" }, "d", '"_d', { desc = "Delete without copying to register" })
+map({ "n", "v" }, "d", delete_register .. "d", { desc = "Delete and copy to [" .. delete_register .. "] register" })
+
+-- Copy, delete and paste
+map({ "n", "v" }, "<leader>dy", yank_register .. "dd", { desc = "Delete and copy to [" .. yank_register .. "] register" })
+map({ "n", "v" }, "<leader>pd", delete_register .. "p", { desc = "Paste from [" .. delete_register .. "] register" })
 
 -- Clipboard copy, delete and paste
 map({ "n", "v" }, "<leader>yc", clipboard_register .. "yy", { desc = "Copy to clipboard" })
 map({ "n", "v" }, "<leader>pc", clipboard_register .. "p", { desc = "Paste from clipboard" })
-map({ "n", "v" }, "<leader>dd", yank_register .. "dd", { desc = "Delete and copy to [" .. yank_register .. "] register" })
 map({ "n", "v" }, "<leader>dc", clipboard_register .. "dd", { desc = "Delete and copy to clipboard" })
 
 --------------------------------------------------------------------------------------------
@@ -58,25 +65,24 @@ map({ "n", "v" }, "<leader>dc", clipboard_register .. "dd", { desc = "Delete and
 map({ "n" }, "<leader>fw", "<cmd>Neotree toggle reveal float<cr>", { desc = "File explorer" })
 map({ "n" }, "<leader>ft", "<cmd>Neotree toggle reveal current<cr>", { desc = "File explorer in tab" })
 map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "File git status" })
-map({ "n" }, "<leader>aa", "gg<S-v>G", { desc = "Select all text in buffer" })
 
 --------------------------------------------------------------------------------------------
 -- Buffers ----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ "n" }, "<leader>xx", "<cmd>:bd<cr>", { desc = "Close buffer" })
+map({ "n", "v", "s" }, "<leader>hs", "<cmd>w<cr><esc>", { desc = "Save buffer" })
+map({ "n", "v", "s" }, "<leader>ha", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
+map({ "n" }, "<leader>hn", "<cmd>enew<cr>", { desc = "New buffer(file)" })
+map({ "n" }, "<leader>hd", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
+map({ "n" }, "<leader>hx", "<cmd>:close<cr>", { desc = "Close split window" })
+map({ "n" }, "<leader>hk", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
+map({ "n" }, "<leader>ho", [[:%bdelete|edit #|bdelete #<CR>]], { desc = "Close all buffers except current one" })
 map({ "n" }, "<A-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map({ "n" }, "<A-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
-map({ "n" }, "<leader>vk", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
-map({ "n" }, "<leader>vc", [[:%bdelete|edit #|bdelete #<CR>]], { desc = "Delete all buffers except current buffer" })
 
 --------------------------------------------------------------------------------------------
 -- Windows ---------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-
-map({ "n" }, "<leader>ww", "<C-w>p", { desc = "Other window" })
-map({ "n" }, "<leader>wx", "<C-w>c", { desc = "Delete window" })
-map({ "n" }, "<leader>wn", "<C-w>n", { desc = "Create new window" })
 
 -- Move to window using the <ctrl> hjkl keys
 map({ "n" }, "<leader>wh", "<C-w>h", { desc = "Go to left window" })
@@ -85,11 +91,13 @@ map({ "n" }, "<leader>wk", "<C-w>k", { desc = "Go to upper window" })
 map({ "n" }, "<leader>wl", "<C-w>l", { desc = "Go to right window" })
 
 -- Split windows
-map({ "n" }, "<leader>ws", "<C-w>s", { desc = "Split window below" })
-map({ "n" }, "<leader>wv", "<C-w>v", { desc = "Split window right" })
+map({ "n" }, "<leader>wu", "<C-w>s", { desc = "Split window below" })
+map({ "n" }, "<leader>wi", "<C-w>v", { desc = "Split window right" })
+map({ "n" }, "<leader>wx", "<C-w>c", { desc = "Delete window" })
+map({ "n" }, "<leader>wn", "<C-w>n", { desc = "Create new window" })
 
 -- Resize windows 50/50
-map({ "n" }, "<leader>w2", "<C-w>=", { desc = "Resize windows to be 50|50" })
+map({ "n" }, "<leader>ww", "<C-w>=", { desc = "Resize windows to be 50|50" })
 
 --------------------------------------------------------------------------------------------
 -- Resize ---------------------------------------------------------------------------------
@@ -102,7 +110,6 @@ map({ "n" }, "<C-Right>", "<cmd>vertical resize -4<cr>", { desc = "Decrease wind
 --------------------------------------------------------------------------------------------
 map({ "n" }, "<leader>xa", "<cmd>qa<cr>", { desc = "Quit all, Close Neovim" })
 map({ "n" }, "<leader>xc", "<cmd>q<cr>", { desc = "Quit" })
-map("i", "<leader><leader>", "<esc>", { desc = "Exit insert mode" })
 
 --------------------------------------------------------------------------------------------
 -- Line movement ---------------------------------------------------------------------------------
@@ -157,8 +164,8 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 -- Open things -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 map({ "n" }, "<C-p>", "<cmd>:Lazy<cr>", { desc = "Open Lazy Plugin Manager" })
-map({ "n" }, "<leader>gdo", "<cmd>::DiffviewOpen<cr>", { desc = "Open Git diff view" })
-map({ "n" }, "<leader>gdx", "<cmd>::DiffviewClose<cr>", { desc = "Close Git diff view" })
+map({ "n" }, "<leader>gv", "<cmd>::DiffviewOpen<cr>", { desc = "Open Git diff view" })
+map({ "n" }, "<leader>gx", "<cmd>::DiffviewClose<cr>", { desc = "Close Git diff view" })
 --------------------------------------------------------------------------------------------
 -- Diagnostics/Errors  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
@@ -178,8 +185,8 @@ map("n", "<leader>el", function()
 	vim.diagnostic.config({ virtual_lines = new_config })
 end, { desc = "Toggle diagnostic virtual_lines" })
 
-map({ "n" }, "<leader>tef", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
-map({ "n" }, "<leader>tea", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble: All open File/buffer issues" })
+map({ "n" }, "<leader>ef", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
+map({ "n" }, "<leader>ea", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble: All open File/buffer issues" })
 
 --------------------------------------------------------------------------------------------
 -- Refactor  --------------------------------------------------------------------------------

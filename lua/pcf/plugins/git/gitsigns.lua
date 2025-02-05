@@ -26,8 +26,7 @@ return {
 				untracked = { text = "┆" },
 			},
 			on_attach = function()
-				-- actions
-				map("n", "<leader>gh", gitsigns.toggle_current_line_blame, { desc = "Git toggle blame line" })
+				map("n", "<leader>go", gitsigns.toggle_current_line_blame, { desc = "Git toggle blame line" })
 			end,
 		})
 	end,
