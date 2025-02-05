@@ -39,22 +39,29 @@ map("i", "<leader><leader>", "<esc>", { desc = "Exit insert mode" })
 
 map({ "n" }, "<leader>ss", "/", { desc = "Search", silent = false })
 
+--------------------------------------------------------------------------------------------
 -- Copy
+--------------------------------------------------------------------------------------------
 map({ "n" }, "<leader>cfn", copy_file_path_to_clipboard, { desc = "Copy filename to clipboard" })
 map({ "n" }, "<leader>cfp", copy_file_name_to_clipboard, { desc = "Copy file path to clipboard" })
-map({ "n" }, "<leader>ca", ":%y+<CR>", { desc = "Copy all text in buffer to clipboard" })
-map({ "n" }, "<leader>aa", "gg<S-v>G", { desc = "Select all text in buffer" })
 
+--------------------------------------------------------------------------------------------
 -- Overwrite default yank and paste to use z register
+--------------------------------------------------------------------------------------------
 map({ "n", "v" }, "y", yank_register .. "y", { desc = "Yank to [" .. yank_register .. "] register" })
 map({ "n", "v" }, "p", yank_register .. "p", { desc = "Paste from [" .. yank_register .. "] register" })
 map({ "n", "v" }, "d", delete_register .. "d", { desc = "Delete and copy to [" .. delete_register .. "] register" })
 
+--------------------------------------------------------------------------------------------
 -- Copy, delete and paste
+--------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>dy", yank_register .. "dd", { desc = "Delete and copy to [" .. yank_register .. "] register" })
+map({ "n", "v" }, "<leader>de", "d$", { desc = "Delete to end of line" })
 map({ "n", "v" }, "<leader>pd", delete_register .. "p", { desc = "Paste from [" .. delete_register .. "] register" })
 
+--------------------------------------------------------------------------------------------
 -- Clipboard copy, delete and paste
+--------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>yc", clipboard_register .. "yy", { desc = "Copy to clipboard" })
 map({ "n", "v" }, "<leader>pc", clipboard_register .. "p", { desc = "Paste from clipboard" })
 map({ "n", "v" }, "<leader>dc", clipboard_register .. "dd", { desc = "Delete and copy to clipboard" })
@@ -70,15 +77,21 @@ map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "File git sta
 -- Buffers ----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 
-map({ "n", "v", "s" }, "<leader>hs", "<cmd>w<cr><esc>", { desc = "Save buffer" })
-map({ "n", "v", "s" }, "<leader>ha", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
+map({ "n", "v", "s" }, "<leader>hf", "<cmd>w<cr><esc>", { desc = "Save buffer" })
+map({ "n", "v", "s" }, "<leader>hs", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
 map({ "n" }, "<leader>hn", "<cmd>enew<cr>", { desc = "New buffer(file)" })
 map({ "n" }, "<leader>hd", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
 map({ "n" }, "<leader>hx", "<cmd>:close<cr>", { desc = "Close split window" })
-map({ "n" }, "<leader>hk", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
+map({ "n" }, "<leader>hl", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
 map({ "n" }, "<leader>ho", [[:%bdelete|edit #|bdelete #<CR>]], { desc = "Close all buffers except current one" })
+map({ "n" }, "<leader>hc", ":%y+<CR>", { desc = "Copy all text in buffer to clipboard" })
+map({ "n" }, "<leader>ha", "gg<S-v>G", { desc = "Select all text in buffer" })
+
 map({ "n" }, "<A-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map({ "n" }, "<leader>hj", "<cmd>bnext<cr>", { desc = "Next buffer" })
+
 map({ "n" }, "<A-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+map({ "n" }, "<leader>hk", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 
 --------------------------------------------------------------------------------------------
 -- Windows ---------------------------------------------------------------------------------
@@ -124,27 +137,36 @@ map({ "n" }, "#", "#zz", { desc = "Search backward and center cursor in middle o
 map({ "n" }, "g*", "g*zz", { desc = "Search forward for the word under the cursor and center cursor in middle of screen" })
 map({ "n" }, "g#", "g#zz", { desc = "Search backward and center cursor in middle of screen" })
 
+--------------------------------------------------------------------------------------------
 -- Horizontal line movement
+--------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>jh", "^", { desc = "Go to beginning of line" })
 map({ "n", "v" }, "<leader>jl", "$", { desc = "Go to end of line" })
 map({ "n", "v" }, "<leader>jm", "%", { desc = "Jump to the next matching bracket" })
-map({ "n" }, "<leader>de", "d$", { desc = "Delete to end of line" })
 
+--------------------------------------------------------------------------------------------
 -- Vertical line movement
-map({ "n", "v" }, "<leader>ju", "gg", { desc = "Go to top of buffer" })
-map({ "n", "v" }, "<leader>jn", "<S-g>", { desc = "Go to bottom of buffer" })
+--------------------------------------------------------------------------------------------
+map({ "n", "v" }, "<leader>ju", "gg", { desc = "Jump to top of buffer" })
+map({ "n", "v" }, "<leader>jn", "<S-g>", { desc = "Jump to bottom of buffer" })
 
+--------------------------------------------------------------------------------------------
 -- Move line down
+--------------------------------------------------------------------------------------------
 map({ "n" }, "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
 map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 
+--------------------------------------------------------------------------------------------
 -- Move line up
+--------------------------------------------------------------------------------------------
 map({ "n" }, "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
 map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
--- terminal
+--------------------------------------------------------------------------------------------
+-- Terminal
+--------------------------------------------------------------------------------------------
 function _G.set_terminal_keymaps()
 	local terminal_opts = { buffer = 0 }
 
@@ -166,10 +188,10 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 map({ "n" }, "<C-p>", "<cmd>:Lazy<cr>", { desc = "Open Lazy Plugin Manager" })
 map({ "n" }, "<leader>gv", "<cmd>::DiffviewOpen<cr>", { desc = "Open Git diff view" })
 map({ "n" }, "<leader>gx", "<cmd>::DiffviewClose<cr>", { desc = "Close Git diff view" })
---------------------------------------------------------------------------------------------
--- Diagnostics/Errors  --------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------------------
+-- Diagnostics (Errors)  --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 map({ "n" }, "<leader>ej", vim.diagnostic.goto_next, { desc = "Go to next diagnostic/error message" })
 map({ "n" }, "<leader>ek", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic/error message" })
 map({ "n" }, "<leader>ei", vim.diagnostic.open_float, { desc = "Open floating diagnostic/error info message" })
@@ -179,57 +201,86 @@ map("n", "<leader>es", function()
 	vim.diagnostic.config({ virtual_text = toggled_value })
 end, { desc = "Toggle diagnostic virtual_text" })
 
-map("n", "<leader>el", function()
-	local new_config = not vim.diagnostic.config().virtual_lines
-
-	vim.diagnostic.config({ virtual_lines = new_config })
-end, { desc = "Toggle diagnostic virtual_lines" })
-
-map({ "n" }, "<leader>ef", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
-map({ "n" }, "<leader>ea", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble: All open File/buffer issues" })
+map({ "n" }, "<leader>nf", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
+map({ "n" }, "<leader>na", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble: All open File/buffer issues" })
 
 --------------------------------------------------------------------------------------------
 -- Refactor  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-
+--
 map({ "n" }, "<leader>rn", vim.lsp.buf.rename, { desc = "Refactor: Rename variable" })
 
 --------------------------------------------------------------------------------------------
---  --------------------------------------------------------------------------------
+-- Code actions --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
 ---
 map({ "n" }, "<leader>ka", vim.lsp.buf.code_action, { desc = "Code action" })
 map({ "n" }, "<leader>kf", "za", { desc = "Code folding" })
 
+--------------------------------------------------------------------------------------------
 -- Yank keymaps
+--------------------------------------------------------------------------------------------
 --
 map({ "n", "v" }, "<leader>ye", yank_register .. "y$", { desc = "Yank till end of line" })
 
 local brackets_or_strings_text = " (...) or [...] or {...} or strings"
 
-map({ "n", "v" }, "<leader>yii", function()
+map({ "n", "v" }, "<leader>yi", function()
 	local command_yank_inside_to_register_z = yank_register .. "yi"
 
 	execute_command_on_enclosing_node(command_yank_inside_to_register_z)
 end, { desc = "Yank inside " .. brackets_or_strings_text })
 
-map({ "n", "v" }, "<leader>yaa", function()
+map({ "n", "v" }, "<leader>ya", function()
 	local command_yank_around_to_register_z = yank_register .. "ya"
 
 	execute_command_on_enclosing_node(command_yank_around_to_register_z)
 end, { desc = "Yank around " .. brackets_or_strings_text })
 
-map({ "n", "v" }, "<leader>dii", function()
+--------------------------------------------------------------------------------------------
+-- Delete Inside and around keymaps
+--------------------------------------------------------------------------------------------
+map({ "n", "v" }, "<leader>di", function()
 	local command_delete_inside = "di"
 
 	execute_command_on_enclosing_node(command_delete_inside)
 end, { desc = "Delete inside " .. brackets_or_strings_text })
 
-map({ "n", "v" }, "<leader>daa", function()
+map({ "n", "v" }, "<leader>da", function()
 	local command_delete_around = "da"
 
 	execute_command_on_enclosing_node(command_delete_around)
 end, { desc = "Delete around " .. brackets_or_strings_text })
+
+--------------------------------------------------------------------------------------------
+-- Select inside and around keymaps
+--------------------------------------------------------------------------------------------
+map({ "n", "v" }, "<leader>vi", function()
+	local command_delete_inside = "vi"
+
+	execute_command_on_enclosing_node(command_delete_inside)
+end, { desc = "Select inside " .. brackets_or_strings_text })
+
+map({ "n", "v" }, "<leader>va", function()
+	local command_delete_around = "va"
+
+	execute_command_on_enclosing_node(command_delete_around)
+end, { desc = "Select around " .. brackets_or_strings_text })
+
+--------------------------------------------------------------------------------------------
+-- Change inside and around keymaps
+--------------------------------------------------------------------------------------------
+map({ "n", "v" }, "<leader>ci", function()
+	local command_delete_inside = "ci"
+
+	execute_command_on_enclosing_node(command_delete_inside)
+end, { desc = "Change inside " .. brackets_or_strings_text })
+
+map({ "n", "v" }, "<leader>ca", function()
+	local command_delete_around = "ca"
+
+	execute_command_on_enclosing_node(command_delete_around)
+end, { desc = "Change around " .. brackets_or_strings_text })
 
 --------------------------------------------------------------------------------------------
 -- Macros  --------------------------------------------------------------------------------
