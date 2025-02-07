@@ -170,13 +170,13 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 function _G.set_terminal_keymaps()
 	local terminal_opts = { buffer = 0 }
 
-	vim.keymap.set("t", "<C-e>", [[<C-\><C-n>]], terminal_opts)
-	vim.keymap.set("t", "jk", [[<C-\><C-n>]], terminal_opts)
-	vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], terminal_opts)
-	vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], terminal_opts)
-	vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], terminal_opts)
-	vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], terminal_opts)
-	vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], terminal_opts)
+	vim.keymap.set("t", "<A-e>", [[<C-\><C-n>]], terminal_opts)
+	vim.keymap.set("t", "<A-o>", [[<C-\><C-n>]], terminal_opts)
+	vim.keymap.set("t", "<A-h>", [[<Cmd>wincmd h<CR>]], terminal_opts)
+	vim.keymap.set("t", "<A-j>", [[<Cmd>wincmd j<CR>]], terminal_opts)
+	vim.keymap.set("t", "<A-k>", [[<Cmd>wincmd k<CR>]], terminal_opts)
+	vim.keymap.set("t", "<A-l>", [[<Cmd>wincmd l<CR>]], terminal_opts)
+	vim.keymap.set("t", "<A-w>", [[<C-\><C-n><C-w>]], terminal_opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
