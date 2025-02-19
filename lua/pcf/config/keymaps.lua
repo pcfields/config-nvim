@@ -170,13 +170,13 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 function _G.set_terminal_keymaps()
 	local terminal_opts = { buffer = 0 }
 
-	vim.keymap.set("t", "<A-e>", [[<C-\><C-n>]], terminal_opts)
-	vim.keymap.set("t", "<A-o>", [[<C-\><C-n>]], terminal_opts)
-	vim.keymap.set("t", "<A-h>", [[<Cmd>wincmd h<CR>]], terminal_opts)
-	vim.keymap.set("t", "<A-j>", [[<Cmd>wincmd j<CR>]], terminal_opts)
-	vim.keymap.set("t", "<A-k>", [[<Cmd>wincmd k<CR>]], terminal_opts)
-	vim.keymap.set("t", "<A-l>", [[<Cmd>wincmd l<CR>]], terminal_opts)
-	vim.keymap.set("t", "<A-w>", [[<C-\><C-n><C-w>]], terminal_opts)
+	map({ "t" }, "<A-e>", [[<C-\><C-n>]], { desc = "Exit terminal mode", buffer = terminal_opts.buffer })
+	map({ "t" }, "<A-w>", [[<C-\><C-n><C-w>]], { desc = "Exit terminal mode and enter window command mode", buffer = terminal_opts.buffer })
+
+	map({ "t" }, "<A-h>", [[<Cmd>wincmd h<CR>]], { desc = "Move to left window", buffer = terminal_opts.buffer })
+	map({ "t" }, "<A-j>", [[<Cmd>wincmd j<CR>]], { desc = "Move to lower window", buffer = terminal_opts.buffer })
+	map({ "t" }, "<A-k>", [[<Cmd>wincmd k<CR>]], { desc = "Move to upper window", buffer = terminal_opts.buffer })
+	map({ "t" }, "<A-l>", [[<Cmd>wincmd l<CR>]], { desc = "Move to right window", buffer = terminal_opts.buffer })
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
@@ -192,9 +192,9 @@ map({ "n" }, "<leader>gx", "<cmd>::DiffviewClose<cr>", { desc = "Close Git diff 
 --------------------------------------------------------------------------------------------
 -- Diagnostics (Errors)  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-map({ "n" }, "<leader>ej", vim.diagnostic.goto_next, { desc = "Go to next diagnostic/error message" })
-map({ "n" }, "<leader>ek", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic/error message" })
-map({ "n" }, "<leader>ei", vim.diagnostic.open_float, { desc = "Open floating diagnostic/error info message" })
+map({ "n" }, "<leader>ej", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+map({ "n" }, "<leader>ek", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+map({ "n" }, "<leader>ei", vim.diagnostic.open_float, { desc = "Open floating diagnostic info message" })
 map("n", "<leader>es", function()
 	local toggled_value = not vim.diagnostic.config().virtual_text
 
@@ -256,30 +256,30 @@ end, { desc = "Delete around " .. brackets_or_strings_text })
 -- Select inside and around keymaps
 --------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>vi", function()
-	local command_delete_inside = "vi"
+	local command_select_inside = "vi"
 
-	execute_command_on_enclosing_node(command_delete_inside)
+	execute_command_on_enclosing_node(command_select_inside)
 end, { desc = "Select inside " .. brackets_or_strings_text })
 
 map({ "n", "v" }, "<leader>va", function()
-	local command_delete_around = "va"
+	local command_select_around = "va"
 
-	execute_command_on_enclosing_node(command_delete_around)
+	execute_command_on_enclosing_node(command_select_around)
 end, { desc = "Select around " .. brackets_or_strings_text })
 
 --------------------------------------------------------------------------------------------
 -- Change inside and around keymaps
 --------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>ci", function()
-	local command_delete_inside = "ci"
+	local command_change_inside = "ci"
 
-	execute_command_on_enclosing_node(command_delete_inside)
+	execute_command_on_enclosing_node(command_change_inside)
 end, { desc = "Change inside " .. brackets_or_strings_text })
 
 map({ "n", "v" }, "<leader>ca", function()
-	local command_delete_around = "ca"
+	local command_change_around = "ca"
 
-	execute_command_on_enclosing_node(command_delete_around)
+	execute_command_on_enclosing_node(command_change_around)
 end, { desc = "Change around " .. brackets_or_strings_text })
 
 --------------------------------------------------------------------------------------------
