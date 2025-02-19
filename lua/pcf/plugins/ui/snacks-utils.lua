@@ -16,13 +16,7 @@ M.SearchGrep = function()
 end
 
 M.SearchFiles = function()
-	local is_git_repo = vim.fn.system("git rev-parse --is-inside-work-tree"):match("true")
-
-	if is_git_repo then
-		Snacks.picker.git_files()
-	else
-		Snacks.picker.files()
-	end
+	Snacks.picker.files()
 end
 
 M.SearchGitFiles = function()
