@@ -80,8 +80,8 @@ map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "File git sta
 map({ "n", "v", "s" }, "<leader>hs", "<cmd>w<cr><esc>", { desc = "Save buffer" })
 map({ "n", "v", "s" }, "<leader>hw", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
 map({ "n" }, "<leader>hn", "<cmd>enew<cr>", { desc = "New buffer(file)" })
-map({ "n" }, "<leader>hd", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
-map({ "n" }, "<leader>hx", "<cmd>:close<cr>", { desc = "Close split window" })
+map({ "n" }, "<leader>hx", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
+map({ "n" }, "<leader>hz", "<cmd>:close<cr>", { desc = "Close split window" })
 map({ "n" }, "<leader>hl", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
 map({ "n" }, "<leader>ho", [[:%bdelete|edit #|bdelete #<CR>]], { desc = "Close all buffers except current one" })
 map({ "n" }, "<leader>hc", ":%y+<CR>", { desc = "Copy all text in buffer to clipboard" })
@@ -170,7 +170,7 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 function _G.set_terminal_keymaps()
 	local terminal_opts = { buffer = 0 }
 
-	map({ "t" }, "<A-e>", [[<C-\><C-n>]], { desc = "Exit terminal mode", buffer = terminal_opts.buffer })
+	map({ "t" }, "<A-i>", [[<C-\><C-n>]], { desc = "Exit terminal mode", buffer = terminal_opts.buffer })
 	map({ "t" }, "<A-w>", [[<C-\><C-n><C-w>]], { desc = "Exit terminal mode and enter window command mode", buffer = terminal_opts.buffer })
 
 	map({ "t" }, "<A-h>", [[<Cmd>wincmd h<CR>]], { desc = "Move to left window", buffer = terminal_opts.buffer })
