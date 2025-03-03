@@ -42,8 +42,8 @@ map({ "n" }, "<leader>ss", "/", { desc = "Search", silent = false })
 --------------------------------------------------------------------------------------------
 -- Copy
 --------------------------------------------------------------------------------------------
-map({ "n" }, "<leader>cfn", copy_file_path_to_clipboard, { desc = "Copy filename to clipboard" })
-map({ "n" }, "<leader>cfp", copy_file_name_to_clipboard, { desc = "Copy file path to clipboard" })
+map({ "n" }, "<leader>cfn", copy_file_name_to_clipboard, { desc = "Copy filename to clipboard" })
+map({ "n" }, "<leader>cfp", copy_file_path_to_clipboard, { desc = "Copy file path to clipboard" })
 
 --------------------------------------------------------------------------------------------
 -- Overwrite default yank and paste to use z register
@@ -56,7 +56,7 @@ map({ "n", "v" }, "d", delete_register .. "d", { desc = "Delete and copy to [" .
 -- Copy, delete and paste
 --------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>dy", yank_register .. "dd", { desc = "Delete and copy to [" .. yank_register .. "] register" })
-map({ "n", "v" }, "<leader>de", "d$", { desc = "Delete to end of line" })
+map({ "n", "v" }, "<leader>de", delete_register .. "d$", { desc = "Delete to end of line" })
 map({ "n", "v" }, "<leader>pd", delete_register .. "p", { desc = "Paste from [" .. delete_register .. "] register" })
 
 --------------------------------------------------------------------------------------------
