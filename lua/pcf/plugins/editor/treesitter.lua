@@ -38,10 +38,10 @@ return { -- Highlight, edit, and navigate code
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "<c-space>",
-					node_incremental = "<c-space>",
+					init_selection = "<leader>;",
+					node_incremental = "<leader>;",
 					scope_incremental = "<c-s>",
-					node_decremental = "<M-space>",
+					node_decremental = "<leader>'",
 				},
 			},
 			-- Enable syntax aware text objects
