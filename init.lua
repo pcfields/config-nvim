@@ -36,6 +36,7 @@ plugin_manager.setup({
 	require("pcf.plugins.lsp.lsp-config"),
 	require("pcf.plugins.navigation.mini-files"),
 	require("pcf.plugins.navigation.neo-tree"),
+	require("pcf.plugins.navigation.oil"),
 	require("pcf.plugins.testing.neo-test"),
 	require("pcf.plugins.ui.dressing"),
 	require("pcf.plugins.ui.lualine"),
