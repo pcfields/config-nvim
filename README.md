@@ -12,7 +12,6 @@ Inspired by:
 - https://www.jakewiesler.com/blog
 - https://github.com/exosyphon/nvim/tree/main
 
-
 ## Videos with good instructions
 
 - [How I Setup LSP In Neovim For An Amazing Dev Experience - Full Guide](https://www.youtube.com/watch?v=NL8D8EkphUw)
@@ -26,7 +25,6 @@ Inspired by:
 - [How to Do 90% of What Plugins Do (With Just Vim)](https://www.youtube.com/watch?v=XA2WjJbmmoM)
 - [Vim Navigation Commands](https://www.youtube.com/watch?v=Qem8cpbJeYc)
 - [Mastering the Vim Language](https://www.youtube.com/watch?v=wlR5gYd6um0)
-
 
 # Setup new system configuration
 
@@ -99,3 +97,16 @@ nix-env -iA nixpkgs.ripgrep
 ```
 
 Install [Nerd font](https://www.nerdfonts.com/font-downloads) for terminal icons in Neovim
+
+# For windows
+
+install scoop
+
+use scoop to install
+
+- neovim
+- wezterm
+- lazygit
+- oh-my-posh
+- ripgrep
+- fzf
