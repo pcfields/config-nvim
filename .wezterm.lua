@@ -2,7 +2,7 @@ local wezterm = require("wezterm") -- Pull in the wezterm API
 local working_dir = wezterm.home_dir
 local color_schemes = { Adventure = "Adventure", Abernathy = "Abernathy", Argonaut = "Argonaut" }
 local windows_platform = "x86_64-pc-windows-msvc"
-local os_shell = "home/linuxbrew/.linuxbrew/bin/fish"
+local os_shell = "/home/linuxbrew/.linuxbrew/bin/fish"
 
 local config = {} -- This table will hold the configuration.
 
@@ -207,8 +207,8 @@ config.keys = {
 		mods = "LEADER",
 		key = "s",
 		action = wezterm.action.ActivateKeyTable({
-			name = "split_panes",     -- same name as in the `config.key_tables`
-			one_shot = false,         -- Ensures the keytable stays active after it handles its first keypress.
+			name = "split_panes", -- same name as in the `config.key_tables`
+			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
 	},
@@ -276,11 +276,11 @@ config.keys = {
 		mods = "LEADER",
 		key = "r",
 		action = wezterm.action.ActivateKeyTable({
-			name = "resize_panes",    -- same name as in the `config.key_tables`
-			one_shot = false,         -- Ensures the keytable stays active after it handles its first keypress.
+			name = "resize_panes", -- same name as in the `config.key_tables`
+			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
-	},                            -- Go to specific tab <leader> number
+	},                          -- Go to specific tab <leader> number
 	go_to_tab(1),
 	go_to_tab(2),
 	go_to_tab(3),
