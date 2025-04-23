@@ -25,7 +25,8 @@ vim.g.maplocalleader = " "
 map({ "i", "n", "v" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- Clear search, diff update and redraw
-map({ "n" }, "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Redraw / clear hlsearch / diff update" })
+map({ "n" }, "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw / clear hlsearch / diff update" })
 
 -- Search word under cursor
 map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
@@ -134,7 +135,8 @@ map({ "n" }, "n", "nzz", { desc = "Go to next and center cursor in middle of scr
 map({ "n" }, "N", "Nzz", { desc = "Go to previous and center cursor in middle of screen" })
 map({ "n" }, "*", "*zz", { desc = "Search forward for the word under the cursor and center cursor in middle of screen" })
 map({ "n" }, "#", "#zz", { desc = "Search backward and center cursor in middle of screen" })
-map({ "n" }, "g*", "g*zz", { desc = "Search forward for the word under the cursor and center cursor in middle of screen" })
+map({ "n" }, "g*", "g*zz",
+	{ desc = "Search forward for the word under the cursor and center cursor in middle of screen" })
 map({ "n" }, "g#", "g#zz", { desc = "Search backward and center cursor in middle of screen" })
 
 --------------------------------------------------------------------------------------------
@@ -142,13 +144,13 @@ map({ "n" }, "g#", "g#zz", { desc = "Search backward and center cursor in middle
 --------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>jh", "^", { desc = "Go to beginning of line" })
 map({ "n", "v" }, "<leader>jl", "$", { desc = "Go to end of line" })
-map({ "n", "v" }, "<leader>jm", "%", { desc = "Jump to the next matching bracket" })
+map({ "n", "v" }, "<leader>jb", "%", { desc = "Jump to the next matching bracket" })
 
 --------------------------------------------------------------------------------------------
 -- Vertical line movement
 --------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>ju", "gg", { desc = "Jump to top of buffer" })
-map({ "n", "v" }, "<leader>jn", "<S-g>", { desc = "Jump to bottom of buffer" })
+map({ "n", "v" }, "<leader>jm", "<S-g>", { desc = "Jump to bottom of buffer" })
 
 --------------------------------------------------------------------------------------------
 -- Move line down
@@ -171,7 +173,8 @@ function _G.set_terminal_keymaps()
 	local terminal_opts = { buffer = 0 }
 
 	map({ "t" }, "<A-i>", [[<C-\><C-n>]], { desc = "Exit terminal mode", buffer = terminal_opts.buffer })
-	map({ "t" }, "<A-w>", [[<C-\><C-n><C-w>]], { desc = "Exit terminal mode and enter window command mode", buffer = terminal_opts.buffer })
+	map({ "t" }, "<A-w>", [[<C-\><C-n><C-w>]],
+		{ desc = "Exit terminal mode and enter window command mode", buffer = terminal_opts.buffer })
 
 	map({ "t" }, "<A-h>", [[<Cmd>wincmd h<CR>]], { desc = "Move to left window", buffer = terminal_opts.buffer })
 	map({ "t" }, "<A-j>", [[<Cmd>wincmd j<CR>]], { desc = "Move to lower window", buffer = terminal_opts.buffer })
@@ -241,15 +244,15 @@ end, { desc = "Yank around " .. brackets_or_strings_text })
 -- Delete Inside and around keymaps
 --------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>di", function()
-	local command_delete_inside = "di"
+	local command_delete_inside_save_to_delete_register = delete_register .. "di"
 
-	execute_command_on_enclosing_node(command_delete_inside)
+	execute_command_on_enclosing_node(command_delete_inside_save_to_delete_register)
 end, { desc = "Delete inside " .. brackets_or_strings_text })
 
 map({ "n", "v" }, "<leader>da", function()
-	local command_delete_around = "da"
+	local command_delete_around_save_to_delete_register = delete_register .. "da"
 
-	execute_command_on_enclosing_node(command_delete_around)
+	execute_command_on_enclosing_node(command_delete_around_save_to_delete_register)
 end, { desc = "Delete around " .. brackets_or_strings_text })
 
 --------------------------------------------------------------------------------------------
@@ -271,15 +274,15 @@ end, { desc = "Select around " .. brackets_or_strings_text })
 -- Change inside and around keymaps
 --------------------------------------------------------------------------------------------
 map({ "n", "v" }, "<leader>ci", function()
-	local command_change_inside = "ci"
+	local command_change_inside_save_to_delete_register = delete_register .. "ci"
 
-	execute_command_on_enclosing_node(command_change_inside)
+	execute_command_on_enclosing_node(command_change_inside_save_to_delete_register)
 end, { desc = "Change inside " .. brackets_or_strings_text })
 
 map({ "n", "v" }, "<leader>ca", function()
-	local command_change_around = "ca"
+	local command_change_around_save_to_delete_register = delete_register .. "ca"
 
-	execute_command_on_enclosing_node(command_change_around)
+	execute_command_on_enclosing_node(command_change_around_save_to_delete_register)
 end, { desc = "Change around " .. brackets_or_strings_text })
 
 --------------------------------------------------------------------------------------------
