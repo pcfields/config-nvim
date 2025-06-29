@@ -25,8 +25,7 @@ vim.g.maplocalleader = " "
 map({ "i", "n", "v" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- Clear search, diff update and redraw
-map({ "n" }, "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-	{ desc = "Redraw / clear hlsearch / diff update" })
+map({ "n" }, "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Redraw / clear hlsearch / diff update" })
 
 -- Search word under cursor
 map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
@@ -105,8 +104,8 @@ map({ "n" }, "<leader>wk", "<C-w>k", { desc = "Go to upper window" })
 map({ "n" }, "<leader>wl", "<C-w>l", { desc = "Go to right window" })
 
 -- Split windows
-map({ "n" }, "<leader>wu", "<C-w>s", { desc = "Split window below" })
-map({ "n" }, "<leader>wi", "<C-w>v", { desc = "Split window right" })
+map({ "n" }, "<leader>wsj", "<C-w>s", { desc = "Split window below" })
+map({ "n" }, "<leader>wsl", "<C-w>v", { desc = "Split window right" })
 map({ "n" }, "<leader>wx", "<C-w>c", { desc = "Delete window" })
 map({ "n" }, "<leader>wn", "<C-w>n", { desc = "Create new window" })
 
@@ -135,8 +134,7 @@ map({ "n" }, "n", "nzz", { desc = "Go to next and center cursor in middle of scr
 map({ "n" }, "N", "Nzz", { desc = "Go to previous and center cursor in middle of screen" })
 map({ "n" }, "*", "*zz", { desc = "Search forward for the word under the cursor and center cursor in middle of screen" })
 map({ "n" }, "#", "#zz", { desc = "Search backward and center cursor in middle of screen" })
-map({ "n" }, "g*", "g*zz",
-	{ desc = "Search forward for the word under the cursor and center cursor in middle of screen" })
+map({ "n" }, "g*", "g*zz", { desc = "Search forward for the word under the cursor and center cursor in middle of screen" })
 map({ "n" }, "g#", "g#zz", { desc = "Search backward and center cursor in middle of screen" })
 
 --------------------------------------------------------------------------------------------
@@ -173,8 +171,7 @@ function _G.set_terminal_keymaps()
 	local terminal_opts = { buffer = 0 }
 
 	map({ "t" }, "<A-i>", [[<C-\><C-n>]], { desc = "Exit terminal mode", buffer = terminal_opts.buffer })
-	map({ "t" }, "<A-w>", [[<C-\><C-n><C-w>]],
-		{ desc = "Exit terminal mode and enter window command mode", buffer = terminal_opts.buffer })
+	map({ "t" }, "<A-w>", [[<C-\><C-n><C-w>]], { desc = "Exit terminal mode and enter window command mode", buffer = terminal_opts.buffer })
 
 	map({ "t" }, "<A-h>", [[<Cmd>wincmd h<CR>]], { desc = "Move to left window", buffer = terminal_opts.buffer })
 	map({ "t" }, "<A-j>", [[<Cmd>wincmd j<CR>]], { desc = "Move to lower window", buffer = terminal_opts.buffer })
