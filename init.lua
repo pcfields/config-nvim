@@ -16,7 +16,8 @@ local plugin_manager = require("pcf.config.plugin-manager")
 -----------------------------------------------------
 plugin_manager.setup({
 	require("pcf.plugins.themes.nightfox"), -- MAIN THEME
-	require("pcf.plugins.ai.github-copilot"),
+
+	require("pcf.plugins.ai.copilot"),
 	require("pcf.plugins.ai.copilot-chat"),
 
 	require("pcf.plugins.completion.blink"),
