@@ -121,8 +121,8 @@ map({ "n" }, "<C-Left>", "<cmd>vertical resize +4<cr>", { desc = "Increase windo
 map({ "n" }, "<C-Right>", "<cmd>vertical resize -4<cr>", { desc = "Decrease window width" })
 
 --------------------------------------------------------------------------------------------
-map({ "n" }, "<leader>xa", "<cmd>qa<cr>", { desc = "Quit all, Close Neovim" })
-map({ "n" }, "<leader>xc", "<cmd>q<cr>", { desc = "Quit" })
+map({ "n" }, "<leader>qa", "<cmd>qa<cr>", { desc = "Quit all, Close Neovim" })
+map({ "n" }, "<leader>qq", "<cmd>q<cr>", { desc = "Quit" })
 
 --------------------------------------------------------------------------------------------
 -- Line movement ---------------------------------------------------------------------------------
