@@ -79,14 +79,15 @@ map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "File git sta
 --------------------------------------------------------------------------------------------
 
 map({ "n", "v", "s" }, "<leader>as", "<cmd>w<cr><esc>", { desc = "Save buffer" })
-map({ "n", "v", "s" }, "<leader>aw", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
+map({ "n", "v", "s" }, "<leader>ae", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
+
 map({ "n" }, "<leader>an", "<cmd>enew<cr>", { desc = "New buffer(file)" })
-map({ "n" }, "<leader>ax", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
-map({ "n" }, "<leader>az", "<cmd>:close<cr>", { desc = "Close split window" })
+map({ "n" }, "<leader>aq", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
+map({ "n" }, "<leader>ax", "<cmd>:close<cr>", { desc = "Close split window" })
 map({ "n" }, "<leader>au", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
 map({ "n" }, "<leader>ao", [[:%bdelete|edit #|bdelete #<CR>]], { desc = "Close all buffers except current one" })
 map({ "n" }, "<leader>ac", ":%y+<CR>", { desc = "Copy all text in buffer to clipboard" })
-map({ "n" }, "<leader>aa", "gg<S-v>G", { desc = "Select all text in buffer" })
+map({ "n" }, "<leader>at", "gg<S-v>G", { desc = "Select all text in buffer" })
 map({ "n" }, "<leader>al", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map({ "n" }, "<leader>ah", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 

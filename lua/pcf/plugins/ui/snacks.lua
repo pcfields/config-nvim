@@ -30,7 +30,7 @@ return {
 		})
 
 		-- Buffers
-		map({ "n", "v" }, "<leader>hh", u.ViewOpenBuffers, { desc = "View Open Buffers" })
+		map({ "n", "v" }, "<leader>aa", u.ViewOpenBuffers, { desc = "View Open Buffers" })
 
 		-- Search
 		map({ "n", "v" }, "<leader>se", u.SearchGrep, { desc = "Search everywhere using Grep" })
@@ -68,6 +68,6 @@ return {
 		map({ "n", "v" }, "<A-t>", u.TodoComments, { desc = "Open Todo Comments" })
 
 		-- NOTE: review Snacks Explorer to see if it can replace neo-tree
-		map({ "n", "v" }, "<leader>z", u.Explorer, { desc = "Open Explorer" })
+		map({ "n", "v" }, "<leader>fv", u.Explorer, { desc = "Open Explorer" })
 	end,
 }

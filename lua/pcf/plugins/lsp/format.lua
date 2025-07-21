@@ -30,7 +30,7 @@ return { -- Code formatting
 			format_on_save = save_settings,
 		})
 
-		vim.keymap.set({ "n", "v" }, "<leader>hf", function()
+		vim.keymap.set({ "n", "v" }, "<leader>af", function()
 			conform.format(save_settings)
 		end, { desc = "Format file or range (in visual mode)" })
 	end,
