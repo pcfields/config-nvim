@@ -28,6 +28,6 @@ return {
 				["g\\"] = { "actions.toggle_trash", mode = "n" },
 			},
 		})
-		vim.keymap.set("n", "<leader>a", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+		-- vim.keymap.set("n", "<leader>a", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 	end,
 }
