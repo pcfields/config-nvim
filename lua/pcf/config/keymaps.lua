@@ -191,9 +191,18 @@ map({ "n" }, "<leader>gx", "<cmd>::DiffviewClose<cr>", { desc = "Close Git diff 
 --------------------------------------------------------------------------------------------
 -- Diagnostics (Errors)  --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-map({ "n" }, "<leader>ej", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-map({ "n" }, "<leader>ek", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+-- Go to next diagnostic
+map({ "n" }, "<leader>ej", function()
+	vim.diagnostic.jump(1, { float = true })
+end, { desc = "Go to next diagnostic message" })
+
+-- Go to previous diagnostic
+map({ "n" }, "<leader>ek", function()
+	vim.diagnostic.jump(-1, { float = true })
+end, { desc = "Go to previous diagnostic message" })
+
 map({ "n" }, "<leader>ei", vim.diagnostic.open_float, { desc = "Open floating diagnostic info message" })
+
 map("n", "<leader>es", function()
 	local toggled_value = not vim.diagnostic.config().virtual_text
 
