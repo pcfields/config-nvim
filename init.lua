@@ -28,6 +28,7 @@ plugin_manager.setup({
 	require("pcf.plugins.editor.code-indentation"),
 	require("pcf.plugins.editor.comment"),
 	require("pcf.plugins.editor.flash"),
+	require("pcf.plugins.editor.local-highlight"),
 	require("pcf.plugins.editor.nvim-surround"),
 	require("pcf.plugins.editor.refactoring"),
 	require("pcf.plugins.editor.todo-comments"),
