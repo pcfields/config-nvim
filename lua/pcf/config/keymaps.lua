@@ -194,12 +194,12 @@ map({ "n" }, "<leader>gx", "<cmd>::DiffviewClose<cr>", { desc = "Close Git diff 
 --------------------------------------------------------------------------------------------
 -- Go to next diagnostic
 map({ "n" }, "<leader>ej", function()
-	vim.diagnostic.jump(1, { float = true })
+	vim.diagnostic.jump({ count = 1, float = true })
 end, { desc = "Go to next diagnostic message" })
 
 -- Go to previous diagnostic
 map({ "n" }, "<leader>ek", function()
-	vim.diagnostic.jump(-1, { float = true })
+	vim.diagnostic.jump({ count = -1, float = true })
 end, { desc = "Go to previous diagnostic message" })
 
 map({ "n" }, "<leader>ei", vim.diagnostic.open_float, { desc = "Open floating diagnostic info message" })
