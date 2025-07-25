@@ -65,7 +65,7 @@ return {
 		map({ "n", "v" }, "<leader>or", u.DisplayRegisters, { desc = "Open Registers" })
 		map({ "n", "v" }, "<leader>oh", vim.lsp.buf.hover, { desc = "Hover Documentation" })
 		map({ "n", "v" }, "<A-o>", u.ToggleTerminal, { desc = "Toggle Terminal" })
-		map({ "n", "v" }, "<A-t>", u.TodoComments, { desc = "Open Todo Comments" })
+		map({ "n", "v" }, "<leader>ot", u.TodoComments, { desc = "Open Todo Comments" })
 
 		-- NOTE: review Snacks Explorer to see if it can replace neo-tree
 		map({ "n", "v" }, "<leader>fv", u.Explorer, { desc = "Open Explorer" })

@@ -83,13 +83,15 @@ map({ "n", "v", "s" }, "<leader>he", "<cmd>wa<cr><esc>", { desc = "Save all buff
 
 map({ "n" }, "<leader>hn", "<cmd>enew<cr>", { desc = "New buffer(file)" })
 map({ "n" }, "<leader>hq", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
-map({ "n" }, "<leader>hx", "<cmd>:close<cr>", { desc = "Close split window" })
-map({ "n" }, "<leader>hm", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
 map({ "n" }, "<leader>ho", [[:%bdelete|edit #|bdelete #<CR>]], { desc = "Close all buffers except current one" })
+map({ "n" }, "<leader>hx", "<cmd>:close<cr>", { desc = "Close split window" })
+
+map({ "n" }, "<leader>hr", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
 map({ "n" }, "<leader>hy", ":%y+<CR>", { desc = "Copy all text in buffer to clipboard" })
 map({ "n" }, "<leader>ht", "gg<S-v>G", { desc = "Select all text in buffer" })
-map({ "n" }, "<leader>hj", "<cmd>bnext<cr>", { desc = "Next buffer" })
-map({ "n" }, "<leader>hk", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+
+map({ "n" }, "<C-j>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map({ "n" }, "<C-k>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 
 --------------------------------------------------------------------------------------------
 -- Windows ---------------------------------------------------------------------------------
@@ -162,7 +164,7 @@ map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map({ "n" }, "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
 map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
-
+-- TODO: testing
 --------------------------------------------------------------------------------------------
 -- Terminal
 --------------------------------------------------------------------------------------------
