@@ -37,6 +37,7 @@ function M.get_winbar_filename()
 	local modified_buffer_icon = is_buffer_modified and Icons.MODIFIED or Icons.UNMODIFIED
 
 	local directory_path = vim.fn.fnamemodify(file_path, ":h") -- Directory (head, no filename)
+	directory_path = directory_path:gsub("\\", "/")           -- Replace backslashes with forward slashes for consistency
 	local filename = vim.fn.fnamemodify(file_path, ":t")      -- Tail (filename only)
 
 	local open_buffers_count_formatted = "(" .. open_buffers_count .. ") "
