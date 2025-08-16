@@ -17,43 +17,72 @@ return {
 		-- See the full "keymap" documentation for information on defining your own keymap.
 		keymap = {
 			preset = "enter",
+
 			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
+			["<C-y>"] = { "select_and_accept" },
+			["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
 
 			["<Tab>"] = { "snippet_forward", "fallback" },
 			["<S-Tab>"] = { "snippet_backward", "fallback" },
 
 			["<Up>"] = { "select_prev", "fallback" },
 			["<Down>"] = { "select_next", "fallback" },
-			["<C-k>"] = { "select_prev", "fallback" },
-			["<C-j>"] = { "select_next", "fallback" },
 
-			["<C-u>"] = { "scroll_documentation_up", "fallback" },
-			["<C-d>"] = { "scroll_documentation_down", "fallback" },
+			["<C-k>"] = { "select_prev", "fallback_to_mappings" },
+			["<C-j>"] = { "select_next", "fallback_to_mappings" },
+
+			["<C-b>"] = { "scroll_documentation_up", "fallback" },
+			["<C-f>"] = { "scroll_documentation_down", "fallback" },
 		},
 
 		appearance = {
-			-- Sets the fallback highlight groups to nvim-cmp's highlight groups
-			-- Useful for when your theme doesn't support blink.cmp
-			-- Will be removed in a future release
-			use_nvim_cmp_as_default = true,
 			-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
 			-- Adjusts spacing to ensure icons are aligned
 			nerd_font_variant = "mono",
 		},
+		-- Use a preset for snippets, check the snippets documentation for more information
 		snippets = { preset = "luasnip" },
+
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
+		-- Remove 'buffer' if you don't want text completions, by default it's only enabled when LSP returns no items
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
 		},
+		-- Disable cmdline
+		cmdline = {
+			enabled = false,
+		},
 		completion = {
 			menu = {
+				-- Don't automatically show the completion menu
+				-- auto_show = false,
+
 				-- Don't show completion menu automatically when searching
-				auto_show = function(ctx)
-					return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
-				end,
+				-- auto_show = function(ctx)
+				-- 	return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
+				-- end,
+			},
+			-- Don't select by default, auto insert on selection
+			list = {
+				selection = { preselect = false, auto_insert = true },
+			},
+			-- Disable auto brackets
+			-- NOTE: some LSPs may add auto brackets themselves anyway
+			accept = {
+				auto_brackets = { enabled = false },
+			},
+			ghost_text = {
+				enabled = true,
+			},
+			auto_brackets = {
+				enabled = true,
+			},
+			-- Experimental signature help support
+			signature = {
+				enabled = true,
 			},
 		},
 	},
