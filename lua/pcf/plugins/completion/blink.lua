@@ -4,9 +4,20 @@ return {
 	"saghen/blink.cmp",
 	dependencies = {
 		"L3MON4D3/LuaSnip",
-		version = "v2.*",
 	},
 	version = "*",
+	config = function(_, opts)
+		-- Setup LuaSnip first
+		require("luasnip").setup({
+			enable_autosnippets = true,
+		})
+
+		-- Load custom snippets
+		require("pcf.snippets.all")
+
+		-- Setup blink.cmp
+		require("blink.cmp").setup(opts)
+	end,
 
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
@@ -24,8 +35,8 @@ return {
 			["<C-y>"] = { "select_and_accept" },
 			["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
 
-			["<Tab>"] = { "snippet_forward", "fallback" },
-			["<S-Tab>"] = { "snippet_backward", "fallback" },
+			["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+			["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
 
 			["<Up>"] = { "select_prev", "fallback" },
 			["<Down>"] = { "select_next", "fallback" },
