@@ -58,7 +58,7 @@ end
 local function display_project_list()
 	local projects_list = {}
 	local work_dir = {
-		nvim = "C:/Users/PeterFields/AppData/Local/nvim",
+		nvim = os.getenv("LOCALAPPDATA") .. "/nvim",
 		webapp_frontend = "C:/Projects/gliderbim.webapp/GliderBim.WebApp",
 	}
 
