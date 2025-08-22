@@ -13,8 +13,8 @@ require("pcf.snippets.javascript")
 -- Load TypeScript snippets
 require("pcf.snippets.typescript")
 
--- You can add more snippet files here as needed:
--- require("pcf.snippets.react")
--- require("pcf.snippets.vue")
--- require("pcf.snippets.python")
--- etc.
+-- Load React snippets (JavaScript JSX)
+require("pcf.snippets.javascriptreact")
+
+-- Load React snippets (TypeScript TSX)
+require("pcf.snippets.typescriptreact")
