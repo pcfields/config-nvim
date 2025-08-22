@@ -5,7 +5,7 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local lint = require("lint")
-		local map = require("pcf.utils").map
+		-- local map = require("pcf.utils").map
 
 		local linters = {
 			js = { "biomejs", "eslint_d" },
@@ -27,10 +27,10 @@ return {
 			end,
 		})
 
-		local function lint_code()
-			lint.try_lint()
-		end
+		-- local function lint_code()
+		-- 	lint.try_lint()
+		-- end
 
-		map("n", "<leader>fl", lint_code, { desc = "Lint current file" })
+		-- map("n", "<leader>fl", lint_code, { desc = "Lint current file" })
 	end,
 }
