@@ -80,15 +80,11 @@ return {
 			list = {
 				selection = { preselect = false, auto_insert = true },
 			},
-			-- Disable auto brackets
-			-- NOTE: some LSPs may add auto brackets themselves anyway
+			-- Auto brackets configuration
 			accept = {
 				auto_brackets = { enabled = false },
 			},
 			ghost_text = {
-				enabled = true,
-			},
-			auto_brackets = {
 				enabled = true,
 			},
 			-- Experimental signature help support
