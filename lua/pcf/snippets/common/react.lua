@@ -23,8 +23,7 @@ export function {}() {{
 }}
 ]], {
         insert_node(1, "ComponentName"),
-        insert_node(2, ""),
-        insert_node(3, "ComponentName")
+        insert_node(2, "")
     })),
 
     snippet("rsc", fmt([[
@@ -38,8 +37,7 @@ export function {}() {{
 }}
 ]], {
         insert_node(1, "ComponentName"),
-        insert_node(2, ""),
-        insert_node(3, "ComponentName")
+        insert_node(2, "")
     })),
 
     snippet("useState", fmt("const [{}, set{}] = useState({});", {
@@ -75,8 +73,7 @@ export function {}({{ {} }}: {}Props) {{
         insert_node(3, "ComponentName"),
         insert_node(4, ""),
         insert_node(5, "ComponentName"),
-        insert_node(6, ""),
-        insert_node(7, "ComponentName")
+        insert_node(6, "")
     })),
 
     snippet("rfct", fmt([[
@@ -98,8 +95,7 @@ export function {}({{ {} }}: {}Props) {{
         insert_node(3, "ComponentName"),
         insert_node(4, ""),
         insert_node(5, "ComponentName"),
-        insert_node(6, ""),
-        insert_node(7, "ComponentName")
+        insert_node(6, "")
     })),
 
     snippet("useState", fmt("const [{}, set{}] = useState<{}>({});", {
