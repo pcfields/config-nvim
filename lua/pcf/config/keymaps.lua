@@ -70,7 +70,7 @@ map({ "n", "v" }, "<leader>dc", clipboard_register .. "dd", { desc = "Delete and
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-map({ "n" }, "<leader>fw", "<cmd>Neotree toggle reveal float<cr>", { desc = "File explorer" })
+map({ "n" }, "<leader>ff", "<cmd>Neotree toggle reveal float<cr>", { desc = "File explorer" })
 map({ "n" }, "<leader>ft", "<cmd>Neotree toggle reveal current<cr>", { desc = "File explorer in tab" })
 map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "File git status" })
 
@@ -79,7 +79,7 @@ map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "File git sta
 --------------------------------------------------------------------------------------------
 
 map({ "n", "v", "s" }, "<leader>hs", "<cmd>w<cr><esc>", { desc = "Save buffer" })
-map({ "n", "v", "s" }, "<leader>he", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
+map({ "n", "v", "s" }, "<leader>hsa", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
 
 map({ "n" }, "<leader>hn", "<cmd>enew<cr>", { desc = "New buffer(file)" })
 map({ "n" }, "<leader>hq", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
@@ -106,7 +106,7 @@ map({ "n" }, "<leader>wl", "<C-w>l", { desc = "Go to right window" })
 -- Split windows
 map({ "n" }, "<leader>wsj", "<C-w>s", { desc = "Split window below" })
 map({ "n" }, "<leader>wsl", "<C-w>v", { desc = "Split window right" })
-map({ "n" }, "<leader>wx", "<C-w>c", { desc = "Delete window" })
+map({ "n" }, "<leader>wq", "<C-w>c", { desc = "Delete window" })
 map({ "n" }, "<leader>wn", "<C-w>n", { desc = "Create new window" })
 
 -- Resize windows 50/50
@@ -121,8 +121,8 @@ map({ "n" }, "<C-Left>", "<cmd>vertical resize +4<cr>", { desc = "Increase windo
 map({ "n" }, "<C-Right>", "<cmd>vertical resize -4<cr>", { desc = "Decrease window width" })
 
 --------------------------------------------------------------------------------------------
-map({ "n" }, "<leader>qa", "<cmd>qa<cr>", { desc = "Quit all, Close Neovim" })
-map({ "n" }, "<leader>qq", "<cmd>q<cr>", { desc = "Quit" })
+map({ "n" }, "<leader>qw", "<cmd>qa<cr>", { desc = "Quit all, Close Neovim" })
+map({ "n" }, "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 
 --------------------------------------------------------------------------------------------
 -- Line movement ---------------------------------------------------------------------------------
@@ -210,10 +210,10 @@ map("n", "<leader>es", function()
 	local toggled_value = not vim.diagnostic.config().virtual_text
 
 	vim.diagnostic.config({ virtual_text = toggled_value })
-end, { desc = "Toggle diagnostic virtual_text" })
+end, { desc = "Toggle diagnostic virtual_text ([s]how)" })
 
-map({ "n" }, "<leader>nf", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
-map({ "n" }, "<leader>na", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble: All open File/buffer issues" })
+map({ "n" }, "<leader>oe", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
+map({ "n" }, "<leader>oea", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble: All open File/buffer issues" })
 
 --------------------------------------------------------------------------------------------
 -- Refactor  --------------------------------------------------------------------------------
@@ -226,7 +226,6 @@ map({ "n" }, "<leader>rn", vim.lsp.buf.rename, { desc = "Refactor: Rename variab
 --------------------------------------------------------------------------------------------
 ---
 map({ "n" }, "<leader>ka", vim.lsp.buf.code_action, { desc = "Code action" })
-map({ "n" }, "<leader>kf", "za", { desc = "Code folding" })
 
 --------------------------------------------------------------------------------------------
 -- Yank keymaps
