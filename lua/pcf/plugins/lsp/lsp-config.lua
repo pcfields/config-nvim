@@ -35,7 +35,16 @@ return {
       lua_ls = {
         settings = {
           Lua = {
-            workspace = { checkThirdParty = false },
+            runtime = {
+              version = 'LuaJIT'
+            },
+            diagnostics = {
+              globals = { 'vim' }
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = vim.api.nvim_get_runtime_file("", true)
+            },
             telemetry = { enable = false }
           }
         },
@@ -54,7 +63,6 @@ return {
 
     mason_lspconfig.setup({
       ensure_installed = vim.tbl_keys(language_servers),
-      automatic_enable = true
     })
   end
 }
