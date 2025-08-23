@@ -149,6 +149,7 @@ config.prefer_egl = true
 ---
 local dont_use_font_ligatures = { "calt=0", "clig=0", "liga=0" }
 
+config.warn_about_missing_glyphs = false
 config.font_size = 10.0
 config.font = wezterm.font_with_fallback({
 	{
@@ -163,26 +164,25 @@ config.font = wezterm.font_with_fallback({
 	},
 })
 
-
 config.mouse_bindings = {
 	-- Change the default click behavior so that it only selects
 	-- text and doesn't open hyperlinks
 	{
-		event = { Up = { streak = 1, button = 'Left' } },
-		mods = 'NONE',
-		action = wezterm.action.CompleteSelection 'ClipboardAndPrimarySelection',
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "NONE",
+		action = wezterm.action.CompleteSelection("ClipboardAndPrimarySelection"),
 	},
 
 	-- Bind 'Up' event of CTRL-Click to open hyperlinks
 	{
-		event = { Up = { streak = 1, button = 'Left' } },
-		mods = 'CTRL',
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "CTRL",
 		action = wezterm.action.OpenLinkAtMouseCursor,
 	},
 	-- Disable the 'Down' event of CTRL-Click to avoid weird program behaviors
 	{
-		event = { Down = { streak = 1, button = 'Left' } },
-		mods = 'CTRL',
+		event = { Down = { streak = 1, button = "Left" } },
+		mods = "CTRL",
 		action = wezterm.action.Nop,
 	},
 }
@@ -232,7 +232,7 @@ config.keys = {
 		key = "s",
 		action = wezterm.action.ActivateKeyTable({
 			name = "split_panes", -- same name as in the `config.key_tables`
-			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
+			one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
 	},
@@ -301,10 +301,10 @@ config.keys = {
 		key = "r",
 		action = wezterm.action.ActivateKeyTable({
 			name = "resize_panes", -- same name as in the `config.key_tables`
-			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
+			one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
-	},                          -- Go to specific tab <leader> number
+	}, -- Go to specific tab <leader> number
 	go_to_tab(1),
 	go_to_tab(2),
 	go_to_tab(3),
