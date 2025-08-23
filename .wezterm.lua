@@ -149,12 +149,20 @@ config.prefer_egl = true
 ---
 local dont_use_font_ligatures = { "calt=0", "clig=0", "liga=0" }
 
-config.font_size = 10.0
-config.font = wezterm.font({
-	family = "JetBrains Mono",
-	weight = "Regular",
-	harfbuzz_features = dont_use_font_ligatures,
+config.font_size = 11.0
+config.font = wezterm.font_with_fallback({
+	{
+		family = "Monaspace Neon",
+		weight = "Light",
+		harfbuzz_features = dont_use_font_ligatures,
+	},
+	{
+		family = "JetBrains Mono",
+		weight = "Regular",
+		harfbuzz_features = dont_use_font_ligatures,
+	},
 })
+
 
 config.mouse_bindings = {
 	-- Change the default click behavior so that it only selects
@@ -223,8 +231,8 @@ config.keys = {
 		mods = "LEADER",
 		key = "s",
 		action = wezterm.action.ActivateKeyTable({
-			name = "split_panes",     -- same name as in the `config.key_tables`
-			one_shot = false,         -- Ensures the keytable stays active after it handles its first keypress.
+			name = "split_panes", -- same name as in the `config.key_tables`
+			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
 	},
@@ -292,11 +300,11 @@ config.keys = {
 		mods = "LEADER",
 		key = "r",
 		action = wezterm.action.ActivateKeyTable({
-			name = "resize_panes",    -- same name as in the `config.key_tables`
-			one_shot = false,         -- Ensures the keytable stays active after it handles its first keypress.
+			name = "resize_panes", -- same name as in the `config.key_tables`
+			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
-	},                            -- Go to specific tab <leader> number
+	},                          -- Go to specific tab <leader> number
 	go_to_tab(1),
 	go_to_tab(2),
 	go_to_tab(3),
