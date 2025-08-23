@@ -57,8 +57,17 @@ end
 
 local function display_project_list()
 	local projects_list = {}
+
+	-- Platform-specific paths
+	local nvim_config_path
+	if is_windows_platform() then
+		nvim_config_path = os.getenv("LOCALAPPDATA") .. "/nvim"
+	else
+		nvim_config_path = wezterm.home_dir .. "/.config/nvim"
+	end
+
 	local work_dir = {
-		nvim = os.getenv("LOCALAPPDATA") .. "/nvim",
+		nvim = nvim_config_path,
 		webapp_frontend = "C:/Projects/gliderbim.webapp/GliderBim.WebApp",
 	}
 
@@ -94,7 +103,7 @@ local function display_project_list()
 			add_paths_to_project_list({ directories = add_subdirectories_for(project_path) })
 		end
 	end
-	print(projects_list)
+
 	return wezterm.action.InputSelector({
 		title = "Choose a project",
 		choices = projects_list,
