@@ -149,7 +149,7 @@ config.prefer_egl = true
 ---
 local dont_use_font_ligatures = { "calt=0", "clig=0", "liga=0" }
 
-config.font_size = 11.0
+config.font_size = 10.0
 config.font = wezterm.font_with_fallback({
 	{
 		family = "Monaspace Neon",
