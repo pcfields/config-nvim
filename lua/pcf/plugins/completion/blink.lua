@@ -87,10 +87,11 @@ return {
 			ghost_text = {
 				enabled = true,
 			},
-			-- Experimental signature help support
-			signature = {
-				enabled = true,
-			},
+		},
+
+		-- Signature help configuration (top-level)
+		signature = {
+			enabled = true,
 		},
 	},
 	opts_extend = { "sources.default" },
