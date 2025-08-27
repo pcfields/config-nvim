@@ -222,6 +222,13 @@ config.keys = {
 			args = { os_shell, "-c", 'lazygit || read -p "Press enter to exit..."' },
 		}),
 	},
+	{ -- Open Opencode AI in new tab
+		mods = "LEADER",
+		key = ".",
+		action = wezterm.action.SpawnCommandInNewTab({
+			args = { os_shell, "-c", 'opencode || read -p "Press enter to exit..."' },
+		}),
+	},
 	{ -- display list of workspaces
 		mods = "LEADER",
 		key = "w",
@@ -232,7 +239,7 @@ config.keys = {
 		key = "s",
 		action = wezterm.action.ActivateKeyTable({
 			name = "split_panes", -- same name as in the `config.key_tables`
-			one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
+			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
 	},
@@ -301,10 +308,11 @@ config.keys = {
 		key = "r",
 		action = wezterm.action.ActivateKeyTable({
 			name = "resize_panes", -- same name as in the `config.key_tables`
-			one_shot = false, -- Ensures the keytable stays active after it handles its first keypress.
+			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
-	}, -- Go to specific tab <leader> number
+	},
+	-- Go to specific tab <leader> number
 	go_to_tab(1),
 	go_to_tab(2),
 	go_to_tab(3),
