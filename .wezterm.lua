@@ -238,8 +238,8 @@ config.keys = {
 		mods = "LEADER",
 		key = "s",
 		action = wezterm.action.ActivateKeyTable({
-			name = "split_panes", -- same name as in the `config.key_tables`
-			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
+			name = "split_panes",     -- same name as in the `config.key_tables`
+			one_shot = false,         -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
 	},
@@ -307,8 +307,8 @@ config.keys = {
 		mods = "LEADER",
 		key = "r",
 		action = wezterm.action.ActivateKeyTable({
-			name = "resize_panes", -- same name as in the `config.key_tables`
-			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
+			name = "resize_panes",    -- same name as in the `config.key_tables`
+			one_shot = false,         -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
 	},
@@ -351,13 +351,13 @@ wezterm.on("update-right-status", function(window)
 	}
 
 	window:set_right_status(wezterm.format({
-
 		-- workspace section
 		{ Background = { Color = colors.bg.light } },
 		{ Foreground = { Color = colors.fg.light } },
 		{ Text = "  " .. window:mux_window():get_workspace() .. "   " },
 	}))
-	-- 
+
+	-- Show leader key active status
 	local prefix = ""
 	if window:leader_is_active() then
 		prefix = " ️️🔴🔴🔴 "
