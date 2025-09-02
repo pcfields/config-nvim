@@ -333,34 +333,26 @@ config.keys = {
 
 -- RIGHT STATUS
 wezterm.on("update-right-status", function(window)
-	local LEFT_DIVIDER = ""
+	local black = wezterm.color.parse("#000")
+	local white = wezterm.color.parse("#fff")
 
-	local bg_color = wezterm.color.parse("#373d68")
-	local fg_color = wezterm.color.parse("#fff")
-	local colors = {
-		bg = {
-			light = bg_color:lighten(0.1),
-			medium = bg_color:darken(0.2),
-			dark = bg_color:darken(0.4),
-		},
-		fg = {
-			light = fg_color:darken(0.1),
-			medium = fg_color:darken(0.3),
-			dark = fg_color:darken(0.4),
-		},
+	local workspace_section = {
+		{ Foreground = { Color = white } },
+		{ Text = "  " .. " " },
+		{ Background = { Color = white } },
+		{ Foreground = { Color = black } },
+		{ Text = "  " .. window:mux_window():get_workspace() .. "  " },
+		{ Background = { Color = black } },
+		{ Foreground = { Color = white } },
+		{ Text = " " },
 	}
 
-	window:set_right_status(wezterm.format({
-		-- workspace section
-		{ Background = { Color = colors.bg.light } },
-		{ Foreground = { Color = colors.fg.light } },
-		{ Text = "  " .. window:mux_window():get_workspace() .. "   " },
-	}))
+	window:set_right_status(wezterm.format(workspace_section))
 
 	-- Show leader key active status
 	local prefix = ""
 	if window:leader_is_active() then
-		prefix = " ️️🔴🔴🔴 "
+		prefix = " ️️🔴🔴🔴⭕⭕⭕"
 	end
 
 	window:set_left_status(wezterm.format({
