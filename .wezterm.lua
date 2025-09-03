@@ -131,6 +131,10 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+config.inactive_pane_hsb = {
+	saturation = 0.5,
+	brightness = 0.5,
+}
 -- This is where you actually apply your config choices
 config.color_scheme = color_schemes.Abernathy
 config.default_cwd = working_dir
