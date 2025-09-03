@@ -209,7 +209,7 @@ config.key_tables = {
 
 config.leader = {
 	key = "Space",
-	mods = "SHIFT",
+	mods = "CTRL",
 	timeout_milliseconds = 2000,
 }
 -- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
