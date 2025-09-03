@@ -132,8 +132,8 @@ if wezterm.config_builder then
 end
 
 config.inactive_pane_hsb = {
-	saturation = 0.5,
-	brightness = 0.5,
+	saturation = 0.9,
+	brightness = 0.6,
 }
 -- This is where you actually apply your config choices
 config.color_scheme = color_schemes.Abernathy
