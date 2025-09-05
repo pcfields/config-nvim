@@ -68,6 +68,6 @@ return {
 		map({ "n", "v" }, "<leader>ot", u.TodoComments, { desc = "Open Todo Comments" })
 
 		-- NOTE: review Snacks Explorer to see if it can replace neo-tree
-		map({ "n", "v" }, "<leader>fv", u.Explorer, { desc = "Open Explorer" })
+		map({ "n", "v" }, "<leader>fe", u.Explorer, { desc = "Open File Explorer" })
 	end,
 }
