@@ -29,6 +29,6 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>fo", "<CMD>Oil<CR>", { desc = "Open Oil Files" })
+		vim.keymap.set("n", "<leader>fo", "<CMD>Oil<CR>", { desc = "Open File Explorer [ Oil ]" })
 	end,
 }

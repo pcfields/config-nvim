@@ -69,9 +69,9 @@ map({ "n", "v" }, "<leader>dc", clipboard_register .. "dd", { desc = "Delete and
 --------------------------------------------------------------------------------------------
 -- File explorer -----------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------
-map({ "n" }, "<leader>fw", "<cmd>Neotree toggle reveal float<cr>", { desc = "File explorer floating window" })
-map({ "n" }, "<leader>ft", "<cmd>Neotree toggle reveal current<cr>", { desc = "File explorer in tab" })
-map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "File explorer git status" })
+map({ "n" }, "<leader>fw", "<cmd>Neotree toggle reveal float<cr>", { desc = "Open File explorer [ floating window ] " })
+map({ "n" }, "<leader>ft", "<cmd>Neotree toggle reveal current<cr>", { desc = "Open File explorer  [ tab ]" })
+map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "Open File explorer [ git status ] " })
 
 --------------------------------------------------------------------------------------------
 -- Buffers ----------------------------------------------------------------------------------
