@@ -30,7 +30,7 @@ return {
 		})
 
 		-- Buffers
-		map({ "n", "v" }, "<leader>h", u.ViewOpenBuffers, { desc = "View Open Buffers" })
+		map({ "n", "v" }, "<leader>hv", u.ViewOpenBuffers, { desc = "View Open Buffers" })
 
 		-- Search
 		map({ "n", "v" }, "<leader>se", u.SearchGrep, { desc = "Search everywhere using Grep" })
