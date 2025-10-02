@@ -44,6 +44,93 @@ local projects_root = {
 	personal = wezterm.home_dir .. "/ws",
 }
 
+-- ============================================================================
+-- WORK-SPECIFIC CONFIGURATION
+-- ============================================================================
+local work_config = {
+	projects = {
+		{
+			path = "C:/Projects/gliderbim.webapp/GliderBim.WebApp",
+			label = "GliderBim WebApp",
+		},
+		-- Add more work projects here as needed
+		-- {
+		--   path = "C:/Projects/another-project",
+		--   label = "Another Project",
+		-- },
+	},
+	exclude_from_glob = {
+		"C:/Projects/gliderbim.webapp", -- Exclude parent folder since we use the inner path
+	},
+}
+
+-- ============================================================================
+-- PERSONAL-SPECIFIC CONFIGURATION
+-- ============================================================================
+local personal_config = {
+	project_folders = { "apps", "learn", "pcfields", "clients" },
+	-- Add specific personal projects here if needed
+	projects = {
+		-- {
+		--   path = wezterm.home_dir .. "/ws/special-project",
+		--   label = "Special Project",
+		-- },
+	},
+}
+
+-- ============================================================================
+-- SHARED CONFIGURATION (Platform-agnostic)
+-- ============================================================================
+local shared_config = {
+	nvim = function()
+		if is_windows_platform() then
+			return os.getenv("LOCALAPPDATA") .. "/nvim"
+		else
+			return wezterm.home_dir .. "/.config/nvim"
+		end
+	end,
+}
+
+-- ============================================================================
+-- PROJECT UTILITIES MODULE
+-- ============================================================================
+
+local project_utils = {}
+
+project_utils.is_folder = function(path)
+	-- Use WezTerm's read_dir to check if path is actually a directory
+	local success, _ = pcall(wezterm.read_dir, path)
+	return success
+end
+
+project_utils.normalize_path = function(path)
+	-- Normalize path separators and case for comparison
+	return path:gsub("\\", "/"):lower()
+end
+
+project_utils.add_paths_to_list = function(projects_list, options)
+	local exclude_list = options.exclude or {}
+
+	for _, project_directory in ipairs(options.directories) do
+		local folder_name = project_directory:match("([^/\\]+)$") -- Handle both / and \ separators
+
+		-- Check if this path should be excluded (normalize for comparison)
+		local should_exclude = false
+		local normalized_project = project_utils.normalize_path(project_directory)
+		for _, excluded_path in ipairs(exclude_list) do
+			if normalized_project == project_utils.normalize_path(excluded_path) then
+				should_exclude = true
+				break
+			end
+		end
+
+		-- Only add if it's actually a directory and not excluded
+		if project_utils.is_folder(project_directory) and not should_exclude then
+			table.insert(projects_list, { id = project_directory, label = folder_name })
+		end
+	end
+end
+
 local function add_subdirectories_for(root_directory)
 	local sub_directories = {}
 	local directories_under_root_directory = wezterm.glob(root_directory .. "/*")
@@ -55,76 +142,60 @@ local function add_subdirectories_for(root_directory)
 	return sub_directories
 end
 
+-- ============================================================================
+-- WORK PROJECT SETUP
+-- ============================================================================
+
+local function setup_work_projects(projects_list)
+	-- Add Neovim config first (shared)
+	table.insert(projects_list, { id = shared_config.nvim(), label = "Neovim Config" })
+
+	-- Add manually configured work projects (priority items at top)
+	for _, project in ipairs(work_config.projects) do
+		table.insert(projects_list, { id = project.path, label = project.label })
+	end
+
+	-- Add all other work subdirectories from glob (excluding manual ones)
+	project_utils.add_paths_to_list(projects_list, {
+		directories = add_subdirectories_for(projects_root.work),
+		exclude = work_config.exclude_from_glob,
+	})
+end
+
+-- ============================================================================
+-- PERSONAL PROJECT SETUP
+-- ============================================================================
+
+local function setup_personal_projects(projects_list)
+	-- Add Neovim config first (shared)
+	table.insert(projects_list, { id = shared_config.nvim(), label = "Neovim Config" })
+
+	-- Add manually configured personal projects (priority items)
+	for _, project in ipairs(personal_config.projects) do
+		table.insert(projects_list, { id = project.path, label = project.label })
+	end
+
+	-- Add subdirectories from personal project folders
+	for _, folder_name in ipairs(personal_config.project_folders) do
+		local project_path = projects_root.personal .. "/" .. folder_name
+		project_utils.add_paths_to_list(projects_list, {
+			directories = add_subdirectories_for(project_path),
+		})
+	end
+end
+
+-- ============================================================================
+-- PROJECT LIST DISPLAY
+-- ============================================================================
+
 local function display_project_list()
 	local projects_list = {}
 
-	-- Platform-specific paths
-	local nvim_config_path
+	-- Dispatch to appropriate setup function based on platform
 	if is_windows_platform() then
-		nvim_config_path = os.getenv("LOCALAPPDATA") .. "/nvim"
+		setup_work_projects(projects_list)
 	else
-		nvim_config_path = wezterm.home_dir .. "/.config/nvim"
-	end
-
-	local work_dir = {
-		nvim = nvim_config_path,
-		webapp_frontend = "C:/Projects/gliderbim.webapp/GliderBim.WebApp",
-	}
-
-	local function is_folder(path)
-		-- Use WezTerm's read_dir to check if path is actually a directory
-		local success, _ = pcall(wezterm.read_dir, path)
-		return success
-	end
-
-	local function normalize_path(path)
-		-- Normalize path separators and case for comparison
-		return path:gsub("\\", "/"):lower()
-	end
-
-	local function add_paths_to_project_list(options)
-		local exclude_list = options.exclude or {}
-
-		for _, project_directory in ipairs(options.directories) do
-			local folder_name = project_directory:match("([^/\\]+)$") -- Handle both / and \ separators
-
-			-- Check if this path should be excluded (normalize for comparison)
-			local should_exclude = false
-			local normalized_project = normalize_path(project_directory)
-			for _, excluded_path in ipairs(exclude_list) do
-				if normalized_project == normalize_path(excluded_path) then
-					should_exclude = true
-					break
-				end
-			end
-
-			-- Only add if it's actually a directory and not excluded
-			if is_folder(project_directory) and not should_exclude then
-				table.insert(projects_list, { id = project_directory, label = folder_name })
-			end
-		end
-	end
-
-	if is_windows_platform() then
-		-- Add priority projects first (at the top of list)
-		table.insert(projects_list, { id = work_dir.webapp_frontend, label = "GliderBim WebApp" })
-		table.insert(projects_list, { id = work_dir.nvim, label = "Neovim Config" })
-
-		-- Add all other subdirectories, excluding the parent folder of webapp_frontend
-		add_paths_to_project_list({
-			directories = add_subdirectories_for(projects_root.work),
-			exclude = { "C:/Projects/gliderbim.webapp" } -- Exclude parent folder
-		})
-	else
-		local folder_names = { "apps", "learn", "pcfields", "clients" }
-
-		table.insert(projects_list, { id = "/home/pcfields/.config/nvim", label = "Neovim Config" })
-
-		for _, folder_name in ipairs(folder_names) do
-			local project_path = projects_root.personal .. "/" .. folder_name
-
-			add_paths_to_project_list({ directories = add_subdirectories_for(project_path) })
-		end
+		setup_personal_projects(projects_list)
 	end
 
 	return wezterm.action.InputSelector({
