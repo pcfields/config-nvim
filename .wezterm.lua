@@ -1,47 +1,108 @@
-local wezterm = require("wezterm") -- Pull in the wezterm API
-local working_dir = wezterm.home_dir
-local color_schemes = { Adventure = "Adventure", Abernathy = "Abernathy", Argonaut = "Argonaut" }
-local windows_platform = "x86_64-pc-windows-msvc"
-local os_shell = "/home/linuxbrew/.linuxbrew/bin/fish"
+local wezterm = require("wezterm")
 
 local config = {} -- This table will hold the configuration.
 
--- Config Helper Functions ___________________________________________________
-local function is_windows_platform()
-	return wezterm.target_triple == windows_platform
-end
+-- ============================================================================
+-- PLATFORM MODULE
+-- ============================================================================
 
-if is_windows_platform() then
-	os_shell = "pwsh.exe"
-end
+local platform = {
+	is_windows = wezterm.target_triple == "x86_64-pc-windows-msvc",
+}
 
-local function resize_pane(key, direction)
+platform.shell = platform.is_windows and "pwsh.exe" or "/home/linuxbrew/.linuxbrew/bin/fish"
+
+platform.home_dir = wezterm.home_dir
+
+-- ============================================================================
+-- KEYMAP BUILDERS MODULE
+-- ============================================================================
+
+local keymap_builders = {}
+
+keymap_builders.resize_pane = function(key, direction)
 	return {
 		key = key,
 		action = wezterm.action.AdjustPaneSize({ direction, 3 }),
 	}
 end
 
-local function split_pane(key, direction)
+keymap_builders.split_pane = function(key, direction)
 	return {
 		key = key,
 		action = wezterm.action.SplitPane({ direction = direction, size = { Percent = 30 } }),
 	}
 end
 
-local function go_to_tab(tab_number)
-	local zero_index_tab = tab_number - 1
-
+keymap_builders.go_to_tab = function(tab_number)
 	return {
 		mods = "LEADER",
 		key = tostring(tab_number),
-		action = wezterm.action.ActivateTab(zero_index_tab),
+		action = wezterm.action.ActivateTab(tab_number - 1),
 	}
 end
 
+-- ============================================================================
+-- COMMAND SPAWNERS MODULE
+-- ============================================================================
+
+local command_spawners = {}
+
+command_spawners.lazygit = function()
+	return wezterm.action.SpawnCommandInNewTab({
+		args = { platform.shell, "-c", 'lazygit || read -p "Press enter to exit..."' },
+	})
+end
+
+command_spawners.opencode = function()
+	return wezterm.action.SpawnCommandInNewTab({
+		args = { platform.shell, "-c", 'opencode || read -p "Press enter to exit..."' },
+	})
+end
+
+-- ============================================================================
+-- UI CONFIGURATION MODULE
+-- ============================================================================
+
+local ui_config = {
+	color_scheme = "Abernathy",
+	font_size = 10.0,
+	font_config = {
+		primary = { family = "Monaspace Neon", weight = "Light" },
+		fallback = { family = "JetBrains Mono", weight = "Regular" },
+		disable_ligatures = { "calt=0", "clig=0", "liga=0" },
+	},
+	window = {
+		decorations = "RESIZE|TITLE",
+		padding = { left = 0, right = 0, top = 0, bottom = 0 },
+		background_opacity = 1,
+	},
+	tabs = {
+		hide_if_only_one = false,
+	},
+	panes = {
+		inactive_hsb = { saturation = 0.9, brightness = 0.6 },
+	},
+}
+
+-- ============================================================================
+-- PERFORMANCE CONFIGURATION MODULE
+-- ============================================================================
+
+local performance_config = {
+	max_fps = 120,
+	animation_fps = 120,
+	front_end = "WebGpu",
+	prefer_egl = true,
+}
+
+-- ============================================================================
+-- PROJECT ROOTS
+-- ============================================================================
+
 local projects_root = {
 	work = "C:/Projects",
-	personal = wezterm.home_dir .. "/ws",
+	personal = platform.home_dir .. "/ws",
 }
 
 -- ============================================================================
@@ -83,10 +144,10 @@ local personal_config = {
 -- ============================================================================
 local shared_config = {
 	nvim = function()
-		if is_windows_platform() then
+		if platform.is_windows then
 			return os.getenv("LOCALAPPDATA") .. "/nvim"
 		else
-			return wezterm.home_dir .. "/.config/nvim"
+			return platform.home_dir .. "/.config/nvim"
 		end
 	end,
 }
@@ -192,7 +253,7 @@ local function display_project_list()
 	local projects_list = {}
 
 	-- Dispatch to appropriate setup function based on platform
-	if is_windows_platform() then
+	if platform.is_windows then
 		setup_work_projects(projects_list)
 	else
 		setup_personal_projects(projects_list)
@@ -220,47 +281,45 @@ local function display_project_list()
 	})
 end
 
--- CONFIG ___________________________________________________
+-- ============================================================================
+-- APPLY CONFIGURATION
+-- ============================================================================
+
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.inactive_pane_hsb = {
-	saturation = 0.9,
-	brightness = 0.6,
-}
--- This is where you actually apply your config choices
-config.color_scheme = color_schemes.Abernathy
-config.default_cwd = working_dir
-config.default_prog = { os_shell }
-config.window_decorations = "RESIZE|TITLE"
-config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
-config.hide_tab_bar_if_only_one_tab = false
-config.window_background_opacity = 1
+-- Shell and Working Directory
+config.default_cwd = platform.home_dir
+config.default_prog = { platform.shell }
 
--- These are supposed to improve performance
-config.max_fps = 120
-config.animation_fps = 120
-config.front_end = "WebGpu"
-config.prefer_egl = true
-------
----
-local dont_use_font_ligatures = { "calt=0", "clig=0", "liga=0" }
-
-config.warn_about_missing_glyphs = false
-config.font_size = 10.0
+-- UI Settings
+config.color_scheme = ui_config.color_scheme
+config.font_size = ui_config.font_size
 config.font = wezterm.font_with_fallback({
 	{
-		family = "Monaspace Neon",
-		weight = "Light",
-		harfbuzz_features = dont_use_font_ligatures,
+		family = ui_config.font_config.primary.family,
+		weight = ui_config.font_config.primary.weight,
+		harfbuzz_features = ui_config.font_config.disable_ligatures,
 	},
 	{
-		family = "JetBrains Mono",
-		weight = "Regular",
-		harfbuzz_features = dont_use_font_ligatures,
+		family = ui_config.font_config.fallback.family,
+		weight = ui_config.font_config.fallback.weight,
+		harfbuzz_features = ui_config.font_config.disable_ligatures,
 	},
 })
+config.warn_about_missing_glyphs = false
+config.window_decorations = ui_config.window.decorations
+config.window_padding = ui_config.window.padding
+config.window_background_opacity = ui_config.window.background_opacity
+config.hide_tab_bar_if_only_one_tab = ui_config.tabs.hide_if_only_one
+config.inactive_pane_hsb = ui_config.panes.inactive_hsb
+
+-- Performance Settings
+config.max_fps = performance_config.max_fps
+config.animation_fps = performance_config.animation_fps
+config.front_end = performance_config.front_end
+config.prefer_egl = performance_config.prefer_egl
 
 config.mouse_bindings = {
 	-- Change the default click behavior so that it only selects
@@ -285,19 +344,19 @@ config.mouse_bindings = {
 	},
 }
 
---https://alexplescan.com/posts/2024/08/10/wezterm/
+-- Key Tables
 config.key_tables = {
 	resize_panes = {
-		resize_pane("j", "Down"),
-		resize_pane("k", "Up"),
-		resize_pane("h", "Left"),
-		resize_pane("l", "Right"),
+		keymap_builders.resize_pane("j", "Down"),
+		keymap_builders.resize_pane("k", "Up"),
+		keymap_builders.resize_pane("h", "Left"),
+		keymap_builders.resize_pane("l", "Right"),
 	},
 	split_panes = {
-		split_pane("j", "Down"),
-		split_pane("k", "Up"),
-		split_pane("h", "Left"),
-		split_pane("l", "Right"),
+		keymap_builders.split_pane("j", "Down"),
+		keymap_builders.split_pane("k", "Up"),
+		keymap_builders.split_pane("h", "Left"),
+		keymap_builders.split_pane("l", "Right"),
 	},
 }
 
@@ -306,127 +365,58 @@ config.leader = {
 	mods = "SHIFT",
 	timeout_milliseconds = 2000,
 }
--- https://www.florianbellmann.com/blog/switch-from-tmux-to-wezterm
+
+-- Keybindings
 config.keys = {
-	{ -- display list of projects
-		mods = "LEADER",
-		key = "p",
-		action = display_project_list(),
-	},
-	{ -- Open lazygit in new tab
-		mods = "LEADER",
-		key = "g",
-		action = wezterm.action.SpawnCommandInNewTab({
-			args = { os_shell, "-c", 'lazygit || read -p "Press enter to exit..."' },
-		}),
-	},
-	{ -- Open Opencode AI in new tab
-		mods = "LEADER",
-		key = ".",
-		action = wezterm.action.SpawnCommandInNewTab({
-			args = { os_shell, "-c", 'opencode || read -p "Press enter to exit..."' },
-		}),
-	},
-	{ -- display list of workspaces
-		mods = "LEADER",
-		key = "w",
-		action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
-	},
-	{ -- [s]plit pane <leader> s + [ h,j,k,l ]
+	-- Projects and Tools
+	{ mods = "LEADER", key = "p", action = display_project_list() },
+	{ mods = "LEADER", key = "g", action = command_spawners.lazygit() },
+	{ mods = "LEADER", key = ".", action = command_spawners.opencode() },
+	{ mods = "LEADER", key = "w", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+
+	-- Pane Management
+	{ -- [s]plit pane
 		mods = "LEADER",
 		key = "s",
 		action = wezterm.action.ActivateKeyTable({
-			name = "split_panes", -- same name as in the `config.key_tables`
-			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
-			timeout_milliseconds = 1000, -- deactivate key table after timeout
+			name = "split_panes",
+			one_shot = false,
+			timeout_milliseconds = 1000,
 		}),
 	},
-	{ -- [m]aximize pane
-		mods = "LEADER",
-		key = "m",
-		action = wezterm.action.TogglePaneZoomState,
-	},
-	{ -- rotate panes swap
-		mods = "LEADER",
-		key = "n",
-		action = wezterm.action.RotatePanes("Clockwise"),
-	},
-	{ -- show the pane selection mode SWAP,
-		mods = "LEADER",
-		key = "v",
-		action = wezterm.action.PaneSelect({ mode = "Activate" }),
-	},
-	{ -- activate copy mode or vim mode
-		mods = "LEADER",
-		key = "y",
-		action = wezterm.action.ActivateCopyMode,
-	},
-	{ -- create new tab
-		mods = "LEADER",
-		key = "a",
-		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
-	},
-	{ -- delete tab
-		mods = "LEADER",
-		key = "x",
-		action = wezterm.action.CloseCurrentPane({ confirm = true }),
-	},
-	{ -- go the next tab
-		mods = "LEADER",
-		key = "o",
-		action = wezterm.action.ActivateTabRelative(1),
-	},
-	{ -- go to previous tab
-		mods = "LEADER",
-		key = "i",
-		action = wezterm.action.ActivateTabRelative(-1),
-	},
-	{ -- go to left pane
-		mods = "LEADER",
-		key = "h",
-		action = wezterm.action.ActivatePaneDirection("Left"),
-	},
-	{ -- go to bottom pane
-		mods = "LEADER",
-		key = "j",
-		action = wezterm.action.ActivatePaneDirection("Down"),
-	},
-	{ -- go to top pane
-		mods = "LEADER",
-		key = "k",
-		action = wezterm.action.ActivatePaneDirection("Up"),
-	},
-	{ -- go to right pane
-		mods = "LEADER",
-		key = "l",
-		action = wezterm.action.ActivatePaneDirection("Right"),
-	},
-	{ -- [r]esize panes <leader> r + [ h,j,k,l ]
+	{ mods = "LEADER", key = "m", action = wezterm.action.TogglePaneZoomState },
+	{ mods = "LEADER", key = "n", action = wezterm.action.RotatePanes("Clockwise") },
+	{ mods = "LEADER", key = "v", action = wezterm.action.PaneSelect({ mode = "Activate" }) },
+	{ mods = "LEADER", key = "h", action = wezterm.action.ActivatePaneDirection("Left") },
+	{ mods = "LEADER", key = "j", action = wezterm.action.ActivatePaneDirection("Down") },
+	{ mods = "LEADER", key = "k", action = wezterm.action.ActivatePaneDirection("Up") },
+	{ mods = "LEADER", key = "l", action = wezterm.action.ActivatePaneDirection("Right") },
+	{ -- [r]esize panes
 		mods = "LEADER",
 		key = "r",
 		action = wezterm.action.ActivateKeyTable({
-			name = "resize_panes", -- same name as in the `config.key_tables`
-			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
-			timeout_milliseconds = 1000, -- deactivate key table after timeout
+			name = "resize_panes",
+			one_shot = false,
+			timeout_milliseconds = 1000,
 		}),
 	},
-	-- Go to specific tab <leader> number
-	go_to_tab(1),
-	go_to_tab(2),
-	go_to_tab(3),
-	go_to_tab(4),
-	go_to_tab(5),
-	go_to_tab(6),
-	{ -- scroll up by page
-		mods = "LEADER",
-		key = "u",
-		action = wezterm.action.ScrollByPage(-1),
-	},
-	{ -- scroll down by page
-		mods = "LEADER",
-		key = "d",
-		action = wezterm.action.ScrollByPage(1),
-	},
+
+	-- Tab Management
+	{ mods = "LEADER", key = "a", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
+	{ mods = "LEADER", key = "x", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
+	{ mods = "LEADER", key = "o", action = wezterm.action.ActivateTabRelative(1) },
+	{ mods = "LEADER", key = "i", action = wezterm.action.ActivateTabRelative(-1) },
+	keymap_builders.go_to_tab(1),
+	keymap_builders.go_to_tab(2),
+	keymap_builders.go_to_tab(3),
+	keymap_builders.go_to_tab(4),
+	keymap_builders.go_to_tab(5),
+	keymap_builders.go_to_tab(6),
+
+	-- Copy Mode and Scrolling
+	{ mods = "LEADER", key = "y", action = wezterm.action.ActivateCopyMode },
+	{ mods = "LEADER", key = "u", action = wezterm.action.ScrollByPage(-1) },
+	{ mods = "LEADER", key = "d", action = wezterm.action.ScrollByPage(1) },
 }
 
 -- RIGHT STATUS
