@@ -72,26 +72,49 @@ local function display_project_list()
 	}
 
 	local function is_folder(path)
-		local extension = path:match("%.([^%.]+)$")
+		-- Use WezTerm's read_dir to check if path is actually a directory
+		local success, _ = pcall(wezterm.read_dir, path)
+		return success
+	end
 
-		return not extension or #extension > 3
+	local function normalize_path(path)
+		-- Normalize path separators and case for comparison
+		return path:gsub("\\", "/"):lower()
 	end
 
 	local function add_paths_to_project_list(options)
-		for _, project_directory in ipairs(options.directories) do
-			local folder_name = project_directory:match("([^/]+)$")
+		local exclude_list = options.exclude or {}
 
-			if is_folder(folder_name) then
+		for _, project_directory in ipairs(options.directories) do
+			local folder_name = project_directory:match("([^/\\]+)$") -- Handle both / and \ separators
+
+			-- Check if this path should be excluded (normalize for comparison)
+			local should_exclude = false
+			local normalized_project = normalize_path(project_directory)
+			for _, excluded_path in ipairs(exclude_list) do
+				if normalized_project == normalize_path(excluded_path) then
+					should_exclude = true
+					break
+				end
+			end
+
+			-- Only add if it's actually a directory and not excluded
+			if is_folder(project_directory) and not should_exclude then
 				table.insert(projects_list, { id = project_directory, label = folder_name })
 			end
 		end
 	end
 
 	if is_windows_platform() then
-		table.insert(projects_list, { id = work_dir.webapp_frontend, label = "Webapp Frontend" })
+		-- Add priority projects first (at the top of list)
+		table.insert(projects_list, { id = work_dir.webapp_frontend, label = "GliderBim WebApp" })
 		table.insert(projects_list, { id = work_dir.nvim, label = "Neovim Config" })
 
-		add_paths_to_project_list({ directories = add_subdirectories_for(projects_root.work) })
+		-- Add all other subdirectories, excluding the parent folder of webapp_frontend
+		add_paths_to_project_list({
+			directories = add_subdirectories_for(projects_root.work),
+			exclude = { "C:/Projects/gliderbim.webapp" } -- Exclude parent folder
+		})
 	else
 		local folder_names = { "apps", "learn", "pcfields", "clients" }
 
@@ -242,8 +265,8 @@ config.keys = {
 		mods = "LEADER",
 		key = "s",
 		action = wezterm.action.ActivateKeyTable({
-			name = "split_panes",     -- same name as in the `config.key_tables`
-			one_shot = false,         -- Ensures the keytable stays active after it handles its first keypress.
+			name = "split_panes", -- same name as in the `config.key_tables`
+			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
 	},
@@ -311,8 +334,8 @@ config.keys = {
 		mods = "LEADER",
 		key = "r",
 		action = wezterm.action.ActivateKeyTable({
-			name = "resize_panes",    -- same name as in the `config.key_tables`
-			one_shot = false,         -- Ensures the keytable stays active after it handles its first keypress.
+			name = "resize_panes", -- same name as in the `config.key_tables`
+			one_shot = false,   -- Ensures the keytable stays active after it handles its first keypress.
 			timeout_milliseconds = 1000, -- deactivate key table after timeout
 		}),
 	},
