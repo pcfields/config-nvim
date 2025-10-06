@@ -30,7 +30,7 @@ end
 keymap_builders.split_pane = function(key, direction)
 	return {
 		key = key,
-		action = wezterm.action.SplitPane({ direction = direction, size = { Percent = 30 } }),
+		action = wezterm.action.SplitPane({ direction = direction, size = { Percent = 40 } }),
 	}
 end
 
@@ -97,45 +97,30 @@ local performance_config = {
 }
 
 -- ============================================================================
--- PROJECT ROOTS
+-- ============================================================================
+-- PROJECT PROFILES
 -- ============================================================================
 
-local projects_root = {
-	work = "C:/Projects",
-	personal = platform.home_dir .. "/ws",
-}
-
--- ============================================================================
--- WORK-SPECIFIC CONFIGURATION
--- ============================================================================
-local work_config = {
-	projects = {
-		{
-			path = "C:/Projects/gliderbim.webapp/GliderBim.WebApp",
-			label = "GliderBim WebApp",
+local project_profiles = {
+	work = {
+		root = "C:/Projects",
+		manual = {
+			{
+				path = "C:/Projects/gliderbim.webapp/GliderBim.WebApp",
+				label = "GliderBim WebApp",
+			},
+			-- Additional work projects can be added here
 		},
-		-- Add more work projects here as needed
-		-- {
-		--   path = "C:/Projects/another-project",
-		--   label = "Another Project",
-		-- },
+		exclude = {
+			"C:/Projects/gliderbim.webapp", -- Exclude parent folder since we use the inner path
+		},
 	},
-	exclude_from_glob = {
-		"C:/Projects/gliderbim.webapp", -- Exclude parent folder since we use the inner path
-	},
-}
-
--- ============================================================================
--- PERSONAL-SPECIFIC CONFIGURATION
--- ============================================================================
-local personal_config = {
-	project_folders = { "apps", "learn", "pcfields", "clients" },
-	-- Add specific personal projects here if needed
-	projects = {
-		-- {
-		--   path = wezterm.home_dir .. "/ws/special-project",
-		--   label = "Special Project",
-		-- },
+	personal = {
+		root = platform.home_dir .. "/ws",
+		manual = {
+			-- Specific personal projects can be added here
+		},
+		folders = { "apps", "learn", "pcfields", "clients" },
 	},
 }
 
@@ -192,6 +177,10 @@ project_utils.add_paths_to_list = function(projects_list, options)
 	end
 end
 
+-- ============================================================================
+-- PROJECT LIST BUILDER MODULE
+-- ============================================================================
+
 local function add_subdirectories_for(root_directory)
 	local sub_directories = {}
 	local directories_under_root_directory = wezterm.glob(root_directory .. "/*")
@@ -204,45 +193,75 @@ local function add_subdirectories_for(root_directory)
 end
 
 -- ============================================================================
--- WORK PROJECT SETUP
+-- PROJECT LIST BUILDER MODULE
 -- ============================================================================
 
-local function setup_work_projects(projects_list)
-	-- Add Neovim config first (shared)
-	table.insert(projects_list, { id = shared_config.nvim(), label = "Neovim Config" })
+local project_list_builder = {}
 
-	-- Add manually configured work projects (priority items at top)
-	for _, project in ipairs(work_config.projects) do
-		table.insert(projects_list, { id = project.path, label = project.label })
+project_list_builder.add_shared_entry = function(projects_list)
+	table.insert(projects_list, { id = shared_config.nvim(), label = "Neovim Config" })
+end
+
+project_list_builder.add_manual_projects = function(projects_list, projects)
+	if not projects then
+		return
 	end
 
-	-- Add all other work subdirectories from glob (excluding manual ones)
+	for _, project in ipairs(projects) do
+		table.insert(projects_list, { id = project.path, label = project.label })
+	end
+end
+
+project_list_builder.add_directory_glob = function(projects_list, directories, exclude)
+	if not directories then
+		return
+	end
+
 	project_utils.add_paths_to_list(projects_list, {
-		directories = add_subdirectories_for(projects_root.work),
-		exclude = work_config.exclude_from_glob,
+		directories = directories,
+		exclude = exclude,
 	})
 end
 
--- ============================================================================
--- PERSONAL PROJECT SETUP
--- ============================================================================
-
-local function setup_personal_projects(projects_list)
-	-- Add Neovim config first (shared)
-	table.insert(projects_list, { id = shared_config.nvim(), label = "Neovim Config" })
-
-	-- Add manually configured personal projects (priority items)
-	for _, project in ipairs(personal_config.projects) do
-		table.insert(projects_list, { id = project.path, label = project.label })
+project_list_builder.add_project_folders = function(projects_list, root_path, folders)
+	if not folders or #folders == 0 then
+		return
 	end
 
-	-- Add subdirectories from personal project folders
-	for _, folder_name in ipairs(personal_config.project_folders) do
-		local project_path = projects_root.personal .. "/" .. folder_name
+	for _, folder_name in ipairs(folders) do
+		local project_path = root_path .. "/" .. folder_name
 		project_utils.add_paths_to_list(projects_list, {
 			directories = add_subdirectories_for(project_path),
 		})
 	end
+end
+
+project_list_builder.populate_from_profile = function(projects_list, profile)
+	project_list_builder.add_shared_entry(projects_list)
+	project_list_builder.add_manual_projects(projects_list, profile.manual)
+
+	if profile.folders then
+		project_list_builder.add_project_folders(projects_list, profile.root, profile.folders)
+	else
+		project_list_builder.add_directory_glob(
+			projects_list,
+			add_subdirectories_for(profile.root),
+			profile.exclude
+		)
+	end
+end
+
+-- ============================================================================
+-- PROJECT PROFILE SETUP
+-- ============================================================================
+
+local function setup_projects(projects_list, profile_key)
+	local profile = project_profiles[profile_key]
+	if not profile then
+		return
+	end
+
+	project_list_builder.populate_from_profile(projects_list, profile)
 end
 
 -- ============================================================================
@@ -254,9 +273,9 @@ local function display_project_list()
 
 	-- Dispatch to appropriate setup function based on platform
 	if platform.is_windows then
-		setup_work_projects(projects_list)
+		setup_projects(projects_list, "work")
 	else
-		setup_personal_projects(projects_list)
+		setup_projects(projects_list, "personal")
 	end
 
 	return wezterm.action.InputSelector({
@@ -419,33 +438,49 @@ config.keys = {
 	{ mods = "LEADER", key = "d", action = wezterm.action.ScrollByPage(1) },
 }
 
--- RIGHT STATUS
-wezterm.on("update-right-status", function(window)
-	local black = wezterm.color.parse("#000")
-	local white = wezterm.color.parse("#fff")
+-- ============================================================================
+-- STATUS BAR MODULE
+-- ============================================================================
 
-	local workspace_section = {
-		{ Foreground = { Color = white } },
+local status_bar = {}
+
+status_bar.colors = {
+	black = wezterm.color.parse("#000"),
+	white = wezterm.color.parse("#fff"),
+}
+
+status_bar.format_workspace_section = function(window)
+	local colors = status_bar.colors
+
+	return {
+		{ Foreground = { Color = colors.white } },
 		{ Text = "  " .. " " },
-		{ Background = { Color = white } },
-		{ Foreground = { Color = black } },
+		{ Background = { Color = colors.white } },
+		{ Foreground = { Color = colors.black } },
 		{ Text = "  " .. window:mux_window():get_workspace() .. "  " },
-		{ Background = { Color = black } },
-		{ Foreground = { Color = white } },
+		{ Background = { Color = colors.black } },
+		{ Foreground = { Color = colors.white } },
 		{ Text = " " },
 	}
+end
 
-	window:set_right_status(wezterm.format(workspace_section))
-
-	-- Show leader key active status
-	local prefix = ""
+status_bar.leader_prefix = function(window)
 	if window:leader_is_active() then
-		prefix = " ️️🔴🔴🔴⭕⭕⭕"
+		return " ️️🔴🔴🔴⭕⭕⭕"
 	end
 
-	window:set_left_status(wezterm.format({
-		{ Text = prefix },
-	}))
-end)
+	return ""
+end
+
+status_bar.register = function()
+	wezterm.on("update-right-status", function(window)
+		window:set_right_status(wezterm.format(status_bar.format_workspace_section(window)))
+		window:set_left_status(wezterm.format({
+			{ Text = status_bar.leader_prefix(window) },
+		}))
+	end)
+end
+
+status_bar.register()
 
 return config
