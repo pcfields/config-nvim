@@ -28,8 +28,7 @@ return {
 		-- See the full "keymap" documentation for information on defining your own keymap.
 		keymap = {
 			preset = "enter",
-
-			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-m>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
 			["<C-y>"] = { "select_and_accept" },
@@ -67,28 +66,18 @@ return {
 			enabled = false,
 		},
 		completion = {
-			menu = {
-				-- Don't automatically show the completion menu
-				-- auto_show = false,
+			trigger = {
+				-- When true, will show completion window after backspacing
+				show_on_backspace = true,
 
-				-- Don't show completion menu automatically when searching
-				-- auto_show = function(ctx)
-				-- 	return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
-				-- end,
-			},
-			-- Don't select by default, auto insert on selection
-			list = {
-				selection = { preselect = false, auto_insert = true },
-			},
-			-- Auto brackets configuration
-			accept = {
-				auto_brackets = { enabled = false },
-			},
-			ghost_text = {
-				enabled = true,
+				-- When true, will show completion window after backspacing into a keyword
+				show_on_backspace_in_keyword = false,
 			},
 		},
-
+		documentation = {
+			-- Controls whether the documentation window will automatically show when selecting a completion item
+			auto_show = true,
+		},
 		-- Signature help configuration (top-level)
 		signature = {
 			enabled = true,
