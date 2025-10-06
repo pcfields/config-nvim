@@ -28,10 +28,10 @@ return {
 		-- See the full "keymap" documentation for information on defining your own keymap.
 		keymap = {
 			preset = "enter",
-			["<C-m>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-h>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
-			["<C-y>"] = { "select_and_accept" },
+			["<C-l>"] = { "select_and_accept" },
 			["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
 
 			["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
@@ -71,12 +71,12 @@ return {
 				show_on_backspace = true,
 
 				-- When true, will show completion window after backspacing into a keyword
-				show_on_backspace_in_keyword = false,
+				show_on_backspace_in_keyword = true,
 			},
 		},
 		documentation = {
 			-- Controls whether the documentation window will automatically show when selecting a completion item
-			auto_show = true,
+			auto_show = false,
 		},
 		-- Signature help configuration (top-level)
 		signature = {
