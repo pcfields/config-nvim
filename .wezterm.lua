@@ -404,8 +404,9 @@ config.keys = {
 		}),
 	},
 	{ mods = "LEADER", key = "m", action = wezterm.action.TogglePaneZoomState },
-	{ mods = "LEADER", key = "n", action = wezterm.action.RotatePanes("Clockwise") },
+	{ mods = "LEADER", key = "c", action = wezterm.action.RotatePanes("Clockwise") },
 	{ mods = "LEADER", key = "v", action = wezterm.action.PaneSelect({ mode = "Activate" }) },
+
 	{ mods = "LEADER", key = "h", action = wezterm.action.ActivatePaneDirection("Left") },
 	{ mods = "LEADER", key = "j", action = wezterm.action.ActivatePaneDirection("Down") },
 	{ mods = "LEADER", key = "k", action = wezterm.action.ActivatePaneDirection("Up") },
@@ -421,7 +422,8 @@ config.keys = {
 	},
 
 	-- Tab Management
-	{ mods = "LEADER", key = "a", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
+	{ mods = "LEADER", key = "t", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
+	{ mods = "LEADER", key = "q", action = wezterm.action.CloseCurrentTab({ confirm = true }) },
 	{ mods = "LEADER", key = "x", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 	{ mods = "LEADER", key = "o", action = wezterm.action.ActivateTabRelative(1) },
 	{ mods = "LEADER", key = "i", action = wezterm.action.ActivateTabRelative(-1) },
