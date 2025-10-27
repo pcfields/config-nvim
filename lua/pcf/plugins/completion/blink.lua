@@ -73,10 +73,10 @@ return {
 				-- When true, will show completion window after backspacing into a keyword
 				show_on_backspace_in_keyword = true,
 			},
-		},
-		documentation = {
-			-- Controls whether the documentation window will automatically show when selecting a completion item
-			auto_show = false,
+			documentation = {
+				-- Controls whether the documentation window will automatically show when selecting a completion item
+				auto_show = false,
+			},
 		},
 		-- Signature help configuration (top-level)
 		signature = {
