@@ -79,7 +79,7 @@ map({ "n" }, "<leader>fg", "<cmd>Neotree git_status<cr>", { desc = "Open File ex
 --------------------------------------------------------------------------------------------
 
 map({ "n", "v", "s" }, "<leader>hs", "<cmd>w<cr><esc>", { desc = "Save buffer" })
-map({ "n", "v", "s" }, "<leader>hsa", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
+map({ "n", "v", "s" }, "<leader>ha", "<cmd>wa<cr><esc>", { desc = "Save all buffers" })
 
 map({ "n" }, "<leader>hn", "<cmd>enew<cr>", { desc = "New buffer(file)" })
 map({ "n" }, "<leader>hq", close_buffer_and_keep_split, { desc = "Close buffer and keep split" })
