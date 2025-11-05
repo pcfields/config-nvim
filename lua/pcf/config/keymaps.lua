@@ -86,10 +86,10 @@ map({ "n" }, "<leader>hq", close_buffer_and_keep_split, { desc = "Close buffer a
 map({ "n" }, "<leader>ho", [[:%bdelete|edit #|bdelete #<CR>]], { desc = "Close all buffers except current one" })
 map({ "n" }, "<leader>hx", "<cmd>:close<cr>", { desc = "Close split window" })
 
-map({ "n" }, "<leader>hr", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
 map({ "n" }, "<leader>hy", ":%y+<CR>", { desc = "Copy all text in buffer to clipboard" })
-map({ "n" }, "<leader>ht", "gg<S-v>G", { desc = "Select all text in buffer" })
+map({ "n" }, "<C-a>", "gg<S-v>G", { desc = "Select all text in buffer" })
 
+map({ "n" }, "<C-l>", "<cmd>e #<cr>", { desc = "Switch to last used buffer" })
 map({ "n" }, "<C-j>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map({ "n" }, "<C-k>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 

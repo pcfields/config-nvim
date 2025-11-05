@@ -115,4 +115,8 @@ M.TodoComments = function()
 	Snacks.picker.todo_comments()
 end
 
+M.Notifications = function()
+	Snacks.picker.notifications()
+end
+
 return M
