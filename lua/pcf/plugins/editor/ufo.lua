@@ -49,15 +49,15 @@ return { -- Improved code folding
 		map({ "n" }, "<leader>kfo", require("ufo").openAllFolds, { desc = "Open all folds" })
 		map({ "n" }, "<leader>kfc", require("ufo").closeAllFolds, { desc = "Close all folds" })
 
-		map({ "n" }, "<leader>kfh", function()
+		map({ "n" }, "<leader>kf1", function()
 			require("ufo").closeFoldsWith(1)
 		end, { desc = "Close folds up to level 1" })
 
-		map({ "n" }, "<leader>kfj", function()
+		map({ "n" }, "<leader>kf2", function()
 			require("ufo").closeFoldsWith(2)
 		end, { desc = "Close folds up to level 2" })
 
-		map({ "n" }, "<leader>kfk", function()
+		map({ "n" }, "<leader>kf3", function()
 			require("ufo").closeFoldsWith(3)
 		end, { desc = "Close folds up to level 3" })
 
