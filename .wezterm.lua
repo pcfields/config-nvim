@@ -83,7 +83,7 @@ local ui_config = {
 		hide_if_only_one = false,
 	},
 	panes = {
-		inactive_hsb = { saturation = 0.9, brightness = 0.6 },
+		inactive_hsb = { saturation = 0.5, brightness = 0.4 },
 	},
 }
 
