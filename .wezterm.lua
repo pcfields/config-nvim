@@ -122,7 +122,7 @@ local project_profiles = {
 		manual = {
 			-- Specific personal projects can be added here
 		},
-		folders = { "apps", "learn", "pcfields", "clients" },
+		folders = { "scratchpad", "learn", "personal", "clients" },
 	},
 }
 
@@ -245,11 +245,7 @@ project_list_builder.populate_from_profile = function(projects_list, profile)
 	if profile.folders then
 		project_list_builder.add_project_folders(projects_list, profile.root, profile.folders)
 	else
-		project_list_builder.add_directory_glob(
-			projects_list,
-			add_subdirectories_for(profile.root),
-			profile.exclude
-		)
+		project_list_builder.add_directory_glob(projects_list, add_subdirectories_for(profile.root), profile.exclude)
 	end
 end
 
