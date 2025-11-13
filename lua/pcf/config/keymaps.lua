@@ -212,7 +212,7 @@ map("n", "<leader>es", function()
 	vim.diagnostic.config({ virtual_text = toggled_value })
 end, { desc = "Toggle diagnostic virtual_text ([s]how)" })
 
-map({ "n" }, "<leader>oe", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
+map({ "n" }, "<leader>oef", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Trouble: File/buffer issues" })
 map({ "n" }, "<leader>oea", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Trouble: All open File/buffer issues" })
 
 --------------------------------------------------------------------------------------------
