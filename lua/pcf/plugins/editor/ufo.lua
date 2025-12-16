@@ -46,22 +46,22 @@ return { -- Improved code folding
 			fold_virt_text_handler = virtual_text_handler,
 		})
 
-		map({ "n" }, "<leader>kfo", require("ufo").openAllFolds, { desc = "Open all folds" })
-		map({ "n" }, "<leader>kfc", require("ufo").closeAllFolds, { desc = "Close all folds" })
+		map({ "n" }, "<leader>ko", require("ufo").openAllFolds, { desc = "Open all folds" })
+		map({ "n" }, "<leader>kc", require("ufo").closeAllFolds, { desc = "Close all folds" })
 
-		map({ "n" }, "<leader>kf1", function()
+		map({ "n" }, "<leader>k1", function()
 			require("ufo").closeFoldsWith(1)
 		end, { desc = "Close folds up to level 1" })
 
-		map({ "n" }, "<leader>kf2", function()
+		map({ "n" }, "<leader>k2", function()
 			require("ufo").closeFoldsWith(2)
 		end, { desc = "Close folds up to level 2" })
 
-		map({ "n" }, "<leader>kf3", function()
+		map({ "n" }, "<leader>k3", function()
 			require("ufo").closeFoldsWith(3)
 		end, { desc = "Close folds up to level 3" })
 
-		map({ "n" }, "<leader>kfp", function()
+		map({ "n" }, "<leader>kp", function()
 			local winid = require("ufo").peekFoldedLinesUnderCursor()
 			if not winid then
 				vim.lsp.buf.hover()
