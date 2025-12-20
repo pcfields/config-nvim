@@ -20,29 +20,154 @@ return { -- Debugger
 		require("dapui").setup()
 		require("nvim-dap-virtual-text").setup({})
 
-		-- Setup Javascript adapters
-		-- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#javascript
-
-		dap.adapters["pwa-node"] = {
-			type = "server",
-			host = "localhost",
-			port = "${port}",
-			executable = {
-				command = "node",
-				-- 💀 Make sure to update this path to point to your installation
-				args = { "/path/to/js-debug/src/dapDebugServer.js", "${port}" },
+		-- Setup mason-nvim-dap to auto-install debug adapters
+		require("mason-nvim-dap").setup({
+			ensure_installed = {
+				"js-debug-adapter", -- JavaScript/TypeScript debugger
 			},
-		}
+			automatic_installation = true,
+			handlers = {}, -- Use default handlers
+		})
 
-		dap.configurations.javascript = {
-			{
-				type = "pwa-node",
-				request = "launch",
-				name = "Launch file",
-				program = "${file}",
-				cwd = "${workspaceFolder}",
-			},
-		}
+	-- Setup Javascript adapters
+	-- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#javascript
+
+	dap.adapters["pwa-node"] = {
+		type = "server",
+		host = "localhost",
+		port = "${port}",
+		executable = {
+			command = "node",
+			args = { vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js", "${port}" },
+		},
+	}
+
+	dap.adapters["pwa-chrome"] = {
+		type = "server",
+		host = "localhost",
+		port = "${port}",
+		executable = {
+			command = "node",
+			args = { vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js", "${port}" },
+		},
+	}
+
+	dap.configurations.javascript = {
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch file",
+			program = "${file}",
+			cwd = "${workspaceFolder}",
+		},
+		{
+			type = "pwa-node",
+			request = "attach",
+			name = "Attach",
+			processId = require("dap.utils").pick_process,
+			cwd = "${workspaceFolder}",
+		},
+	}
+
+	dap.configurations.typescript = {
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch file",
+			program = "${file}",
+			cwd = "${workspaceFolder}",
+			sourceMaps = true,
+			protocol = "inspector",
+			console = "integratedTerminal",
+		},
+		{
+			type = "pwa-node",
+			request = "attach",
+			name = "Attach",
+			processId = require("dap.utils").pick_process,
+			cwd = "${workspaceFolder}",
+			sourceMaps = true,
+		},
+	}
+
+	-- React configurations (uses same adapter as JavaScript/TypeScript)
+	dap.configurations.javascriptreact = dap.configurations.javascript
+	dap.configurations.typescriptreact = dap.configurations.typescript
+
+	-- Helper function to get port from package.json or prompt user
+	local function get_dev_server_port()
+		local package_json_path = vim.fn.getcwd() .. "/package.json"
+		local default_port = "3000"
+
+		-- Try to read port from package.json scripts
+		if vim.fn.filereadable(package_json_path) == 1 then
+			local ok, package_data = pcall(vim.fn.json_decode, vim.fn.readfile(package_json_path))
+			if ok and package_data.scripts then
+				-- Look for common dev script patterns with port
+				for _, script in pairs(package_data.scripts) do
+					local port = script:match("%-%-port[=%s]+(%d+)")
+					if not port then
+						port = script:match("PORT[=%s]+(%d+)")
+					end
+					if port then
+						default_port = port
+						break
+					end
+				end
+			end
+		end
+
+		-- Prompt user with detected/default port
+		local port = vim.fn.input("Dev server port: ", default_port)
+		return port ~= "" and port or default_port
+	end
+
+	-- Add browser debugging for React with dynamic port
+	table.insert(dap.configurations.javascriptreact, {
+		type = "pwa-chrome",
+		request = "launch",
+		name = "Launch Chrome for React",
+		url = function()
+			local port = get_dev_server_port()
+			return "http://localhost:" .. port
+		end,
+		webRoot = "${workspaceFolder}",
+		sourceMaps = true,
+	})
+
+	table.insert(dap.configurations.typescriptreact, {
+		type = "pwa-chrome",
+		request = "launch",
+		name = "Launch Chrome for React",
+		url = function()
+			local port = get_dev_server_port()
+			return "http://localhost:" .. port
+		end,
+		webRoot = "${workspaceFolder}",
+		sourceMaps = true,
+	})
+
+	-- Add static port options for common ports
+	local common_ports = { "3000", "5173", "8080", "4200", "5000" }
+	for _, port in ipairs(common_ports) do
+		table.insert(dap.configurations.javascriptreact, {
+			type = "pwa-chrome",
+			request = "launch",
+			name = "Launch Chrome (port " .. port .. ")",
+			url = "http://localhost:" .. port,
+			webRoot = "${workspaceFolder}",
+			sourceMaps = true,
+		})
+
+		table.insert(dap.configurations.typescriptreact, {
+			type = "pwa-chrome",
+			request = "launch",
+			name = "Launch Chrome (port " .. port .. ")",
+			url = "http://localhost:" .. port,
+			webRoot = "${workspaceFolder}",
+			sourceMaps = true,
+		})
+	end
 		-- toggle to see last session result. Without this ,you can't see session output in case of unhandled exception.
 		vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "[Debugger] Toggle last session result" })
 
