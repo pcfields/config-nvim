@@ -52,6 +52,16 @@ return { -- Debugger
 		},
 	}
 
+	dap.adapters["pwa-msedge"] = {
+		type = "server",
+		host = "localhost",
+		port = "${port}",
+		executable = {
+			command = "node",
+			args = { vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js", "${port}" },
+		},
+	}
+
 	dap.configurations.javascript = {
 		{
 			type = "pwa-node",
@@ -124,6 +134,57 @@ return { -- Debugger
 
 	-- Add browser debugging for React with dynamic port
 	table.insert(dap.configurations.javascriptreact, {
+		type = "pwa-msedge",
+		request = "launch",
+		name = "Launch Edge for React",
+		url = function()
+			local port = get_dev_server_port()
+			return "http://localhost:" .. port
+		end,
+		webRoot = "${workspaceFolder}",
+		sourceMaps = true,
+		runtimeExecutable = "/usr/bin/microsoft-edge",
+	})
+
+	table.insert(dap.configurations.typescriptreact, {
+		type = "pwa-msedge",
+		request = "launch",
+		name = "Launch Edge for React",
+		url = function()
+			local port = get_dev_server_port()
+			return "http://localhost:" .. port
+		end,
+		webRoot = "${workspaceFolder}",
+		sourceMaps = true,
+		runtimeExecutable = "/usr/bin/microsoft-edge",
+	})
+
+	-- Add static port options for Edge (default browser)
+	local common_ports = { "3000", "5173" }
+	for _, port in ipairs(common_ports) do
+		table.insert(dap.configurations.javascriptreact, {
+			type = "pwa-msedge",
+			request = "launch",
+			name = "Launch Edge (port " .. port .. ")",
+			url = "http://localhost:" .. port,
+			webRoot = "${workspaceFolder}",
+			sourceMaps = true,
+			runtimeExecutable = "/usr/bin/microsoft-edge",
+		})
+
+		table.insert(dap.configurations.typescriptreact, {
+			type = "pwa-msedge",
+			request = "launch",
+			name = "Launch Edge (port " .. port .. ")",
+			url = "http://localhost:" .. port,
+			webRoot = "${workspaceFolder}",
+			sourceMaps = true,
+			runtimeExecutable = "/usr/bin/microsoft-edge",
+		})
+	end
+
+	-- Add Chrome as fallback option (after Edge options)
+	table.insert(dap.configurations.javascriptreact, {
 		type = "pwa-chrome",
 		request = "launch",
 		name = "Launch Chrome for React",
@@ -147,8 +208,6 @@ return { -- Debugger
 		sourceMaps = true,
 	})
 
-	-- Add static port options for common ports
-	local common_ports = { "3000", "5173", "8080", "4200", "5000" }
 	for _, port in ipairs(common_ports) do
 		table.insert(dap.configurations.javascriptreact, {
 			type = "pwa-chrome",
