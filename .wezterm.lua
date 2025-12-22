@@ -445,28 +445,29 @@ config.keys = {
 local status_bar = {}
 
 status_bar.colors = {
-	black = wezterm.color.parse("#000"),
-	white = wezterm.color.parse("#fff"),
+	text = wezterm.color.parse("#fff"),
+	background = wezterm.color.parse("#7b0849"),
 }
 
 status_bar.format_workspace_section = function(window)
 	local colors = status_bar.colors
 
 	return {
-		{ Foreground = { Color = colors.white } },
-		{ Text = "  " .. " " },
-		{ Background = { Color = colors.white } },
-		{ Foreground = { Color = colors.black } },
+		{ Foreground = { Color = colors.background } },
+		{ Text = "" },
+		{ Background = { Color = colors.background } },
+		{ Foreground = { Color = colors.text } },
 		{ Text = "  " .. window:mux_window():get_workspace() .. "  " },
-		{ Background = { Color = colors.black } },
-		{ Foreground = { Color = colors.white } },
-		{ Text = " " },
+		"ResetAttributes",
+		{ Foreground = { Color = colors.background } },
+		{ Text = "" },
+		{ Background = { Color = colors.background } },
 	}
 end
 
 status_bar.leader_prefix = function(window)
 	if window:leader_is_active() then
-		return " ️️🔴🔴🔴⭕⭕⭕"
+		return "🔴🔴🔴⭕⭕⭕"
 	end
 
 	return ""
@@ -474,10 +475,18 @@ end
 
 status_bar.register = function()
 	wezterm.on("update-right-status", function(window)
-		window:set_right_status(wezterm.format(status_bar.format_workspace_section(window)))
-		window:set_left_status(wezterm.format({
-			{ Text = status_bar.leader_prefix(window) },
-		}))
+		local left_status = {}
+
+		-- Add leader indicator first (leftmost)
+		table.insert(left_status, { Text = status_bar.leader_prefix(window) })
+
+		-- Add workspace section to the right of leader indicator
+		for _, element in ipairs(status_bar.format_workspace_section(window)) do
+			table.insert(left_status, element)
+		end
+
+		window:set_left_status(wezterm.format(left_status))
+		window:set_right_status("")
 	end)
 end
 
