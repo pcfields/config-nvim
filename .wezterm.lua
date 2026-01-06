@@ -458,7 +458,7 @@ status_bar.format_workspace_section = function(window)
 		{ Text = "   " .. window:mux_window():get_workspace() .. "  " },
 		"ResetAttributes",
 		{ Foreground = { Color = colors.background } },
-		{ Text = "" },
+		{ Text = "" },
 		{ Background = { Color = colors.background } },
 	}
 end
