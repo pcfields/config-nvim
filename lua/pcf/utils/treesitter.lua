@@ -8,52 +8,56 @@ local function get_first_char_of_node(treesitter_node)
 	local is_newline_included = false
 
 	local current_node_line = vim.api.nvim_buf_get_lines(CURRENT_BUFFER, start_row, ending_row, is_newline_included)[1]
+	if not current_node_line then
+		return nil
+	end
 	local first_char_of_line = current_node_line:sub(start_col + 1, start_col + 1)
 
 	return first_char_of_line
 end
 
-local function get_suffix_for_string_node(treesitter_node)
-	local first_char_of_line = get_first_char_of_node(treesitter_node)
+local function get_last_char_of_node(treesitter_node)
+	local CURRENT_BUFFER = 0
 
-	return first_char_of_line == "'" and "'" or '"'
+	local _, _, end_row, end_col = treesitter_node:range()
+	local ending_row = end_row + 1
+	local is_newline_included = false
+
+	local current_node_line = vim.api.nvim_buf_get_lines(CURRENT_BUFFER, end_row, ending_row, is_newline_included)[1]
+	if not current_node_line then
+		return nil
+	end
+	local last_char_of_line = current_node_line:sub(end_col, end_col)
+
+	return last_char_of_line
 end
 
-local node_type_command_suffixes = {
-	array = "[",
-	subscript_expression = "[",
-	object = "{",
-	object_pattern = "{",
-	object_type = "{",
-	interface_declaration = "{",
-	enum_declaration = "{",
-	statement_block = "{",
-	template_substitution = "{",
-	jsx_expression = "{",
-	named_imports = "{",
-	type_parameters = "<",
-	type_parameter = "<",
-	type_arguments = "<",
-	jsx_self_closing_element = "<",
-	jsx_opening_element = "<",
-	formal_parameters = "(",
-	arguments = "(",
-	argument = "(",
-	for_statement = "(",
-	parenthesized_expression = "(",
-	template_string = "`",
-	string = get_suffix_for_string_node,
+-- Map of opening delimiters to their pairs
+local delimiter_pairs = {
+	["("] = ")",
+	["{"] = "}",
+	["["] = "]",
+	["<"] = ">",
+	['"'] = '"',
+	["'"] = "'",
+	["`"] = "`",
 }
 
+-- Get command suffix by checking if node starts/ends with delimiter pairs
 local function get_command_suffix(treesitter_node)
-	local node_type = treesitter_node:type()
-	local command_suffix = node_type_command_suffixes[node_type]
+	local first_char = get_first_char_of_node(treesitter_node)
+	local last_char = get_last_char_of_node(treesitter_node)
 
-	if type(command_suffix) == "function" then
-		command_suffix = command_suffix(treesitter_node)
+	if not first_char or not last_char then
+		return nil
 	end
 
-	return command_suffix
+	-- Check if the node starts and ends with matching delimiters
+	if delimiter_pairs[first_char] == last_char then
+		return first_char
+	end
+
+	return nil
 end
 
 local function get_treesitter_node_at_cursor()

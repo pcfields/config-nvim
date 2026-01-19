@@ -227,6 +227,7 @@ map({ "n" }, "<leader>rn", vim.lsp.buf.rename, { desc = "Refactor: Rename variab
 ---
 map({ "n" }, "<leader>ka", vim.lsp.buf.code_action, { desc = "Code action" })
 map({ "n" }, "<leader>kf", "za", { desc = "Toggle fold under cursor" })
+
 --------------------------------------------------------------------------------------------
 -- Yank keymaps
 --------------------------------------------------------------------------------------------
