@@ -326,6 +326,7 @@ config.font = wezterm.font_with_fallback({
 config.window_decorations = ui_config.window.decorations
 config.window_padding = ui_config.window.padding
 config.hide_tab_bar_if_only_one_tab = ui_config.tabs.hide_if_only_one
+config.tab_max_width = 32
 config.inactive_pane_hsb = ui_config.panes.inactive_hsb
 
 -- Performance Settings
@@ -490,6 +491,30 @@ tab_title.cwd_basename = function(pane)
 	return path:gsub("[/\\]+$", ""):match("([^/\\]+)$")
 end
 
+-- WezTerm defaults a pane's title to its foreground process name until the
+-- running program sets its own via an OSC escape sequence (lazygit, vim,
+-- etc. do this). If the title doesn't match that default, trust it — this
+-- also covers cases like Windows spawning a tool through an intermediate
+-- shell (`pwsh -NoExit -Command lazygit`), where process detection only
+-- ever sees "pwsh" but the tool has still announced its own title.
+tab_title.looks_like_default_title = function(title, process, cwd_basename)
+	if not title or title == "" then
+		return true
+	end
+
+	local lowered = title:lower()
+
+	if process and lowered == process:lower() then
+		return true
+	end
+
+	if cwd_basename and lowered == cwd_basename:lower() then
+		return true
+	end
+
+	return tab_title.shells[lowered] or false
+end
+
 tab_title.describe = function(tab)
 	if tab.tab_title and tab.tab_title ~= "" then
 		return tab.tab_title
@@ -497,10 +522,15 @@ tab_title.describe = function(tab)
 
 	local pane = tab.active_pane
 	local process = tab_title.process_name(pane)
+	local cwd = tab_title.cwd_basename(pane)
+
+	if not tab_title.looks_like_default_title(pane.title, process, cwd) then
+		return pane.title
+	end
 
 	-- A shell tells you nothing; where it is does. A tool names itself.
 	if not process or tab_title.shells[process:lower()] then
-		return tab_title.cwd_basename(pane) or process or pane.title
+		return cwd or process or pane.title
 	end
 
 	return process
