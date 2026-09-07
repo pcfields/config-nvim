@@ -81,6 +81,9 @@ opt.tabstop = 2 -- Number of spaces tabs count for-- Set the width of a tab char
 opt.timeout = true -- Enable timeout for key mappings
 opt.timeoutlen = 300
 
+opt.title = true -- Let the terminal emulator's tab/window title reflect Neovim, not the shell
+opt.titlestring = "NVIM %t %m" -- %t = filename, %m = modified flag; shown by escape-sequence-aware terminals
+
 opt.undolevels = 10000 -- Increase the number of available undo levels
 opt.undofile = true -- Save undo history -- Enable persistent undo across sessions
 opt.updatetime = 200 -- Reduce updatetime for faster response and better user experience
