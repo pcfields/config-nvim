@@ -15,6 +15,8 @@ platform.shell = platform.is_windows and "pwsh.exe"
 
 platform.home_dir = wezterm.home_dir
 
+platform.font_size = platform.is_windows and 10.0 or 11.0
+
 -- ============================================================================
 -- KEYMAP BUILDERS MODULE
 -- ============================================================================
@@ -71,7 +73,7 @@ end
 
 local ui_config = {
 	color_scheme = "Abernathy",
-	font_size = 10.0,
+	font_size = platform.font_size,
 	font_config = {
 		primary = { family = "Monaspace Neon", weight = "Light" },
 		fallback = { family = "JetBrains Mono", weight = "Regular" },
@@ -152,24 +154,26 @@ project_utils.normalize_path = function(path)
 	return path:gsub("\\", "/"):lower()
 end
 
+project_utils.is_excluded = function(path, exclude_list)
+	local normalized = project_utils.normalize_path(path)
+
+	for _, excluded_path in ipairs(exclude_list or {}) do
+		if normalized == project_utils.normalize_path(excluded_path) then
+			return true
+		end
+	end
+
+	return false
+end
+
 project_utils.add_paths_to_list = function(projects_list, options)
 	local exclude_list = options.exclude or {}
 
 	for _, project_directory in ipairs(options.directories) do
 		local folder_name = project_directory:match("([^/\\]+)$") -- Handle both / and \ separators
 
-		-- Check if this path should be excluded (normalize for comparison)
-		local should_exclude = false
-		local normalized_project = project_utils.normalize_path(project_directory)
-		for _, excluded_path in ipairs(exclude_list) do
-			if normalized_project == project_utils.normalize_path(excluded_path) then
-				should_exclude = true
-				break
-			end
-		end
-
 		-- Only add if it's actually a directory and not excluded
-		if project_utils.is_folder(project_directory) and not should_exclude then
+		if project_utils.is_folder(project_directory) and not project_utils.is_excluded(project_directory, exclude_list) then
 			table.insert(projects_list, { id = project_directory, label = folder_name })
 		end
 	end
@@ -193,13 +197,17 @@ project_list_builder.add_shared_entry = function(projects_list)
 	table.insert(projects_list, { id = shared_config.dotfiles(), label = "dotfiles" })
 end
 
-project_list_builder.add_manual_projects = function(projects_list, projects)
+project_list_builder.add_manual_projects = function(projects_list, projects, exclude)
 	if not projects then
 		return
 	end
 
+	local exclude_list = exclude or {}
+
 	for _, project in ipairs(projects) do
-		table.insert(projects_list, { id = project.path, label = project.label })
+		if not project_utils.is_excluded(project.path, exclude_list) then
+			table.insert(projects_list, { id = project.path, label = project.label })
+		end
 	end
 end
 
@@ -214,7 +222,7 @@ project_list_builder.add_directory_glob = function(projects_list, directories, e
 	})
 end
 
-project_list_builder.add_project_folders = function(projects_list, root_path, folders)
+project_list_builder.add_project_folders = function(projects_list, root_path, folders, exclude)
 	if not folders or #folders == 0 then
 		return
 	end
@@ -223,16 +231,17 @@ project_list_builder.add_project_folders = function(projects_list, root_path, fo
 		local project_path = root_path .. "/" .. folder_name
 		project_utils.add_paths_to_list(projects_list, {
 			directories = add_subdirectories_for(project_path),
+			exclude = exclude,
 		})
 	end
 end
 
 project_list_builder.populate_from_profile = function(projects_list, profile)
 	project_list_builder.add_shared_entry(projects_list)
-	project_list_builder.add_manual_projects(projects_list, profile.manual)
+	project_list_builder.add_manual_projects(projects_list, profile.manual, profile.exclude)
 
 	if profile.folders then
-		project_list_builder.add_project_folders(projects_list, profile.root, profile.folders)
+		project_list_builder.add_project_folders(projects_list, profile.root, profile.folders, profile.exclude)
 	else
 		project_list_builder.add_directory_glob(projects_list, add_subdirectories_for(profile.root), profile.exclude)
 	end
@@ -314,7 +323,6 @@ config.font = wezterm.font_with_fallback({
 		harfbuzz_features = ui_config.font_config.disable_ligatures,
 	},
 })
-config.warn_about_missing_glyphs = false
 config.window_decorations = ui_config.window.decorations
 config.window_padding = ui_config.window.padding
 config.hide_tab_bar_if_only_one_tab = ui_config.tabs.hide_if_only_one
@@ -326,10 +334,11 @@ config.animation_fps = performance_config.animation_fps
 config.front_end = performance_config.front_end
 
 -- Scrollback
-config.scrollback_lines = 10000
+config.scrollback_lines = 50000
 
 -- Window behavior
 config.window_close_confirmation = "AlwaysPrompt"
+config.audible_bell = "Disabled"
 
 config.mouse_bindings = {
 	-- Change the default click behavior so that it only selects
@@ -383,10 +392,18 @@ config.keys = {
 	{ mods = "CTRL|SHIFT", key = "v", action = wezterm.action.PasteFrom("Clipboard") },
 
 	-- Projects and Tools
-	{ mods = "LEADER",     key = "p", action = display_project_list() },
+	{
+		mods = "LEADER",
+		key = "p",
+		action = wezterm.action_callback(function(child_window, child_pane)
+			child_window:perform_action(display_project_list(), child_pane)
+		end),
+	},
 	{ mods = "LEADER",     key = "g", action = command_spawners.spawn_tool("LazyGit", "lazygit") },
 	{ mods = "LEADER",     key = ";", action = command_spawners.spawn_tool("OpenCode", "opencode") },
 	{ mods = "LEADER",     key = "w", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+	{ mods = "LEADER",     key = "n", action = wezterm.action.SwitchWorkspaceRelative(1) },
+	{ mods = "LEADER",     key = "b", action = wezterm.action.SwitchWorkspaceRelative(-1) },
 
 	-- Pane Management
 	{ -- [s]plit pane
@@ -434,7 +451,69 @@ config.keys = {
 	{ mods = "LEADER", key = "f", action = wezterm.action.QuickSelect },
 	{ mods = "LEADER", key = "u", action = wezterm.action.ScrollByPage(-1) },
 	{ mods = "LEADER", key = "d", action = wezterm.action.ScrollByPage(1) },
+	{ mods = "LEADER", key = "?", action = wezterm.action.Search("CurrentSelectionOrEmptyString") },
 }
+
+-- ============================================================================
+-- TAB TITLE MODULE
+-- ============================================================================
+
+local tab_title = {}
+
+tab_title.shells = {
+	pwsh = true,
+	powershell = true,
+	fish = true,
+	bash = true,
+	zsh = true,
+	cmd = true,
+	nu = true,
+}
+
+tab_title.process_name = function(pane)
+	local base = (pane.foreground_process_name or ""):match("([^/\\]+)$")
+	if not base then
+		return nil
+	end
+
+	return (base:gsub("%.exe$", ""))
+end
+
+tab_title.cwd_basename = function(pane)
+	local cwd = pane.current_working_dir
+	if not cwd then
+		return nil
+	end
+
+	-- 20240203 exposes current_working_dir as a Url object, not a string.
+	local path = cwd.file_path or tostring(cwd)
+	return path:gsub("[/\\]+$", ""):match("([^/\\]+)$")
+end
+
+tab_title.describe = function(tab)
+	if tab.tab_title and tab.tab_title ~= "" then
+		return tab.tab_title
+	end
+
+	local pane = tab.active_pane
+	local process = tab_title.process_name(pane)
+
+	-- A shell tells you nothing; where it is does. A tool names itself.
+	if not process or tab_title.shells[process:lower()] then
+		return tab_title.cwd_basename(pane) or process or pane.title
+	end
+
+	return process
+end
+
+tab_title.register = function()
+	wezterm.on("format-tab-title", function(tab, _, _, _, _, max_width)
+		local text = " " .. (tab.tab_index + 1) .. ": " .. tab_title.describe(tab) .. " "
+		return wezterm.truncate_right(text, max_width)
+	end)
+end
+
+tab_title.register()
 
 -- ============================================================================
 -- STATUS BAR MODULE
